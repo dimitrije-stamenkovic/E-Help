@@ -4,4 +4,20 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="hello_blank_fragment2">Hello blank fragment222</string>
+    <string name="titleLabel">Title</string>
+    <string name="aboutLabel">About</string>
+    <string name="urgencyLabel">Urgency</string>
+    <string name="categoryLabel">Category</string>
+
+    <string-array name="Urgency">
+        <item>Urgently</item>
+        <item>Mixed</item>
+        <item>Not Urgently</item>
+    </string-array>
+
+    <string-array name="Category">
+        <item>Medicine</item>
+        <item>Food</item>
+        <item>Other</item>
+    </string-array>
 </resources>
