@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/mapFragment"
+        android:icon="@drawable/ic_action_map"
+        android:title="Map" />
+    <item
+        android:id="@+id/addFriendFragment"
+        android:icon="@drawable/ic_action_add_friend"
+        android:title="Add friend" />
+    <item
+        android:id="@+id/addObjectFragment"
+        android:icon="@drawable/ic_action_add_object"
+        android:title="Add" />
+
+    <item
+        android:id="@+id/rankListFragment"
+        android:icon="@drawable/ic_action_rank_list"
+        android:title="Rank" />
+    <item
+        android:id="@+id/profileFragment"
+        android:icon="@drawable/ic_action_profile"
+        android:title="Profile" />
+
+
+</menu>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/mapFragment">
+
+    <fragment
+        android:id="@+id/mapFragment"
+        android:name="dimitrijestefan.mosis.ehelp.MapFragment"
+        android:label="fragment_map"
+        tools:layout="@layout/fragment_map" />
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="dimitrijestefan.mosis.ehelp.ProfileFragment"
+        android:label="fragment_profile"
+        tools:layout="@layout/fragment_profile" />
+    <fragment
+        android:id="@+id/rankListFragment"
+        android:name="dimitrijestefan.mosis.ehelp.RankListFragment"
+        android:label="fragment_rank_list"
+        tools:layout="@layout/fragment_rank_list" />
+    <fragment
+        android:id="@+id/addFriendFragment"
+        android:name="dimitrijestefan.mosis.ehelp.AddFriendFragment"
+        android:label="fragment_add_friend"
+        tools:layout="@layout/fragment_add_friend" />
+    <fragment
+        android:id="@+id/addObjectFragment"
+        android:name="dimitrijestefan.mosis.ehelp.AddObjectFragment"
+        android:label="add_object_fragment"
+        tools:layout="@layout/add_object_fragment" />
+</navigation>
