@@ -18,6 +18,7 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import kotlinx.android.synthetic.main.fragment_map.*
 import java.util.jar.Manifest
 import android.util.Log
+import androidx.lifecycle.ViewModelProviders
 /**
  * A simple [Fragment] subclass.
  */
@@ -25,9 +26,11 @@ class MapFragment : Fragment(),OnMapReadyCallback {
 
 
     private lateinit var googleMap:GoogleMap
+    private lateinit var viewModel: AddObjectViewModel
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+
         mapView.onCreate(savedInstanceState)
         mapView.onResume()
         mapView.getMapAsync(this)
@@ -56,5 +59,11 @@ class MapFragment : Fragment(),OnMapReadyCallback {
         return inflater.inflate(R.layout.fragment_map, container, false)
     }
 
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        viewModel = ViewModelProviders.of(this).get(AddObjectViewModel::class.java)
+        viewModel.setLat("Test");
+    }
 
 }

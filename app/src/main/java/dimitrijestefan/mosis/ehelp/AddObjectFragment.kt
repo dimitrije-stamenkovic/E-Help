@@ -10,6 +10,7 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Spinner
 import android.widget.Toast
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 
@@ -62,17 +63,31 @@ class AddObjectFragment : Fragment() {
         button_addObject.setOnClickListener {
             val manager = HelpRequestManager
 
+
+
             val request = HelpRequest(edit_title.text.toString()
                 ,spinner_urgency.selectedItem.toString()
                 ,spinner_category.selectedItem.toString()
                 ,edit_about.text.toString()
                 ,"22","22")
-            manager.addHelpRequest(request)
+
+
+            viewModel.addRequest(request)
+
+            viewModel.getLat().observe(requireActivity(), Observer<String> {string -> Toast.makeText(requireContext(),string,Toast.LENGTH_LONG).show()
+            })
+
 
             Toast.makeText(context,manager.getHelpRequestsList().toString(),Toast.LENGTH_LONG).show()
 
-
         }
+
+        button_getCoords.setOnClickListener {
+            viewModel.getLat().observe(requireActivity(), Observer<String> {string -> edit_lat.setText(string)
+            })
+        }
+
+
 
     }
 
