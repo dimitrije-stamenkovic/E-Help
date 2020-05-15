@@ -18,7 +18,10 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import kotlinx.android.synthetic.main.fragment_map.*
 import java.util.jar.Manifest
 import android.util.Log
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
+
+
 /**
  * A simple [Fragment] subclass.
  */
@@ -26,7 +29,10 @@ class MapFragment : Fragment(),OnMapReadyCallback {
 
 
     private lateinit var googleMap:GoogleMap
-    private lateinit var viewModel: AddObjectViewModel
+    private  val viewModel by lazy {
+       // ViewModelProviders.of(requireActivity()).get(AddObjectViewModel::class.java)
+        ViewModelProvider(requireActivity()).get(AddObjectViewModel::class.java)
+    }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
@@ -48,6 +54,8 @@ class MapFragment : Fragment(),OnMapReadyCallback {
         }else
         {
             googleMap?.isMyLocationEnabled=true;
+           // viewModel.pom=100;
+
         }
 
     }
@@ -62,8 +70,7 @@ class MapFragment : Fragment(),OnMapReadyCallback {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel = ViewModelProviders.of(this).get(AddObjectViewModel::class.java)
-        viewModel.setLat("Test");
+viewModel.setLat("100");
     }
 
 }

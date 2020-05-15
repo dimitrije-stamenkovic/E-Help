@@ -26,7 +26,8 @@ class AddObjectViewModel : ViewModel() {
 //    fun getLat(): LiveData<String> = lat
 
 
-    private val lat = MutableLiveData<String>()
+    private var lat = MutableLiveData<String>()
+    var pom:Int?=null
 
     fun setLat(latitude:String) {
         lat.value=latitude

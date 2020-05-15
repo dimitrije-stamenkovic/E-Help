@@ -2,6 +2,7 @@ package dimitrijestefan.mosis.ehelp
 
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -29,7 +30,10 @@ class AddObjectFragment : Fragment() {
         fun newInstance() = AddObjectFragment()
     }
 
-    private lateinit var viewModel: AddObjectViewModel
+    private  val viewModel by lazy {
+        //ViewModelProviders.of(requireActivity()).get(AddObjectViewModel::class.java)
+        ViewModelProvider(requireActivity()).get(AddObjectViewModel::class.java)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -47,7 +51,7 @@ class AddObjectFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel = ViewModelProviders.of(this).get(AddObjectViewModel::class.java)
+       // viewModel = ViewModelProviders.of(this).get(AddObjectViewModel::class.java)
 
         val urgency = resources.getStringArray(R.array.Urgency)
         val urgency_adapter = ArrayAdapter(requireContext(),android.R.layout.simple_spinner_item,urgency)
@@ -83,8 +87,9 @@ class AddObjectFragment : Fragment() {
         }
 
         button_getCoords.setOnClickListener {
-            viewModel.getLat().observe(requireActivity(), Observer<String> {string -> edit_lat.setText(string)
+           viewModel.getLat().observe(requireActivity(), Observer<String> {string -> edit_lat.setText(string)
             })
+          //  Toast.makeText(requireContext(), viewModel.pom.toString(),Toast.LENGTH_LONG).show();
         }
 
 
