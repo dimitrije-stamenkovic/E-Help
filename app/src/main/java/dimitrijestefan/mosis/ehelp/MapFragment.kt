@@ -81,6 +81,7 @@ class MapFragment : Fragment(),OnMapReadyCallback {
             googleMap.setOnMapClickListener { lokacija ->
 
                 viewModel.location = lokacija
+                viewModel.select = false
 
                 this.findNavController().navigate(R.id.returnCoords)
             }
