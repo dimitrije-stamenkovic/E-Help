@@ -18,8 +18,11 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import kotlinx.android.synthetic.main.fragment_map.*
 import java.util.jar.Manifest
 import android.util.Log
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
+import kotlinx.android.synthetic.main.add_object_fragment.*
 
 
 /**
@@ -30,9 +33,9 @@ class MapFragment : Fragment(),OnMapReadyCallback {
 
     private lateinit var googleMap:GoogleMap
     private  val viewModel by lazy {
-       // ViewModelProviders.of(requireActivity()).get(AddObjectViewModel::class.java)
         ViewModelProvider(requireActivity()).get(AddObjectViewModel::class.java)
     }
+
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
@@ -53,8 +56,12 @@ class MapFragment : Fragment(),OnMapReadyCallback {
 
         }else
         {
-            googleMap?.isMyLocationEnabled=true;
-           // viewModel.pom=100;
+            googleMap.isMyLocationEnabled=true;
+
+            if(viewModel.select){
+                setOnMapClickListener()
+
+            }
 
         }
 
@@ -68,9 +75,16 @@ class MapFragment : Fragment(),OnMapReadyCallback {
     }
 
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-viewModel.setLat("100");
+
+    fun setOnMapClickListener(){
+
+            googleMap.setOnMapClickListener { lokacija ->
+
+                viewModel.location = lokacija
+
+                this.findNavController().navigate(R.id.returnCoords)
+            }
+
     }
 
 }

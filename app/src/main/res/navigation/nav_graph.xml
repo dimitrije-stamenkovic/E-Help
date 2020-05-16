@@ -8,7 +8,12 @@
         android:id="@+id/mapFragment"
         android:name="dimitrijestefan.mosis.ehelp.MapFragment"
         android:label="fragment_map"
-        tools:layout="@layout/fragment_map" />
+        tools:layout="@layout/fragment_map">
+
+        <action
+            android:id="@+id/returnCoords"
+            app:destination="@id/addObjectFragment"/>
+    </fragment>
     <fragment
         android:id="@+id/profileFragment"
         android:name="dimitrijestefan.mosis.ehelp.ProfileFragment"
@@ -28,5 +33,12 @@
         android:id="@+id/addObjectFragment"
         android:name="dimitrijestefan.mosis.ehelp.AddObjectFragment"
         android:label="add_object_fragment"
-        tools:layout="@layout/add_object_fragment" />
+        tools:layout="@layout/add_object_fragment" >
+        <action
+            android:id="@+id/getCoords"
+            app:destination="@id/mapFragment"/>
+    </fragment>
+
+
+
 </navigation>

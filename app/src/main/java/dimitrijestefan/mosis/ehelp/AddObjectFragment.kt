@@ -1,6 +1,5 @@
 package dimitrijestefan.mosis.ehelp
 
-import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -13,6 +12,7 @@ import android.widget.Spinner
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 
 import dimitrijestefan.mosis.ehelp.domain.HelpRequest
@@ -31,7 +31,6 @@ class AddObjectFragment : Fragment() {
     }
 
     private  val viewModel by lazy {
-        //ViewModelProviders.of(requireActivity()).get(AddObjectViewModel::class.java)
         ViewModelProvider(requireActivity()).get(AddObjectViewModel::class.java)
     }
 
@@ -42,16 +41,10 @@ class AddObjectFragment : Fragment() {
         return inflater.inflate(R.layout.add_object_fragment, container, false)
     }
 
-//    override fun onActivityCreated(savedInstanceState: Bundle?) {
-//        super.onActivityCreated(savedInstanceState)
-//        viewModel = ViewModelProviders.of(this).get(AddObjectViewModel::class.java)
-//
-//        // TODO: Use the ViewModel
-//    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-       // viewModel = ViewModelProviders.of(this).get(AddObjectViewModel::class.java)
+
 
         val urgency = resources.getStringArray(R.array.Urgency)
         val urgency_adapter = ArrayAdapter(requireContext(),android.R.layout.simple_spinner_item,urgency)
@@ -62,6 +55,10 @@ class AddObjectFragment : Fragment() {
         spinner_category.adapter = category_adapter
 
 
+         viewModel.location?.let { item ->
+             edit_lon.setText(item.longitude.toString())
+             edit_lat.setText(item.latitude.toString())
+         }
 
 
         button_addObject.setOnClickListener {
@@ -73,13 +70,10 @@ class AddObjectFragment : Fragment() {
                 ,spinner_urgency.selectedItem.toString()
                 ,spinner_category.selectedItem.toString()
                 ,edit_about.text.toString()
-                ,"22","22")
+                ,edit_lon.text.toString(),edit_lat.text.toString())
 
 
             viewModel.addRequest(request)
-
-            viewModel.getLat().observe(requireActivity(), Observer<String> {string -> Toast.makeText(requireContext(),string,Toast.LENGTH_LONG).show()
-            })
 
 
             Toast.makeText(context,manager.getHelpRequestsList().toString(),Toast.LENGTH_LONG).show()
@@ -87,9 +81,11 @@ class AddObjectFragment : Fragment() {
         }
 
         button_getCoords.setOnClickListener {
-           viewModel.getLat().observe(requireActivity(), Observer<String> {string -> edit_lat.setText(string)
-            })
-          //  Toast.makeText(requireContext(), viewModel.pom.toString(),Toast.LENGTH_LONG).show();
+
+            viewModel.select = true
+            it.findNavController().navigate(R.id.getCoords)
+
+
         }
 
 
