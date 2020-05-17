@@ -10,6 +10,7 @@
     <string name="categoryLabel">Category</string>
     <string name="latitudeLabel">Latitude</string>
     <string name="longitudeLabel">Longitude</string>
+    <string name="filterLabel">Filter</string>
 
     <string-array name="Urgency">
         <item>Urgently</item>
