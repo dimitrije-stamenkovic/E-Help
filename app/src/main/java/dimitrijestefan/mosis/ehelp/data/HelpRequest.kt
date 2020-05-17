@@ -1,4 +1,4 @@
-package dimitrijestefan.mosis.ehelp.domain
+package dimitrijestefan.mosis.ehelp.data
 
 data class HelpRequest(val title:String,
                        val urgency : String,

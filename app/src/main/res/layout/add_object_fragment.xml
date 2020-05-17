@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -12,101 +12,150 @@
         android:id="@+id/textView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="8dp"
         android:text="@string/titleLabel"
-        tools:layout_editor_absoluteX="8dp"
-        tools:layout_editor_absoluteY="93dp" />
+        app:layout_constraintBottom_toTopOf="@+id/edit_title"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
         android:id="@+id/edit_title"
-        android:layout_width="409dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        tools:layout_editor_absoluteX="1dp"
-        tools:layout_editor_absoluteY="150dp"
-        android:autofillHints="" />
+        android:layout_marginBottom="32dp"
+        android:autofillHints=""
+        app:layout_constraintBottom_toTopOf="@+id/textView2"
+        app:layout_constraintEnd_toEndOf="@+id/spinner_urgency"
+        app:layout_constraintStart_toStartOf="@+id/textView2" />
+
 
     <TextView
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="12dp"
         android:text="@string/urgencyLabel"
-        tools:layout_editor_absoluteX="8dp"
-        tools:layout_editor_absoluteY="242dp" />
+        app:layout_constraintBottom_toTopOf="@+id/spinner_urgency"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Spinner
         android:id="@+id/spinner_urgency"
-        android:layout_width="409dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="22dp"
         android:theme="@null"
-        tools:layout_editor_absoluteX="1dp"
-        tools:layout_editor_absoluteY="261dp" />
-
+        app:layout_constraintBottom_toTopOf="@+id/textView3"
+        app:layout_constraintEnd_toEndOf="@+id/spinner_category"
+        app:layout_constraintStart_toStartOf="@+id/textView2" />
 
     <TextView
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="12dp"
         android:text="@string/categoryLabel"
-        tools:layout_editor_absoluteX="8dp"
-        tools:layout_editor_absoluteY="337dp" />
+        app:layout_constraintBottom_toTopOf="@+id/spinner_category"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Spinner
         android:id="@+id/spinner_category"
-        android:layout_width="409dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="311dp"
         android:theme="@null"
-        tools:layout_editor_absoluteX="1dp"
-        tools:layout_editor_absoluteY="356dp" />
+        app:layout_constraintEnd_toEndOf="@+id/button_getCoords"
+        app:layout_constraintStart_toStartOf="@+id/textView3"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/edit_about"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="47dp"
+        android:importantForAutofill="no"
+        android:inputType="textMultiLine|text"
+        android:labelFor="@id/textView5"
+        app:layout_constraintEnd_toEndOf="@+id/button_getCoords"
+        app:layout_constraintStart_toStartOf="@+id/textView5"
+        app:layout_constraintTop_toBottomOf="@+id/edit_lat" />
+
+
+    <EditText
+        android:id="@+id/edit_lon"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="1dp"
+        android:layout_marginEnd="10dp"
+        android:importantForAutofill="no"
+        android:inputType="textMultiLine|text"
+        android:labelFor="@id/textView5"
+        app:layout_constraintEnd_toStartOf="@+id/button_getCoords"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="13dp"
+        android:text="@string/latitudeLabel"
+        app:layout_constraintStart_toStartOf="@+id/edit_lon"
+        app:layout_constraintTop_toBottomOf="@+id/spinner_category" />
 
     <TextView
         android:id="@+id/textView5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
         android:text="@string/aboutLabel"
-        tools:layout_editor_absoluteX="8dp"
-        tools:layout_editor_absoluteY="502dp" />
+        app:layout_constraintBottom_toTopOf="@+id/edit_about"
+        app:layout_constraintStart_toStartOf="parent" />
 
-    <EditText
-        android:id="@+id/edit_about"
-        android:layout_width="409dp"
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:importantForAutofill="no"
-        android:inputType="textMultiLine|text"
-        android:labelFor="@id/textView5"
-        tools:layout_editor_absoluteX="1dp"
-        tools:layout_editor_absoluteY="531dp" />
-
-    <EditText
-        android:id="@+id/edit_lat"
-        android:layout_width="409dp"
-        android:layout_height="wrap_content"
-        android:importantForAutofill="no"
-        android:inputType="textMultiLine|text"
-        android:labelFor="@id/textView5"
-        tools:layout_editor_absoluteX="1dp"
-        tools:layout_editor_absoluteY="531dp" />
-
-    <EditText
-        android:id="@+id/edit_lon"
-        android:layout_width="409dp"
-        android:layout_height="wrap_content"
-        android:importantForAutofill="no"
-        android:inputType="textMultiLine|text"
-        android:labelFor="@id/textView5"
-        tools:layout_editor_absoluteX="1dp"
-        tools:layout_editor_absoluteY="531dp" />
-
+        android:layout_marginTop="7dp"
+        android:text="@string/longitudeLabel"
+        app:layout_constraintStart_toStartOf="@+id/edit_lat"
+        app:layout_constraintTop_toBottomOf="@+id/edit_lon" />
 
     <Button
         android:id="@+id/button_getCoords"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Get coordinates" />
+        android:layout_marginTop="34dp"
+        android:layout_marginEnd="19dp"
+        android:text="Get coordinates"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/edit_lat"
+        app:layout_constraintTop_toTopOf="@+id/edit_lon" />
 
+    <EditText
+        android:id="@+id/edit_lat"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="10dp"
+        android:importantForAutofill="no"
+        android:inputType="textMultiLine|text"
+        android:labelFor="@id/textView5"
+        app:layout_constraintEnd_toStartOf="@+id/button_getCoords"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView6" />
 
     <Button
         android:id="@+id/button_addObject"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Button" />
+        android:layout_marginTop="26dp"
+        android:text="Add Request"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edit_about" />
 
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

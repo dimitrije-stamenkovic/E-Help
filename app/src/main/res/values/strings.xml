@@ -8,6 +8,8 @@
     <string name="aboutLabel">About</string>
     <string name="urgencyLabel">Urgency</string>
     <string name="categoryLabel">Category</string>
+    <string name="latitudeLabel">Latitude</string>
+    <string name="longitudeLabel">Longitude</string>
 
     <string-array name="Urgency">
         <item>Urgently</item>

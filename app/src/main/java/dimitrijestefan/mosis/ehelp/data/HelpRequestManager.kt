@@ -1,4 +1,4 @@
-package dimitrijestefan.mosis.ehelp.domain
+package dimitrijestefan.mosis.ehelp.data
 
 object HelpRequestManager {
     private val help_requests = ArrayList<HelpRequest>()

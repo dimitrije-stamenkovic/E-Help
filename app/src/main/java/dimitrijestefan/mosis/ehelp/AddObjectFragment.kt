@@ -1,22 +1,17 @@
 package dimitrijestefan.mosis.ehelp
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import android.widget.Spinner
 import android.widget.Toast
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
-import androidx.navigation.fragment.findNavController
 
-import dimitrijestefan.mosis.ehelp.domain.HelpRequest
-import dimitrijestefan.mosis.ehelp.domain.HelpRequestManager
+import dimitrijestefan.mosis.ehelp.data.HelpRequest
+import dimitrijestefan.mosis.ehelp.data.HelpRequestManager
 
 import kotlinx.android.synthetic.main.add_object_fragment.*
 
@@ -66,6 +61,8 @@ class AddObjectFragment : Fragment() {
 
 
 
+
+
             val request = HelpRequest(edit_title.text.toString()
                 ,spinner_urgency.selectedItem.toString()
                 ,spinner_category.selectedItem.toString()
@@ -73,16 +70,25 @@ class AddObjectFragment : Fragment() {
                 ,edit_lon.text.toString(),edit_lat.text.toString())
 
 
-            viewModel.addRequest(request)
+            if(edit_title.text.toString().length > 0 &&
+                spinner_urgency.selectedItem.toString().length > 0 &&
+                spinner_category.selectedItem.toString().length > 0 &&
+                edit_about.text.toString().length > 0 &&
+                edit_lon.text.toString().length > 0 &&
+                edit_lat.text.toString().length>0 ){
+                viewModel.addRequest(request)
+                Toast.makeText(context,manager.getHelpRequestsList().toString(),Toast.LENGTH_LONG).show()
+            }else{
+                Toast.makeText(context,"Invalid request",Toast.LENGTH_LONG).show()
+            }
 
 
-            Toast.makeText(context,manager.getHelpRequestsList().toString(),Toast.LENGTH_LONG).show()
 
         }
 
         button_getCoords.setOnClickListener {
 
-            viewModel.select = true
+            viewModel.changeSelect()
             it.findNavController().navigate(R.id.getCoords)
 
 
