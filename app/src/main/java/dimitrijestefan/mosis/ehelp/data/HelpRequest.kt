@@ -1,9 +1,9 @@
 package dimitrijestefan.mosis.ehelp.data
 
-data class HelpRequest(val title:String,
-                       val urgency : String,
-                       val category: String,
-                       val About:String,
-                       val latitude:String,
-                       val longitude:String)
+data class HelpRequest(var title:String,
+                       var urgency : String,
+                       var category: String,
+                       var About:String,
+                       var latitude:String,
+                       var longitude:String)
 

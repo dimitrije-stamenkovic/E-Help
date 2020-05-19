@@ -11,6 +11,12 @@ class AddObjectViewModel : ViewModel() {
 
     //DATA
      var location : LatLng? = null
+     var title:String? = null
+     var urgency : Int? = null
+     var category: Int? = null
+     var about:String? = null
+
+
 
     //STATE
     var select : Boolean = false

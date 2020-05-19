@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.Toast
+import androidx.core.text.set
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 
@@ -55,6 +56,25 @@ class AddObjectFragment : Fragment() {
              edit_lat.setText(item.latitude.toString())
          }
 
+        viewModel.title?.let {
+            edit_title.setText(it)
+        }
+
+        viewModel.about?.let {
+            edit_about.setText(it)
+        }
+
+        viewModel.urgency?.let {
+            spinner_urgency.setSelection(it)
+        }
+
+        viewModel.category?.let {
+            spinner_category.setSelection(it)
+        }
+
+
+
+
 
         button_addObject.setOnClickListener {
             val manager = HelpRequestManager
@@ -89,6 +109,11 @@ class AddObjectFragment : Fragment() {
         button_getCoords.setOnClickListener {
 
             viewModel.changeSelect()
+            viewModel.category = spinner_category.selectedItemPosition
+            viewModel.urgency = spinner_urgency.selectedItemPosition
+            viewModel.about = edit_about.text.toString()
+            viewModel.title = edit_title.text.toString()
+
             it.findNavController().navigate(R.id.getCoords)
 
 
