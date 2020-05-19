@@ -10,14 +10,15 @@ class AddObjectViewModel : ViewModel() {
 
 
     //DATA
-     var select : Boolean = false
      var location : LatLng? = null
 
-
+    //STATE
+    var select : Boolean = false
 
     fun changeSelect (){
         select = select.not()
     }
+
 
     fun addRequest(request: HelpRequest)= HelpRequestManager.addHelpRequest(request)
 

@@ -1,7 +1,6 @@
 package dimitrijestefan.mosis.ehelp
 
 
-import android.content.Context
 import android.content.pm.PackageManager
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -9,20 +8,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import androidx.core.content.ContextCompat.checkSelfPermission
+import androidx.fragment.app.viewModels
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import kotlinx.android.synthetic.main.fragment_map.*
-import java.util.jar.Manifest
-import android.util.Log
-import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
-import kotlinx.android.synthetic.main.add_object_fragment.*
 
 
 /**
@@ -32,9 +24,13 @@ class MapFragment : Fragment(),OnMapReadyCallback {
 
 
     private lateinit var googleMap:GoogleMap
-    private  val viewModel by lazy {
+    private  val addObjectViewModel by lazy {
         ViewModelProvider(requireActivity()).get(AddObjectViewModel::class.java)
     }
+   // private val addObjectViewModel:AddObjectViewModel by viewModels()
+    private val mapViewModel by lazy {
+       ViewModelProvider(requireActivity()).get(MapViewModel::class.java)
+   }
 
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -58,11 +54,15 @@ class MapFragment : Fragment(),OnMapReadyCallback {
         {
             googleMap.isMyLocationEnabled=true;
 
-            if(viewModel.select){
+            if(addObjectViewModel.select){
                 setOnMapClickListener()
 
             }
 
+            Toast.makeText(requireContext(),mapViewModel.getRequest().toString(),Toast.LENGTH_LONG).show()
+            filterButton.setOnClickListener {
+                this.findNavController().navigate(R.id.filterMap)
+            }
         }
 
     }
@@ -80,8 +80,8 @@ class MapFragment : Fragment(),OnMapReadyCallback {
 
             googleMap.setOnMapClickListener { lokacija ->
 
-                viewModel.location = lokacija
-                viewModel.changeSelect()
+                addObjectViewModel.location = lokacija
+                addObjectViewModel.changeSelect()
 
                 this.findNavController().navigate(R.id.returnCoords)
             }

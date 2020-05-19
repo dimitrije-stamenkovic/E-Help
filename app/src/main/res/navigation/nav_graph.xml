@@ -13,6 +13,11 @@
         <action
             android:id="@+id/returnCoords"
             app:destination="@id/addObjectFragment"/>
+        <action
+            android:id="@+id/filterMap"
+            app:destination="@id/mapFilterFragment"/>
+
+
     </fragment>
     <fragment
         android:id="@+id/profileFragment"
@@ -38,7 +43,11 @@
             android:id="@+id/getCoords"
             app:destination="@id/mapFragment"/>
     </fragment>
-
+    <fragment
+        android:id="@+id/mapFilterFragment"
+        android:name="dimitrijestefan.mosis.ehelp.MapFilterFragment"
+        android:label="fragment_map_filter"
+        tools:layout="@layout/fragment_map_filter" />
 
 
 </navigation>
