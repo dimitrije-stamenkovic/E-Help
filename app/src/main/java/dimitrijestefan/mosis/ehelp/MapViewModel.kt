@@ -13,7 +13,7 @@ class MapViewModel : ViewModel() {
 
 
     fun getRequest():ArrayList<HelpRequest>{
-        return HelpRequestManager.getHelpRequestsList()
+        return HelpRequestManager.requestsList()
     }
 
 

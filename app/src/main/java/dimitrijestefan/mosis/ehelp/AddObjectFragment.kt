@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.Toast
-import androidx.core.text.set
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 
@@ -97,7 +96,7 @@ class AddObjectFragment : Fragment() {
                 edit_lon.text.toString().length > 0 &&
                 edit_lat.text.toString().length>0 ){
                 viewModel.addRequest(request)
-                Toast.makeText(context,manager.getHelpRequestsList().toString(),Toast.LENGTH_LONG).show()
+                Toast.makeText(context,manager.requestsList().toString(),Toast.LENGTH_LONG).show()
             }else{
                 Toast.makeText(context,"Invalid request",Toast.LENGTH_LONG).show()
             }

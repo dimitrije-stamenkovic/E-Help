@@ -7,7 +7,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import android.widget.SeekBar
 import kotlinx.android.synthetic.main.add_object_fragment.*
+import kotlinx.android.synthetic.main.add_object_fragment.spinner_category
+import kotlinx.android.synthetic.main.add_object_fragment.spinner_urgency
+import kotlinx.android.synthetic.main.fragment_map_filter.*
 
 /**
  * A simple [Fragment] subclass.
@@ -33,6 +37,33 @@ class MapFilterFragment : Fragment() {
         val category_adapter = ArrayAdapter(requireContext(),android.R.layout.simple_spinner_item,category)
         spinner_category.adapter = category_adapter
 
+
+
+        seekBar.setOnSeekBarChangeListener(object: SeekBar.OnSeekBarChangeListener{
+            override fun onStopTrackingTouch(seekBar: SeekBar?) {
+
+                seekBar?.let {
+                    kmLabel.text= seekBar.progress.toString() + "km"
+                }
+            }
+
+            override fun onStartTrackingTouch(seekBar: SeekBar?) {
+
+                seekBar?.let {
+                    kmLabel.text= seekBar.progress.toString() + "km"
+                }
+
+            }
+
+            override fun onProgressChanged(seekBar: SeekBar,i:Int,boolean: Boolean){
+                kmLabel.text= i.toString() + "km"
+            }
+        })
+
+
+        filterButton.setOnClickListener {
+
+        }
 
     }
 }
