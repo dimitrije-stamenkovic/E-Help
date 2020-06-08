@@ -8,6 +8,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.SeekBar
+import android.widget.Toast
+import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import kotlinx.android.synthetic.main.add_object_fragment.*
 import kotlinx.android.synthetic.main.add_object_fragment.spinner_category
 import kotlinx.android.synthetic.main.add_object_fragment.spinner_urgency
@@ -17,6 +20,11 @@ import kotlinx.android.synthetic.main.fragment_map_filter.*
  * A simple [Fragment] subclass.
  */
 class MapFilterFragment : Fragment() {
+
+
+    private val mapViewModel by lazy {
+        ViewModelProvider(requireActivity()).get(MapViewModel::class.java)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -63,7 +71,30 @@ class MapFilterFragment : Fragment() {
 
         filterButton.setOnClickListener {
 
+            if(mapViewModel.reset== true){
+                mapViewModel.filter = false
+            }else{
+                mapViewModel.filterRequests(edit_title2.text.toString(),spinner_urgency.selectedItem.toString(),spinner_category.selectedItem.toString())
+                mapViewModel.filter = true
+            }
+
+            this.findNavController().navigate(R.id.action_mapFilterFragment_to_mapFragment)
         }
+
+        textView11.setOnClickListener {
+            Toast.makeText(requireContext(),"CLICK",Toast.LENGTH_SHORT).show()
+            edit_title2?.setText("")
+            spinner_category.setSelection(0)
+            spinner_urgency.setSelection(0)
+            mapViewModel.reset = true
+        }
+
+        textView12.setOnClickListener {
+            mapViewModel.filter = false
+            this.findNavController().navigate(R.id.action_mapFilterFragment_to_mapFragment)
+        }
+
+
 
     }
 }

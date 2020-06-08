@@ -59,7 +59,14 @@ class MapFragment : Fragment(),OnMapReadyCallback {
 
             }
 
-            Toast.makeText(requireContext(),mapViewModel.getRequest().toString(),Toast.LENGTH_LONG).show()
+
+            if(mapViewModel.filter==true){
+                Toast.makeText(requireContext(),mapViewModel.filtered_requests.toString(),Toast.LENGTH_LONG).show()
+            }else{
+                Toast.makeText(requireContext(),mapViewModel.help_requests.toString(),Toast.LENGTH_LONG).show()
+            }
+
+
             filterButton.setOnClickListener {
                 this.findNavController().navigate(R.id.filterMap)
             }

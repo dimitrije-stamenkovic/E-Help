@@ -47,7 +47,11 @@
         android:id="@+id/mapFilterFragment"
         android:name="dimitrijestefan.mosis.ehelp.MapFilterFragment"
         android:label="fragment_map_filter"
-        tools:layout="@layout/fragment_map_filter" />
+        tools:layout="@layout/fragment_map_filter" >
+        <action
+            android:id="@+id/action_mapFilterFragment_to_mapFragment"
+            app:destination="@id/mapFragment" />
+    </fragment>
 
 
 </navigation>

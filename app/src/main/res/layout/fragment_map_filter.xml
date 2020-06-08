@@ -138,7 +138,8 @@
         android:layout_marginEnd="27dp"
         android:layout_marginBottom="11dp"
         app:layout_constraintBottom_toBottomOf="@+id/seekBar"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        android:text="25km"/>
 
     <Button
         android:id="@+id/filterButton"
