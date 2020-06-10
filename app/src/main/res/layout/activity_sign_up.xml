@@ -4,42 +4,59 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.SingUpActivity"
+    tools:context=".Activity.SignUpActivity"
     android:orientation="vertical">
 
 
     <EditText
-        android:id="@+id/firstName"
+        android:id="@+id/email"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-    </EditText>
-
-    <EditText
-        android:id="@+id/lastName"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-    </EditText>
-
-    <EditText
-        android:id="@+id/number"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-    </EditText>
-
-    <EditText
-        android:id="@+id/usernameSignUp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:hint="mail"
+        >
 
     </EditText>
 
     <EditText
         android:id="@+id/passwordSignUp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:hint="sifra"
+        >
+
+    </EditText>
+
+    <EditText
+        android:id="@+id/number"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="broj"
+        >
+
+    </EditText>
+
+    <EditText
+        android:id="@+id/usernameSignUp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="username"
+        >
+
+    </EditText>
+
+    <EditText
+        android:id="@+id/nameSignUp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="ime"
+        >
+    </EditText>
+    <EditText
+        android:id="@+id/lastnameSignUp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="prezime"
+        >
     </EditText>
 
     <Button
