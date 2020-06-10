@@ -6,6 +6,7 @@ data class User (
     var email:String,
     var name:String,
     var lastname:String,
-    var number:String
+    var number:String,
+var photoUrl:String
 )
 

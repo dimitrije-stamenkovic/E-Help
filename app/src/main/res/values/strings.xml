@@ -22,6 +22,7 @@
     <string name="btnDontHaveAcc">Dont have acc?</string>
     <string name="btnSignUp">Sign Up</string>
     <string name="btnHaveAcc">Have acc ?</string>
+    <string name="btnTakePhoto">Take photo</string>
 
     <string-array name="Urgency">
         <item>Urgently</item>

@@ -9,7 +9,7 @@
 
 
     <EditText
-        android:id="@+id/email"
+        android:id="@+id/emailSignUp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="mail"
@@ -58,6 +58,19 @@
         android:hint="prezime"
         >
     </EditText>
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="100dp"
+        android:layout_height="100dp">
+
+    </ImageView>
+
+    <Button
+        android:id="@+id/btnTakePhoto"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:text="@string/btnTakePhoto" />
+
 
     <Button
         android:id="@+id/btnSignUp"
