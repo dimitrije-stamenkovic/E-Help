@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "529421243870",
+    "firebase_url": "https://ehelp-277212.firebaseio.com",
+    "project_id": "ehelp-277212",
+    "storage_bucket": "ehelp-277212.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:529421243870:android:075d92760acc002e3e794f",
+        "android_client_info": {
+          "package_name": "dimitrijestefan.mosis.ehelp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "529421243870-n6u6vskupb13m8obibm6oti1400ba0f4.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "dimitrijestefan.mosis.ehelp",
+            "certificate_hash": "e1fb1eb0de5e95afd555a505d15350e4e9ac78fc"
+          }
+        },
+        {
+          "client_id": "529421243870-1rovoqib48cl30gjk1571i18fsloko5t.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDsMsRJVt8dJ-pbgT2lSAOdLBLmNT0d10c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "529421243870-1rovoqib48cl30gjk1571i18fsloko5t.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
