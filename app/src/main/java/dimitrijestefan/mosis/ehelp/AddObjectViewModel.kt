@@ -2,8 +2,8 @@ package dimitrijestefan.mosis.ehelp
 
 import androidx.lifecycle.ViewModel
 import com.google.android.gms.maps.model.LatLng
-import dimitrijestefan.mosis.ehelp.data.HelpRequest
-import dimitrijestefan.mosis.ehelp.data.HelpRequestManager
+import dimitrijestefan.mosis.ehelp.Models.HelpRequest
+import dimitrijestefan.mosis.ehelp.data.Repository
 
 class AddObjectViewModel : ViewModel() {
 
@@ -25,8 +25,6 @@ class AddObjectViewModel : ViewModel() {
         select = select.not()
     }
 
-
-    fun addRequest(request: HelpRequest)= HelpRequestManager.addHelpRequest(request)
 
 
 

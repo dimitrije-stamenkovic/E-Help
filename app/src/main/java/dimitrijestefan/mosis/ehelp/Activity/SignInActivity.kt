@@ -18,9 +18,10 @@ class SignInActivity : AppCompatActivity() {
         setContentView(R.layout.activity_sign_in)
        btnDontHaveAcc.setOnClickListener {
            this.startActivity(Intent(this, SignUpActivity::class.java));}
+
            btnSignIn.setOnClickListener {
                this.loginUser()
-
+               this.startActivity(Intent(this,MainActivity::class.java))
            }
 
     }
