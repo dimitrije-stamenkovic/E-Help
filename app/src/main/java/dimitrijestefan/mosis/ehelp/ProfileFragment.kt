@@ -34,6 +34,8 @@ class ProfileFragment : Fragment() {
             requireActivity().finish()
 
 
+
+
         }
     }
 

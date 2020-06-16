@@ -6,18 +6,20 @@ import com.google.firebase.database.IgnoreExtraProperties
 
 @IgnoreExtraProperties
 data class HelpRequest(
-                       var owner:String?= "",
-                       var title:String? ="",
-                       var urgency : String? ="",
-                       var category: String? ="",
-                       var about:String? ="",
-                       var latitude:String? ="",
-                       var longitude:String? =""){
+    var userId:String?= "",
+    var title:String? ="",
+    var urgency : String? ="",
+    var category: String? ="",
+    var about:String? ="",
+    var latitude:String? ="",
+    var longitude:String? =""){
+
+    @Exclude lateinit var key : String
 
     @Exclude
     fun toMap() : Map<String,Any?>{
         return mapOf(
-            "owner" to owner,
+            "userId" to userId,
             "title" to title,
             "urgency" to urgency,
             "category" to category,

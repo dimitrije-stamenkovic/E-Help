@@ -15,6 +15,7 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import kotlinx.android.synthetic.main.fragment_map.*
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import dimitrijestefan.mosis.ehelp.Data.AllHelpRequests
 
 
 /**
@@ -63,7 +64,7 @@ class MapFragment : Fragment(),OnMapReadyCallback {
             if(mapViewModel.filter==true){
                 Toast.makeText(requireContext(),mapViewModel.filtered_requests.toString(),Toast.LENGTH_LONG).show()
             }else{
-                Toast.makeText(requireContext(),mapViewModel.help_requests.toString(),Toast.LENGTH_LONG).show()
+                Toast.makeText(requireContext(),AllHelpRequests.requests.toString(),Toast.LENGTH_LONG).show()
             }
 
 
