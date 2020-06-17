@@ -24,6 +24,10 @@
     <string name="btnHaveAcc">Have acc ?</string>
     <string name="btnTakePhoto">Take photo</string>
 
+    <string name="open">Open</string>
+    <string name="close">Close</string>
+    <string name="settingsRightMenu">Settings</string>
+
     <string-array name="Urgency">
         <item>Urgently</item>
         <item>Mixed</item>
