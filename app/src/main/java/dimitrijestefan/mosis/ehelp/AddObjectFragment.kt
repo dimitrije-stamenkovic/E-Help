@@ -9,14 +9,16 @@ import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
+import dimitrijestefan.mosis.ehelp.Data.AllHelpRequests
+import dimitrijestefan.mosis.ehelp.Data.MyHelpRequests
 
-import dimitrijestefan.mosis.ehelp.Models.HelpRequest
-import dimitrijestefan.mosis.ehelp.data.Repository
 
 import kotlinx.android.synthetic.main.add_object_fragment.*
 
 
+
 class AddObjectFragment : Fragment() {
+
 
 
 
@@ -76,8 +78,6 @@ class AddObjectFragment : Fragment() {
 
 
         button_addObject.setOnClickListener {
-            val manager = Repository
-
 
 
 
@@ -89,8 +89,18 @@ class AddObjectFragment : Fragment() {
                 edit_about.text.toString().length > 0 &&
                 edit_lon.text.toString().length > 0 &&
                 edit_lat.text.toString().length>0 ){
-                Repository.addHelpRequest(edit_title.text.toString(),spinner_urgency.selectedItem.toString(),spinner_category.selectedItem.toString(),edit_lat.text.toString(),edit_lon.text.toString(),edit_about.text.toString())
-                Toast.makeText(context,manager.getHelpRequestList().toString(),Toast.LENGTH_LONG).show()
+
+                MyHelpRequests.addNewHelpRequest(edit_title.text.toString(),spinner_urgency.selectedItem.toString()
+                    ,spinner_category.selectedItem.toString(),
+                    edit_lat.text.toString()
+                    ,edit_lon.text.toString(),
+                    edit_about.text.toString())
+                AllHelpRequests.addNewHelpRequest(edit_title.text.toString(),spinner_urgency.selectedItem.toString()
+                    ,spinner_category.selectedItem.toString(),
+                    edit_lat.text.toString()
+                    ,edit_lon.text.toString(),
+                    edit_about.text.toString())
+                Toast.makeText(context,MyHelpRequests.requests.toString(),Toast.LENGTH_LONG).show()
             }else{
                 Toast.makeText(context,"Invalid request",Toast.LENGTH_LONG).show()
             }
@@ -112,6 +122,13 @@ class AddObjectFragment : Fragment() {
 
         }
 
+
+//
+//        viewModel.getLiveData().observe(viewLifecycleOwner,object : Observer<ArrayList<HelpRequest>>{
+//            override fun onChanged(t: ArrayList<HelpRequest>?) {
+//                Toast.makeText(requireContext(),viewModel.getLiveData().value.toString(),Toast.LENGTH_SHORT).show()
+//            }
+//        })
 
 
     }

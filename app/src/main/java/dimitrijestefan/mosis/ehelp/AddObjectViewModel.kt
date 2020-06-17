@@ -2,11 +2,16 @@ package dimitrijestefan.mosis.ehelp
 
 import androidx.lifecycle.ViewModel
 import com.google.android.gms.maps.model.LatLng
-import dimitrijestefan.mosis.ehelp.Models.HelpRequest
-import dimitrijestefan.mosis.ehelp.data.Repository
 
 class AddObjectViewModel : ViewModel() {
 
+
+
+//    private var liveData = MutableLiveData<ArrayList<HelpRequest>>()
+//
+//    init {
+//        liveData=MyHelpRequests.getData()
+//    }
 
 
     //DATA
@@ -25,6 +30,10 @@ class AddObjectViewModel : ViewModel() {
         select = select.not()
     }
 
+
+//    fun getLiveData():LiveData<ArrayList<HelpRequest>>{
+//        return liveData
+//    }
 
 
 

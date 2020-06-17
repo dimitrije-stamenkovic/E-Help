@@ -74,7 +74,7 @@ class MapFilterFragment : Fragment() {
             if(mapViewModel.reset== true){
                 mapViewModel.filter = false
             }else{
-                mapViewModel.filterRequests(edit_title2.text.toString(),spinner_urgency.selectedItem.toString(),spinner_category.selectedItem.toString())
+                //mapViewModel.filterRequests(edit_title2.text.toString(),spinner_urgency.selectedItem.toString(),spinner_category.selectedItem.toString())
                 mapViewModel.filter = true
             }
 
