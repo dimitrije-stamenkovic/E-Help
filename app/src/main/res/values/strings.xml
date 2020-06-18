@@ -28,6 +28,9 @@
     <string name="close">Close</string>
     <string name="settingsRightMenu">Settings</string>
 
+    <string name="btnCancleFriendReq">Cancle request</string>
+    <string name="btnSendFriendReq">Send request</string>
+
     <string-array name="Urgency">
         <item>Urgently</item>
         <item>Mixed</item>

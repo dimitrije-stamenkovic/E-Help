@@ -43,6 +43,7 @@
             android:id="@+id/getCoords"
             app:destination="@id/mapFragment"/>
     </fragment>
+
     <fragment
         android:id="@+id/mapFilterFragment"
         android:name="dimitrijestefan.mosis.ehelp.MapFilterFragment"
@@ -52,6 +53,11 @@
             android:id="@+id/action_mapFilterFragment_to_mapFragment"
             app:destination="@id/mapFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/userProfileFragment"
+        android:name="dimitrijestefan.mosis.ehelp.FriendFragments.UserProfileFragment"
+        android:label="fragment_user_profile"
+        tools:layout="@layout/fragment_user_profile" />
 
 
 </navigation>

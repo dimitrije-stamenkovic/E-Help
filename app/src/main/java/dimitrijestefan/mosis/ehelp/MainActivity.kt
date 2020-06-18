@@ -25,6 +25,16 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+//    override fun onBackPressed() {
+//        var count:Int= supportFragmentManager.backStackEntryCount
+//        if(count==0) {
+//            super.onBackPressed()
+//            //supportFragmentManager.popBackStackImmediate()
+//        }else{
+//            supportFragmentManager.popBackStackImmediate()
+//        }
+//    }
+
 
 
 

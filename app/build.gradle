@@ -8,7 +8,7 @@ apply plugin: 'com.google.gms.google-services'
 
 android {
     compileSdkVersion 29
-    buildToolsVersion "29.0.3"
+    buildToolsVersion '29.0.3'
     defaultConfig {
         applicationId "dimitrijestefan.mosis.ehelp"
         minSdkVersion 26
@@ -53,4 +53,5 @@ dependencies {
     implementation 'com.google.firebase:firebase-auth:19.3.1'
     implementation 'com.google.firebase:firebase-database:19.3.0'
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.1.1'
+    implementation 'com.firebaseui:firebase-ui-database:6.2.1'
 }
