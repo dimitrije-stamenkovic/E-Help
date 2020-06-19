@@ -6,14 +6,13 @@
     android:layout_height="match_parent"
     tools:context=".AddFriendFragment"
     android:id="@+id/prob1"
-
     >
-
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintFind"
         android:layout_width="0dp"
-        android:layout_height="364dp"
+        android:layout_height="362dp"
+        android:background="#FFFFFF"
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -23,7 +22,7 @@
             android:id="@+id/editSearchUser"
             android:layout_width="300dp"
             android:layout_height="40dp"
-            android:layout_marginTop="28dp"
+            android:layout_marginTop="20dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.495"
             app:layout_constraintStart_toStartOf="parent"
@@ -33,21 +32,24 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerViewFindUsers"
-            android:layout_width="409dp"
-            android:layout_height="362dp"
-            app:layout_constraintTop_toBottomOf="@+id/editSearchUser"
-            tools:layout_editor_absoluteX="1dp">
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editSearchUser">
 
         </androidx.recyclerview.widget.RecyclerView>
 
-
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintRequests"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="367dp"
+        android:background="#FBFBFB"
+
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -58,9 +60,10 @@
             android:id="@+id/recyclerViewFriendsRequest"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="80dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent">
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
         </androidx.recyclerview.widget.RecyclerView>
 

@@ -1,37 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="50dp"
-    android:orientation="vertical"
-    android:id="@+id/frined"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/_4dp"
     android:background="@color/colorPrimary"
-    android:layout_marginTop="10dp">
-
+    >
     <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:id="@+id/cardView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:elevation="3dp"
+        android:padding="@dimen/card_view_margin"
         >
 
-    <TextView
-        android:id="@+id/userNameF"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="83dp"
+            android:orientation="vertical"
+            android:background="@color/colorPrimaryDark"
+            >
 
+            <TextView
+                android:id="@+id/userNameF"
+                android:layout_width="match_parent"
+                android:layout_height="15dp"
+                android:background="@color/colorPrimary"
+                tools:layout_editor_absoluteX="0dp"
+                tools:layout_editor_absoluteY="16dp" />
 
-    <TextView
-        android:id="@+id/userLastnameF"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        />
+            <TextView
+                android:id="@+id/userLastnameF"
+                android:layout_width="match_parent"
+                android:layout_height="15dp"
+                android:background="@color/colorPrimary"
+                tools:layout_editor_absoluteX="0dp"
+                tools:layout_editor_absoluteY="34dp" />
 
-    <TextView
-        android:id="@+id/userameF"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        />
+            <TextView
+                android:id="@+id/userEmailF"
+                android:layout_width="match_parent"
+                android:layout_height="15dp"
+                android:background="@color/colorPrimary"
+
+                tools:layout_editor_absoluteX="0dp"
+                tools:layout_editor_absoluteY="64dp" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
     </androidx.cardview.widget.CardView>
 
-</RelativeLayout>
+</LinearLayout>

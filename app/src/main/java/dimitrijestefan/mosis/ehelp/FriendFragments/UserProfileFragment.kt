@@ -8,7 +8,12 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.view.isVisible
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.*
+import com.google.firebase.ktx.Firebase
+import dimitrijestefan.mosis.ehelp.Data.MyHelpRequests
+import dimitrijestefan.mosis.ehelp.Models.FriendRequest
+import dimitrijestefan.mosis.ehelp.Models.User
 import dimitrijestefan.mosis.ehelp.R
 import kotlinx.android.synthetic.main.fragment_profile.*
 import kotlinx.android.synthetic.main.fragment_user_profile.*
@@ -22,6 +27,7 @@ class UserProfileFragment : Fragment() {
     private  var receiverId:String=""
     private lateinit var mAuth:FirebaseAuth
     private  lateinit var CurrentState:String
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -101,6 +107,9 @@ class UserProfileFragment : Fragment() {
     }
 
     private  fun SendFriendRequest(){
+        var email:String=mAuth.currentUser?.email?:""
+        var frRequest:FriendRequest= FriendRequest(senderId,email,email,email,"received")
+
         friendsRequestsRef.child(senderId).child(receiverId)
             .child("request_type").setValue("sent")
             .addOnCompleteListener {task ->
@@ -108,7 +117,8 @@ class UserProfileFragment : Fragment() {
                 if(task.isSuccessful)
                 {
                     friendsRequestsRef.child(receiverId).child(senderId)
-                        .child("request_type").setValue("received")
+                        //.child("request_type").setValue("received")
+                        .setValue(frRequest)
                         .addOnCompleteListener { task ->
                             if(task.isSuccessful)
                             {
