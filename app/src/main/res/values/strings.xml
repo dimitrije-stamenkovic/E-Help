@@ -28,8 +28,19 @@
     <string name="close">Close</string>
     <string name="settingsRightMenu">Settings</string>
 
-    <string name="btnCancleFriendReq">Cancle request</string>
-    <string name="btnSendFriendReq">Send request</string>
+    <string name="btnCancleFriendReq">Cancel friend request</string>
+    <string name="btnSendFriendReq">Send friend request</string>
+    <string name="btnFindUsers">Find users</string>
+
+    <string name="btnAccept">Confirm</string>
+    <string name="btnDelFr">Delete</string>
+    <string name="txtFrReq">Friend requests</string>
+    <string name="hintEmail">Enter email</string>
+    <string name="txtFoundUsers">Found users</string>
+
+    <string name="txtname">Name:</string>
+    <string name="txtLastname">Lastname:</string>
+    <string name="txtEmail">Email:</string>
 
     <string-array name="Urgency">
         <item>Urgently</item>

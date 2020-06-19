@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Adapter
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
@@ -19,7 +20,7 @@ import dimitrijestefan.mosis.ehelp.R
 //
 //
 //    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-//       var view = LayoutInflater.from(parent.context).inflate(R.layout.item_add_friend,parent, false)
+//       var view = LayoutInflater.from(parent.context).inflate(R.layout.item_friend_request,parent, false)
 //        return ViewHolder(view)
 //    }
 //
@@ -51,17 +52,19 @@ import dimitrijestefan.mosis.ehelp.R
 ////        }
 ////
 ////    }
+//
+//
+//  public  interface OnItemClickListener{
+//       fun onItemClick(position:String?)
+//    }
+//
+//    public interface OnImageClickListener{
+//        fun onImageClick(position:Int)
+//    }
+//
+//    // novi interfejs
 
 
-  public  interface OnItemClickListener{
-       fun onItemClick(position:String?)
-    }
-
-    public interface OnImageClickListener{
-        fun onImageClick(position:Int)
-    }
-
-    // novi interfejs
 
     public interface OnUserClickListener{
         fun onUserClick(userId:String?)
@@ -76,14 +79,8 @@ import dimitrijestefan.mosis.ehelp.R
     }
 
 
-
-
-//}
-
 public class UsersViewHolder(var mview : View) : RecyclerView.ViewHolder(mview) {
 
-  //  var title: TextView = mview.findViewById(dimitrijestefan.mosis.ehelp.R.id.userNameF)
-   // var title2: TextView =mview.findViewById(dimitrijestefan.mosis.ehelp.R.id.userNameF)
     var name:TextView= mview.findViewById(R.id.userNameF)
     var lastname:TextView= mview.findViewById(R.id.userLastnameF)
     var email:TextView= mview.findViewById(R.id.userEmailF)
@@ -101,16 +98,16 @@ public  class RequestsViewHolder(var mview:View): RecyclerView.ViewHolder(mview)
     var lastname: TextView=mview.findViewById(R.id.ReqLastname)
     var email: TextView=mview.findViewById(R.id.ReqEmail)
 
-    var imageDelete:ImageView= mview.findViewById(R.id.deleteImage)
-    var imageAdd:ImageView=mview.findViewById(R.id.addImage)
+    var btnDelete:Button= mview.findViewById(R.id.btnDeleteFr)
+    var btnAdd:Button=mview.findViewById(R.id.btnAccept)
 
     fun bind(friendReq:FriendRequest,deleteClickListener:OnDeleteImgClickListener
              ,addClickListener:OnAddImgClickListener )
     {
-        imageDelete.setOnClickListener {
+        btnDelete.setOnClickListener {
             deleteClickListener.onDeleteImgClick(friendReq.uidSender)
         }
-        imageAdd.setOnClickListener {
+        btnAdd.setOnClickListener {
             addClickListener.onAddImgClick(friendReq.uidSender)
         }
     }

@@ -31,7 +31,7 @@
         tools:layout="@layout/fragment_rank_list" />
     <fragment
         android:id="@+id/addFriendFragment"
-        android:name="dimitrijestefan.mosis.ehelp.AddFriendFragment"
+        android:name="dimitrijestefan.mosis.ehelp.FriendFragments.AddFriendFragment"
         android:label="fragment_add_friend"
         tools:layout="@layout/fragment_add_friend" />
     <fragment
@@ -58,6 +58,11 @@
         android:name="dimitrijestefan.mosis.ehelp.FriendFragments.UserProfileFragment"
         android:label="fragment_user_profile"
         tools:layout="@layout/fragment_user_profile" />
+    <fragment
+        android:id="@+id/findUserFragment"
+        android:name="dimitrijestefan.mosis.ehelp.FriendFragments.FindUserFragment"
+        android:label="fragment_find_user"
+        tools:layout="@layout/fragment_find_user" />
 
 
 </navigation>

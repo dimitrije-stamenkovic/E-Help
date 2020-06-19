@@ -2,52 +2,71 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="60dp"
     android:layout_margin="@dimen/_4dp"
-    android:background="@color/colorPrimary"
     >
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="center"
+        android:background="@color/colorPrimary"
         android:elevation="3dp"
         android:padding="@dimen/card_view_margin"
         >
-
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="83dp"
-            android:orientation="vertical"
-            android:background="@color/colorPrimaryDark"
+            android:layout_height="match_parent"
             >
 
-            <TextView
-                android:id="@+id/userNameF"
-                android:layout_width="match_parent"
-                android:layout_height="15dp"
-                android:background="@color/colorPrimary"
-                tools:layout_editor_absoluteX="0dp"
-                tools:layout_editor_absoluteY="16dp" />
 
-            <TextView
-                android:id="@+id/userLastnameF"
-                android:layout_width="match_parent"
-                android:layout_height="15dp"
-                android:background="@color/colorPrimary"
-                tools:layout_editor_absoluteX="0dp"
-                tools:layout_editor_absoluteY="34dp" />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraintUserNameLastName"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toTopOf="@+id/userEmailF"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:id="@+id/userNameF"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/guideline3"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/guideline3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent="0.5" />
+
+                <TextView
+                    android:id="@+id/userLastnameF"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/guideline3"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
 
             <TextView
                 android:id="@+id/userEmailF"
-                android:layout_width="match_parent"
-                android:layout_height="15dp"
-                android:background="@color/colorPrimary"
-
-                tools:layout_editor_absoluteX="0dp"
-                tools:layout_editor_absoluteY="64dp" />
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/constraintUserNameLastName" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
