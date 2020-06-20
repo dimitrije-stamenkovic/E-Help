@@ -1,6 +1,4 @@
 package dimitrijestefan.mosis.ehelp
-
-
 import android.content.pm.PackageManager
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -16,22 +14,22 @@ import kotlinx.android.synthetic.main.fragment_map.*
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import dimitrijestefan.mosis.ehelp.Data.AllHelpRequests
+import dimitrijestefan.mosis.ehelp.Models.User
 
-
-/**
- * A simple [Fragment] subclass.
- */
 class MapFragment : Fragment(),OnMapReadyCallback {
 
 
     private lateinit var googleMap:GoogleMap
+    private lateinit var markerPerson:HashMap<User,Int>
+
     private  val addObjectViewModel by lazy {
         ViewModelProvider(requireActivity()).get(AddObjectViewModel::class.java)
     }
-   // private val addObjectViewModel:AddObjectViewModel by viewModels()
+
     private val mapViewModel by lazy {
        ViewModelProvider(requireActivity()).get(MapViewModel::class.java)
    }
+
 
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -71,6 +69,7 @@ class MapFragment : Fragment(),OnMapReadyCallback {
             filterButton.setOnClickListener {
                 this.findNavController().navigate(R.id.filterMap)
             }
+
         }
 
     }
@@ -93,6 +92,10 @@ class MapFragment : Fragment(),OnMapReadyCallback {
 
                 this.findNavController().navigate(R.id.returnCoords)
             }
+
+    }
+
+    private fun addMarker(){
 
     }
 

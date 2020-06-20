@@ -8,5 +8,8 @@ data class User (
     var lastname:String,
     var number:String,
 var photoUrl:String
-)
+
+){
+    constructor():this("","","","","","","")
+}
 
