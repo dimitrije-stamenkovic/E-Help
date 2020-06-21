@@ -7,13 +7,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.content.ContextCompat
-import androidx.fragment.app.viewModels
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import kotlinx.android.synthetic.main.fragment_map.*
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import dimitrijestefan.mosis.ehelp.Data.AllHelpRequests
+import dimitrijestefan.mosis.ehelp.Data.AllHelpRequestsData
 import dimitrijestefan.mosis.ehelp.Models.User
 
 class MapFragment : Fragment(),OnMapReadyCallback {
@@ -62,7 +61,7 @@ class MapFragment : Fragment(),OnMapReadyCallback {
             if(mapViewModel.filter==true){
                 Toast.makeText(requireContext(),mapViewModel.filtered_requests.toString(),Toast.LENGTH_LONG).show()
             }else{
-                Toast.makeText(requireContext(),AllHelpRequests.requests.toString(),Toast.LENGTH_LONG).show()
+                Toast.makeText(requireContext(),AllHelpRequestsData.requests.toString(),Toast.LENGTH_LONG).show()
             }
 
 

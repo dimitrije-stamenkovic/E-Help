@@ -10,7 +10,7 @@ class AddObjectViewModel : ViewModel() {
 //    private var liveData = MutableLiveData<ArrayList<HelpRequest>>()
 //
 //    init {
-//        liveData=MyHelpRequests.getData()
+//        liveData=MyHelpRequestsData.getData()
 //    }
 
 

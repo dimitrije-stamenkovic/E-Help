@@ -1,12 +1,15 @@
 package dimitrijestefan.mosis.ehelp.Data
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.*
 import dimitrijestefan.mosis.ehelp.Models.HelpRequest
 
-object AllHelpRequests {
+object MyHelpRequestsData {
+
+
     var onRequestsChange : MutableLiveData<ArrayList<HelpRequest>>
     var requests : ArrayList<HelpRequest>
     private var mCurrentUser: FirebaseUser?
@@ -20,7 +23,7 @@ object AllHelpRequests {
     init {
         mCurrentUser = FirebaseAuth.getInstance().currentUser
         current_uid = mCurrentUser!!.uid
-        database = FirebaseDatabase.getInstance().getReference().child("Requests")
+        database = FirebaseDatabase.getInstance().getReference().child("Users").child(current_uid).child("my-requests")
         requests = ArrayList()
         onRequestsChange = MutableLiveData()
 
@@ -28,7 +31,7 @@ object AllHelpRequests {
 
 
 
-        var childEventListener = object : ChildEventListener {
+        var childEventListener = object : ChildEventListener{
             override fun onChildAdded(p0: DataSnapshot, p1: String?) {
                 val myHelpRequestKey = p0.key
                 if(!myHelpRequestsIndexMapping.containsKey(myHelpRequestKey)){
@@ -112,7 +115,7 @@ object AllHelpRequests {
 
 
 
-        var parentEventListener = object : ValueEventListener {
+        var parentEventListener = object : ValueEventListener{
             override fun onDataChange(p0: DataSnapshot) {
 
                 onRequestsChange.value = requests
@@ -163,3 +166,5 @@ object AllHelpRequests {
 
 
 }
+
+
