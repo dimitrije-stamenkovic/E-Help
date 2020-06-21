@@ -41,6 +41,18 @@
     <string name="txtname">Name:</string>
     <string name="txtLastname">Lastname:</string>
     <string name="txtEmail">Email:</string>
+    <string name="hintPass">Password</string>
+    <string name="hintEmailLog">Email</string>
+    <string name="hintName">First name</string>
+    <string name="hintLastname">Last name</string>
+    <string name="hintNumber">Number</string>
+    <string name="hintUsername">Username</string>
+    <string name="DontHaveAcc">Don\'t Have an Account?</string>
+    <string name="AlreadyHave">Already Have an Account?</string>
+    <string name="txtSignIn">Sign in</string>
+    <string name="txtSignUp">Sign up</string>
+    <string name="txtAddPhoto">Add photo</string>
+    <string name="txtCreateAcc">Create an Account</string>
 
     <string-array name="Urgency">
         <item>Urgently</item>
