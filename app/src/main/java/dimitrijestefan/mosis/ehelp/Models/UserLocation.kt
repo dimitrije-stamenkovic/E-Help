@@ -1,4 +1,3 @@
 package dimitrijestefan.mosis.ehelp.Models
 
-class UserLocation {
-}
+data class UserLocation (var user:User,var geo_point:GeoPoint)

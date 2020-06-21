@@ -9,8 +9,9 @@ import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
-import dimitrijestefan.mosis.ehelp.Data.AllHelpRequests
-import dimitrijestefan.mosis.ehelp.Data.MyHelpRequests
+import dimitrijestefan.mosis.ehelp.Data.AllHelpRequestsData
+import dimitrijestefan.mosis.ehelp.Data.MyHelpRequestsData
+import dimitrijestefan.mosis.ehelp.Data.UserData
 
 
 import kotlinx.android.synthetic.main.add_object_fragment.*
@@ -42,6 +43,7 @@ class AddObjectFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        //Toast.makeText(requireContext(),UserData.currentUserProfile().toString(),Toast.LENGTH_SHORT).show()
 
         val urgency = resources.getStringArray(R.array.Urgency)
         val urgency_adapter = ArrayAdapter(requireContext(),android.R.layout.simple_spinner_item,urgency)
@@ -90,17 +92,17 @@ class AddObjectFragment : Fragment() {
                 edit_lon.text.toString().length > 0 &&
                 edit_lat.text.toString().length>0 ){
 
-                MyHelpRequests.addNewHelpRequest(edit_title.text.toString(),spinner_urgency.selectedItem.toString()
+                MyHelpRequestsData.addNewHelpRequest(edit_title.text.toString(),spinner_urgency.selectedItem.toString()
                     ,spinner_category.selectedItem.toString(),
                     edit_lat.text.toString()
                     ,edit_lon.text.toString(),
                     edit_about.text.toString())
-                AllHelpRequests.addNewHelpRequest(edit_title.text.toString(),spinner_urgency.selectedItem.toString()
+                AllHelpRequestsData.addNewHelpRequest(edit_title.text.toString(),spinner_urgency.selectedItem.toString()
                     ,spinner_category.selectedItem.toString(),
                     edit_lat.text.toString()
                     ,edit_lon.text.toString(),
                     edit_about.text.toString())
-                Toast.makeText(context,MyHelpRequests.requests.toString(),Toast.LENGTH_LONG).show()
+                Toast.makeText(context,MyHelpRequestsData.requests.toString(),Toast.LENGTH_LONG).show()
             }else{
                 Toast.makeText(context,"Invalid request",Toast.LENGTH_LONG).show()
             }

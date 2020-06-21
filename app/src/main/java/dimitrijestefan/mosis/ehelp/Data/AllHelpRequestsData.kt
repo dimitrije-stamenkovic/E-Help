@@ -6,7 +6,7 @@ import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.*
 import dimitrijestefan.mosis.ehelp.Models.HelpRequest
 
-object AllHelpRequests {
+object AllHelpRequestsData {
     var onRequestsChange : MutableLiveData<ArrayList<HelpRequest>>
     var requests : ArrayList<HelpRequest>
     private var mCurrentUser: FirebaseUser?

@@ -1,7 +1,6 @@
 package dimitrijestefan.mosis.ehelp.Service
 
 import android.Manifest
-import android.app.Notification
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.Service
@@ -16,13 +15,11 @@ import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat
 import com.google.android.gms.location.*
-import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
-import dimitrijestefan.mosis.ehelp.Data.MyHelpRequests
 import dimitrijestefan.mosis.ehelp.Models.GeoPoint
 import java.lang.NullPointerException
 

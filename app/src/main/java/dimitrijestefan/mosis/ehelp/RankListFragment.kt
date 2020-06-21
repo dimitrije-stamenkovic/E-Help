@@ -7,7 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
-import dimitrijestefan.mosis.ehelp.Data.MyHelpRequests
+import dimitrijestefan.mosis.ehelp.Data.MyHelpRequestsData
 import kotlinx.android.synthetic.main.fragment_rank_list.*
 
 /**
@@ -28,10 +28,10 @@ class RankListFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
 
-       MyHelpRequests.onRequestsChange.observe(viewLifecycleOwner, Observer {
+       MyHelpRequestsData.onRequestsChange.observe(viewLifecycleOwner, Observer {
 
-           if (MyHelpRequests.requests != null){
-               temp.text = MyHelpRequests.requests.toString()
+           if (MyHelpRequestsData.requests != null){
+               temp.text = MyHelpRequestsData.requests.toString()
 
            }
 
