@@ -9,9 +9,14 @@ import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
 import dimitrijestefan.mosis.ehelp.Data.AllHelpRequestsData
 import dimitrijestefan.mosis.ehelp.Data.MyHelpRequestsData
+import dimitrijestefan.mosis.ehelp.Data.OnGetDataListener
 import dimitrijestefan.mosis.ehelp.Data.UserData
+import dimitrijestefan.mosis.ehelp.Data.UserData.fetchCurrenUser
+import dimitrijestefan.mosis.ehelp.Models.User
 
 
 import kotlinx.android.synthetic.main.add_object_fragment.*
@@ -43,7 +48,27 @@ class AddObjectFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        //Toast.makeText(requireContext(),UserData.currentUserProfile().toString(),Toast.LENGTH_SHORT).show()
+//
+//        UserData.fetchCurrenUser(object : OnGetDataListener{
+//            override fun onSuccess(data: DataSnapshot) {
+//                var user = User ()
+//                user.email = data.child("email").value.toString()
+//                Toast.makeText(requireContext(),user.toString(),Toast.LENGTH_SHORT).show()
+//            }
+//
+//            override fun onFailed(databaseError: DatabaseError) {
+//
+//            }
+//
+//            override fun onStart() {
+//
+//            }
+//        })
+
+
+
+
+        Toast.makeText(requireContext(),UserData.getCurrentUser().toString(),Toast.LENGTH_SHORT).show()
 
         val urgency = resources.getStringArray(R.array.Urgency)
         val urgency_adapter = ArrayAdapter(requireContext(),android.R.layout.simple_spinner_item,urgency)
