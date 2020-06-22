@@ -13,11 +13,17 @@ import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
 import android.text.TextUtils
+import android.util.Log
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
+import androidx.core.graphics.drawable.RoundedBitmapDrawable
+import androidx.core.graphics.drawable.RoundedBitmapDrawableFactory
 import com.google.firebase.FirebaseApp
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
+import com.google.firebase.auth.FirebaseAuthUserCollisionException
+import com.google.firebase.auth.FirebaseAuthWeakPasswordException
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.storage.FirebaseStorage
@@ -37,28 +43,30 @@ class SignUpActivity : AppCompatActivity() {
 
     private var currentPhotoPath: String = ""
     lateinit var photoUri: Uri
-    var name:String =""
-    var lastname:String = ""
-    var phoneNumber:String = ""
-    var email:String = ""
-    var password:String = ""
-    var username:String =""
-    lateinit  var progressDialog:ProgressDialog
+    var name: String = ""
+    var lastname: String = ""
+    var phoneNumber: String = ""
+    var email: String = ""
+    var password: String = ""
+    var username: String = ""
+    lateinit var progressDialog: ProgressDialog
 
-        override fun onCreate(savedInstanceState: Bundle?) {
+    override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sign_up)
 
-        btnHaveAcc.setOnClickListener {
+        txtSignIn.setOnClickListener {
             this.startActivity(Intent(this, SignInActivity::class.java));
         }
+
         btnSignUp.setOnClickListener {
             this.CreateAccount()
         }
-        btnTakePhoto.setOnClickListener {
+
+        imageViewSignUp.setOnClickListener {
             this.TakePhoto()
         }
-            progressDialog = ProgressDialog(this@SignUpActivity)
+        progressDialog = ProgressDialog(this@SignUpActivity)
     }
 
 
@@ -70,12 +78,18 @@ class SignUpActivity : AppCompatActivity() {
         password = passwordSignUp.text.toString()
         username = usernameSignUp.text.toString()
         when {
-          //  TextUtils.isEmpty(email) -> Toast.makeText(this, "email", Toast.LENGTH_LONG).show()
-          //  TextUtils.isEmpty(password) -> Toast.makeText(this, "sifra", Toast.LENGTH_LONG).show()
+              TextUtils.isEmpty(name) -> Toast.makeText(this, "Please enter first name", Toast.LENGTH_LONG).show()
+              TextUtils.isEmpty(lastname) -> Toast.makeText(this, "Please enter last name", Toast.LENGTH_LONG).show()
+              TextUtils.isEmpty(phoneNumber) -> Toast.makeText(this, "Please enter phone number.", Toast.LENGTH_LONG).show()
+              TextUtils.isEmpty(username) -> Toast.makeText(this, "Please enter username.", Toast.LENGTH_LONG).show()
+              TextUtils.isEmpty(email) -> Toast.makeText(this, "Please enter email.", Toast.LENGTH_LONG).show()
+              TextUtils.isEmpty(password) -> Toast.makeText(this, "Please enter password.", Toast.LENGTH_LONG).show()
+              !this::photoUri.isInitialized ->Toast.makeText(this, "Please take photo",Toast.LENGTH_LONG).show()
+
             else -> {
 
                 progressDialog.setTitle("Sign up")
-                progressDialog.setMessage("Kreiranje naloga")
+                progressDialog.setMessage("Sign up, please wait.")
                 progressDialog.setCanceledOnTouchOutside(false)
                 progressDialog.show()
                 val mAuth: FirebaseAuth = FirebaseAuth.getInstance()
@@ -83,12 +97,13 @@ class SignUpActivity : AppCompatActivity() {
                     .addOnCompleteListener { task ->
                         if (task.isSuccessful) {
                             UploadImageToFirebaseStorage()
-                        } else {
-                            val message = task.exception!!.toString()
-                            Toast.makeText(this, "Error: $message", Toast.LENGTH_LONG).show()
-                            mAuth.signOut()
-                            progressDialog.dismiss()
                         }
+
+                    }
+                    .addOnFailureListener {
+                        mAuth.signOut()
+                        progressDialog.dismiss()
+                        NotifyUser(it)
                     }
             }
         }
@@ -96,9 +111,10 @@ class SignUpActivity : AppCompatActivity() {
     }
 
     private fun UploadImageToFirebaseStorage() {
-        val filename= UUID.randomUUID().toString()
-        val currentUserId= FirebaseAuth.getInstance().currentUser!!.uid
-        val storageRef=FirebaseStorage.getInstance().getReference("usersPhoto/$currentUserId/$filename")
+        val filename = UUID.randomUUID().toString()
+        val currentUserId = FirebaseAuth.getInstance().currentUser!!.uid
+        val storageRef =
+            FirebaseStorage.getInstance().getReference("usersPhoto/$currentUserId/$filename")
         storageRef.putFile(this.photoUri).addOnSuccessListener {
             storageRef.downloadUrl.addOnSuccessListener {
                 this.SaveUserToDatabase(it.toString())
@@ -106,19 +122,27 @@ class SignUpActivity : AppCompatActivity() {
         }
     }
 
-    private fun SaveUserToDatabase(photoUrl:String){
-        val  currentUserId= FirebaseAuth.getInstance().currentUser!!.uid
-        val newUser:User= User(this.username,this.password,this.email, this.name, this.lastname, this.phoneNumber,photoUrl)
-        val usersRef=FirebaseDatabase.getInstance().reference.child("Users")
+    private fun SaveUserToDatabase(photoUrl: String) {
+        val currentUserId = FirebaseAuth.getInstance().currentUser!!.uid
+        val newUser: User = User(
+            this.username,
+            this.password,
+            this.email,
+            this.name,
+            this.lastname,
+            this.phoneNumber,
+            photoUrl
+        )
+        val usersRef = FirebaseDatabase.getInstance().reference.child("Users")
         usersRef.child(currentUserId).setValue(newUser).addOnCompleteListener { task ->
-            if(task.isSuccessful){
+            if (task.isSuccessful) {
                 progressDialog.dismiss()
                 Toast.makeText(this, "Uspesno ste kreirali nalog", Toast.LENGTH_LONG).show()
                 val intent = Intent(this@SignUpActivity, MainActivity::class.java)
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
                 startActivity(intent)
                 finish()
-            }else{
+            } else {
                 val message = task.exception!!.toString()
                 Toast.makeText(this, "Error: $message", Toast.LENGTH_LONG).show()
                 FirebaseAuth.getInstance().signOut()
@@ -128,9 +152,12 @@ class SignUpActivity : AppCompatActivity() {
     }
 
     private fun TakePhoto() {
-        if(ContextCompat.checkSelfPermission(this, android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
-            != PackageManager.PERMISSION_GRANTED){
-            requestPermissions( Array<String>(1){android.Manifest.permission.WRITE_EXTERNAL_STORAGE},101)
+        if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            requestPermissions(
+                Array<String>(1) { android.Manifest.permission.WRITE_EXTERNAL_STORAGE },
+                101
+            )
+
         }
         else {
             val fileName: String = "photo"
@@ -148,13 +175,66 @@ class SignUpActivity : AppCompatActivity() {
         }
     }
 
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        when (requestCode) {
+            101 -> {
+                if ((grantResults.isNotEmpty() &&
+                            grantResults[0] == PackageManager.PERMISSION_GRANTED)
+                ) {
+                    this.TakePhoto()
+                } else {
+
+                    Toast.makeText(
+                        this,
+                        "Sorry, granted permission is necessary.",
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
+                return
+
+            }
+        }
+
+    }
+
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == 1 && resultCode == RESULT_OK) {
             val bitmapForView: Bitmap = BitmapFactory.decodeFile(this.currentPhotoPath)
-            imageView.setImageBitmap(bitmapForView)
-            btnTakePhoto.setBackgroundDrawable(BitmapDrawable(bitmapForView))
+           // val roundBitmap:RoundedBitmapDrawable= RoundedBitmapDrawableFactory.create(resources, bitmapForView)
+           // roundBitmap.isCircular=true
+          //  imageViewSignUp.setImageDrawable(roundBitmap)
+
+            imageViewSignUp.setImageBitmap(bitmapForView)
+
+           // btnTakePhoto.setBackgroundDrawable(BitmapDrawable(bitmapForView))
         }
+    }
+
+    private fun NotifyUser(ex: Exception) {
+
+        when (ex){
+
+             is FirebaseAuthUserCollisionException -> {
+               Toast.makeText(this, " The email is already in use.", Toast.LENGTH_LONG).show()
+            }
+             is FirebaseAuthWeakPasswordException -> {
+                Toast.makeText(this, "Password should be at least 6 characters.", Toast.LENGTH_LONG).show()
+
+            }
+            is FirebaseAuthInvalidCredentialsException -> {
+                Toast.makeText(this, "The email is badly formatted.", Toast.LENGTH_LONG).show()
+            }
+            else->{
+                Toast.makeText(this, "Something went wrong", Toast.LENGTH_LONG).show()
+            }
+        }
+
     }
 
 }

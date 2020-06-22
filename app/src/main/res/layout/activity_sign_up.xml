@@ -1,87 +1,235 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activity.SignUpActivity"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context=".Activity.SignUpActivity">
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <TextView
+        android:id="@+id/textView18"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:text="@string/txtCreateAcc"
+        app:layout_constraintBottom_toTopOf="@id/guiHor1SignUp"
+        app:layout_constraintEnd_toStartOf="@+id/guiVer2SignUp"
+        app:layout_constraintStart_toStartOf="@+id/guiVer1SignUp"
+        app:layout_constraintTop_toTopOf="parent">
 
+    </TextView>
 
-    <EditText
-        android:id="@+id/emailSignUp"
-        android:layout_width="match_parent"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/txtInName"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:hint="mail"
-        >
+        app:layout_constraintBottom_toTopOf="@+id/txtInLastName"
+        app:layout_constraintEnd_toStartOf="@+id/guiVer2SignUp"
+        app:layout_constraintStart_toStartOf="@+id/guiVer1SignUp"
+        app:layout_constraintTop_toBottomOf="@id/guiHor1SignUp">
 
-    </EditText>
+        <EditText
+            android:id="@+id/nameSignUp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/hintName">
 
-    <EditText
-        android:id="@+id/passwordSignUp"
-        android:layout_width="match_parent"
+        </EditText>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/txtInLastName"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:hint="sifra"
-        >
+        app:layout_constraintBottom_toTopOf="@+id/txtInNumber"
+        app:layout_constraintEnd_toStartOf="@+id/guiVer2SignUp"
+        app:layout_constraintStart_toStartOf="@+id/guiVer1SignUp"
+        app:layout_constraintTop_toBottomOf="@id/txtInName">
 
-    </EditText>
+        <EditText
+            android:id="@+id/lastnameSignUp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/hintLastname">
 
-    <EditText
-        android:id="@+id/number"
-        android:layout_width="match_parent"
+        </EditText>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/txtInNumber"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:hint="broj"
-        >
+        app:layout_constraintBottom_toTopOf="@+id/txtInUsername"
+        app:layout_constraintEnd_toStartOf="@+id/guiVer2SignUp"
+        app:layout_constraintStart_toStartOf="@+id/guiVer1SignUp"
+        app:layout_constraintTop_toBottomOf="@id/txtInLastName">
 
-    </EditText>
+        <EditText
+            android:id="@+id/number"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/hintNumber">
 
-    <EditText
-        android:id="@+id/usernameSignUp"
-        android:layout_width="match_parent"
+        </EditText>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/txtInUsername"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:hint="username"
-        >
+        app:layout_constraintEnd_toStartOf="@+id/guiVer2SignUp"
+        app:layout_constraintStart_toStartOf="@+id/guiVer1SignUp"
+        app:layout_constraintTop_toBottomOf="@+id/txtInNumber">
 
-    </EditText>
+        <EditText
+            android:id="@+id/usernameSignUp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/hintUsername">
 
-    <EditText
-        android:id="@+id/nameSignUp"
-        android:layout_width="match_parent"
+        </EditText>
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/txtInEmail"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:hint="ime"
-        >
-    </EditText>
-    <EditText
-        android:id="@+id/lastnameSignUp"
-        android:layout_width="match_parent"
+        app:layout_constraintBottom_toTopOf="@+id/txtInPassword"
+        app:layout_constraintEnd_toStartOf="@+id/guiVer2SignUp"
+        app:layout_constraintStart_toStartOf="@+id/guiVer1SignUp"
+        app:layout_constraintTop_toBottomOf="@+id/txtInUsername"
+     >
+
+        <EditText
+            android:id="@+id/emailSignUp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:hint="@string/hintEmailLog">
+
+        </EditText>
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/txtInPassword"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:hint="prezime"
-        >
-    </EditText>
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="100dp"
-        android:layout_height="100dp">
+        app:passwordToggleEnabled="true"
+        app:layout_constraintBottom_toTopOf="@id/guiHor2SignUp"
+        app:layout_constraintEnd_toStartOf="@id/guiVer2SignUp"
+        app:layout_constraintStart_toEndOf="@id/guiVer1SignUp"
+        app:layout_constraintTop_toBottomOf="@+id/txtInEmail">
 
-    </ImageView>
+        <EditText
+            android:id="@+id/passwordSignUp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword"
+            android:hint="@string/hintPass">
 
-    <Button
-        android:id="@+id/btnTakePhoto"
+        </EditText>
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/imageViewSignUp"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:text="@string/btnTakePhoto" />
+        android:clickable="true"
+        android:focusable="true"
+        android:src="@drawable/ic_camera"
+        app:civ_border_color="#3897f0"
+        app:civ_border_width="2dp"
+        app:layout_constraintEnd_toStartOf="@+id/guiVer2SignUp"
+        app:layout_constraintStart_toEndOf="@id/guiVer1SignUp"
+        app:layout_constraintTop_toBottomOf="@+id/guiHor2SignUp">
 
+    </de.hdodenhof.circleimageview.CircleImageView>
 
     <Button
         android:id="@+id/btnSignUp"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="@string/btnSignUp" />
+        android:layout_marginTop="8dp"
+        android:background="@drawable/confirm_btn"
+        style="?android:attr/borderlessButtonStyle"
+        android:text="@string/btnSignUp"
+        android:textColor="#FFFFFF"
+        app:layout_constraintBottom_toTopOf="@+id/guiHor3SignUp"
+        app:layout_constraintEnd_toStartOf="@+id/guiVer2SignUp"
+        app:layout_constraintStart_toStartOf="@+id/guiVer1SignUp"
+        app:layout_constraintTop_toBottomOf="@+id/textView21" />
 
-    <Button
-        android:id="@+id/btnHaveAcc"
-        android:layout_width="match_parent"
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guiHor1SignUp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/btnHaveAcc" />
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.08" />
 
-</LinearLayout>
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guiHor2SignUp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.6" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guiHor3SignUp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.94" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guiVer1SignUp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.05" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guiVer2SignUp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.95" />
+
+    <TextView
+        android:id="@+id/textView19"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/AlreadyHave"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/guiVer1SignUp"
+        app:layout_constraintTop_toBottomOf="@+id/guiHor3SignUp" />
+
+    <TextView
+        android:id="@+id/txtSignIn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:clickable="true"
+        android:text="@string/btnSignIn"
+        android:textColor="#3897F0"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textView19"
+        app:layout_constraintTop_toBottomOf="@+id/guiHor3SignUp" />
+
+    <TextView
+        android:id="@+id/textView21"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/txtAddPhoto"
+        app:layout_constraintBottom_toTopOf="@+id/btnSignUp"
+        app:layout_constraintEnd_toStartOf="@+id/guiVer2SignUp"
+        app:layout_constraintStart_toStartOf="@+id/guiVer1SignUp"
+        app:layout_constraintTop_toBottomOf="@+id/imageViewSignUp" />
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>
