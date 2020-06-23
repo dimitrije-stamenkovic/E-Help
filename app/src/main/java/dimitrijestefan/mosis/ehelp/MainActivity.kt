@@ -9,15 +9,16 @@ import androidx.navigation.findNavController
 import dimitrijestefan.mosis.ehelp.Service.LocationService
 
 
-import kotlinx.android.synthetic.main.activity_main.*
 import android.app.ActivityManager
 import android.content.Context
 import android.util.Log
-import android.widget.Toast
 import dimitrijestefan.mosis.ehelp.Data.UserData
 
 
 class MainActivity : AppCompatActivity() {
+
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,18 +38,22 @@ class MainActivity : AppCompatActivity() {
         if (!isLocationServiceRunning()) {
             val serviceIntent = Intent(this, LocationService::class.java)
             if (android.os.Build.VERSION.SDK_INT >= 26) {
-                this.startForegroundService(serviceIntent) // Da bi ostao da radi, da se ne bi zaustavio
+                startForegroundService(serviceIntent) // Da bi ostao da radi, da se ne bi zaustavio
             } else {
-                this.startService(serviceIntent)
+                startService(serviceIntent)
             }
+
         }
     }
+
+
+
 
     @Suppress("DEPRECATION")
      fun isLocationServiceRunning(): Boolean {
         val manager = getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
         for (service in manager.getRunningServices(Integer.MAX_VALUE)) {
-            if ("dimitrijestefan.mosis.ehelp.LocationService" == service.service.className) {
+            if ("com.dimitrijestefan.mosis.ehelp.Service.LocationService" == service.service.className) {
                 Log.d(
                     "SERVIS",
                     "isLocationServiceRunning: location service is already running."
@@ -69,8 +74,6 @@ class MainActivity : AppCompatActivity() {
 //            supportFragmentManager.popBackStackImmediate()
 //        }
 //    }
-
-
 
 
 }

@@ -20,7 +20,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar"
         >
-        <service android:name=".Service.LocationService"></service>
+        <service android:stopWithTask="true" android:name=".Service.LocationService"></service>
         <activity android:name=".Activity.SignUpActivity"></activity>
         <activity android:name=".Activity.SignInActivity">
             <intent-filter>
