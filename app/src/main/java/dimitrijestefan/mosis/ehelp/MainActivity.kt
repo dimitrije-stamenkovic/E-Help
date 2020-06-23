@@ -14,6 +14,7 @@ import android.app.ActivityManager
 import android.content.Context
 import android.util.Log
 import android.widget.Toast
+import dimitrijestefan.mosis.ehelp.Data.FriendData
 import dimitrijestefan.mosis.ehelp.Data.UserData
 
 
@@ -26,6 +27,11 @@ class MainActivity : AppCompatActivity() {
         val bottomNavigationView:BottomNavigationView = findViewById(R.id.bottomnavbar)
         val navController = findNavController(R.id.nav_host_fragment)
         NavigationUI.setupWithNavController(bottomNavigationView,navController)
+        if(FriendData.friendsList!=null)
+        {
+            Log.d("Malo","rrr")
+        }
+
 
         startLocationService()
 
