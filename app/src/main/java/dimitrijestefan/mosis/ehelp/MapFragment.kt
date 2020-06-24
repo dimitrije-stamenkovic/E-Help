@@ -1,5 +1,6 @@
 package dimitrijestefan.mosis.ehelp
 
+import android.Manifest
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Log
@@ -7,11 +8,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
@@ -36,6 +40,7 @@ import kotlinx.android.synthetic.main.fragment_rank_list.*
 
 class MapFragment : Fragment(), OnMapReadyCallback {
 
+    private lateinit var fusedLocationClient:FusedLocationProviderClient
 
     private lateinit var googleMap: GoogleMap
     private lateinit var markerPerson: HashMap<User, Int>
@@ -65,9 +70,33 @@ class MapFragment : Fragment(), OnMapReadyCallback {
         mapView.getMapAsync(this)
     }
 
+    private fun getLastLocation(){
+        if (ActivityCompat.checkSelfPermission(
+                requireContext(),
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
+                requireContext(),
+                Manifest.permission.ACCESS_COARSE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return
+        }
+        fusedLocationClient.lastLocation.addOnSuccessListener {
+            mapViewModel.current_location = LatLng(it.latitude,it.longitude)
+            Toast.makeText(requireContext(),mapViewModel.current_location.toString(),Toast.LENGTH_SHORT).show()
+        }
+    }
 
     override fun onMapReady(map: GoogleMap) {
         googleMap = map;
+        getLastLocation()
         //  googleMap?.isMyLocationEnabled=true;
         if (ContextCompat.checkSelfPermission(
                 this.requireContext(),
@@ -86,25 +115,20 @@ class MapFragment : Fragment(), OnMapReadyCallback {
 
             }
 
-            if (mapViewModel.filter == true) {
-                Toast.makeText(
-                    requireContext(),
-                    mapViewModel.filtered_requests.toString(),
-                    Toast.LENGTH_LONG
-                ).show()
-            } else {
-                Toast.makeText(
-                    requireContext(),
-                    AllHelpRequestsData.requests.toString(),
-                    Toast.LENGTH_LONG
-                ).show()
-            }
 
             filterButton.setOnClickListener {
                 this.findNavController().navigate(R.id.filterMap)
             }
             mClusterManager =
                 ClusterManager<ClusterMarker>(requireActivity().applicationContext, googleMap)
+
+//            if (mapViewModel.filter == true) {
+//                AllHelpRequestsData.filterRequests(mapViewModel.title,mapViewModel.category,mapViewModel.urgency,mapViewModel.current_location,mapViewModel.radius)
+//                onLocationUpdate()
+//            } else {
+//                onLocationUpdate()
+//            }
+
 
             onLocationUpdate()
             UsersLocationData.onUserLocationChanged.observe(viewLifecycleOwner, Observer {
@@ -115,7 +139,15 @@ class MapFragment : Fragment(), OnMapReadyCallback {
             })
 
             AllHelpRequestsData.onRequestsChange.observe(viewLifecycleOwner, Observer {
-                onLocationUpdate()
+
+                if (mapViewModel.filter == true) {
+                //TODO pozovi filter f-ju
+                    AllHelpRequestsData.filterRequests(mapViewModel.title,mapViewModel.category,mapViewModel.urgency,mapViewModel.current_location,mapViewModel.radius)
+                    onLocationUpdate()
+                } else {
+                    onLocationUpdate()
+                }
+
             })
 
         }
@@ -136,6 +168,7 @@ class MapFragment : Fragment(), OnMapReadyCallback {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
         return inflater.inflate(R.layout.fragment_map, container, false)
     }
 
@@ -154,7 +187,15 @@ class MapFragment : Fragment(), OnMapReadyCallback {
 
 
     private fun addHelpRequestsMarker(){
-        var helpRequest: ArrayList<HelpRequest> = AllHelpRequestsData.requests
+        var helpRequest: ArrayList<HelpRequest>
+        if(AllHelpRequestsData.filtered_requests.size>0 && mapViewModel.filter){
+            helpRequest = AllHelpRequestsData.filtered_requests
+        }else if (AllHelpRequestsData.filtered_requests.size==0 && mapViewModel.filter){
+            helpRequest = ArrayList()
+        }else{
+            helpRequest = AllHelpRequestsData.requests
+        }
+        //var helpRequest: ArrayList<HelpRequest> = AllHelpRequestsData.requests
         mHelpRequetsMarkerCollection = mClusterManager.markerManager.newCollection()
         markerHelpRequestsIdMap = HashMap<Marker, Int>()
         var loc: LatLng

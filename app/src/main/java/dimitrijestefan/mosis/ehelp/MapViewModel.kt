@@ -1,7 +1,9 @@
 package dimitrijestefan.mosis.ehelp
 
-
+import android.location.Location
 import androidx.lifecycle.ViewModel
+import com.google.android.gms.maps.model.LatLng
+import dimitrijestefan.mosis.ehelp.Data.AllHelpRequestsData
 
 import dimitrijestefan.mosis.ehelp.Models.HelpRequest
 //import dimitrijestefan.mosis.ehelp.Data.Repository
@@ -12,12 +14,22 @@ class MapViewModel : ViewModel() {
     var filter = false
     var reset = false
 
+    lateinit var current_location : LatLng
+    lateinit var title:String
+    lateinit var urgency: String
+    lateinit var category: String
+    lateinit var radius : String
+
+
 //    var help_requests = Repository.getHelpRequestList()
-    internal lateinit var filtered_requests : List<HelpRequest>
+    lateinit var filtered_requests : ArrayList<HelpRequest>
 
 
-//    fun filterRequests(title:String,urgency:String,category:String){
-//        filtered_requests =  help_requests.filter{ it.title!!.contains(title) && it.urgency==urgency && it.category==category }
+//    fun filterRequests(){
+//        for(request in AllHelpRequestsData.requests){
+//            if()
+//        }
+//       // filtered_requests =  AllHelpRequestsData.requests.filter{ it.title!!.contains(title) && it.urgency==urgency && it.category==category }
 //    }
 
 

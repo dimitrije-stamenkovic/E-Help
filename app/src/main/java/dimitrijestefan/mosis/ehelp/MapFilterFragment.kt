@@ -2,6 +2,7 @@ package dimitrijestefan.mosis.ehelp
 
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -11,6 +12,7 @@ import android.widget.SeekBar
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import dimitrijestefan.mosis.ehelp.Data.AllHelpRequestsData
 import kotlinx.android.synthetic.main.add_object_fragment.*
 import kotlinx.android.synthetic.main.add_object_fragment.spinner_category
 import kotlinx.android.synthetic.main.add_object_fragment.spinner_urgency
@@ -71,13 +73,17 @@ class MapFilterFragment : Fragment() {
 
         filterButton.setOnClickListener {
 
-            if(mapViewModel.reset== true){
-                mapViewModel.filter = false
-            }else{
-                //mapViewModel.filterRequests(edit_title2.text.toString(),spinner_urgency.selectedItem.toString(),spinner_category.selectedItem.toString())
-                mapViewModel.filter = true
-            }
+            if(mapViewModel.reset==true){
+                mapViewModel.filter =  false
+                mapViewModel.reset = false
+            }else
+                mapViewModel.filter =  true
 
+
+            mapViewModel.title = edit_title2.text.toString()
+            mapViewModel.urgency = spinner_urgency.selectedItem.toString()
+            mapViewModel.category = spinner_category.selectedItem.toString()
+            mapViewModel.radius = seekBar.progress.toString()
             this.findNavController().navigate(R.id.action_mapFilterFragment_to_mapFragment)
         }
 
@@ -86,11 +92,15 @@ class MapFilterFragment : Fragment() {
             edit_title2?.setText("")
             spinner_category.setSelection(0)
             spinner_urgency.setSelection(0)
+            AllHelpRequestsData.filtered_requests.clear()
+            Log.d("DISTANE",AllHelpRequestsData.filtered_requests.toString())
             mapViewModel.reset = true
         }
 
         textView12.setOnClickListener {
             mapViewModel.filter = false
+
+            Log.d("DISTANE",AllHelpRequestsData.filtered_requests.toString())
             this.findNavController().navigate(R.id.action_mapFilterFragment_to_mapFragment)
         }
 
