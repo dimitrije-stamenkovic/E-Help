@@ -118,7 +118,8 @@ class FindUserFragment : Fragment(), OnUserClickListener {
                         holder.name.setText(model.name)
                         holder.lastname.setText(model.lastname)
                         holder.email.setText(model.email)
-                        holder.bind(model, this@FindUserFragment, getRef(position).key)
+                        model.key=getRef(position).key!!
+                        holder.bind(model, this@FindUserFragment)
                     }
 
                 }
@@ -129,8 +130,10 @@ class FindUserFragment : Fragment(), OnUserClickListener {
     }
 
 
-    override fun onUserClick(userId: String?) {
-        var bundle = bundleOf("ReceiverId" to userId)
+    override fun onUserClick(user: User) {
+       // var bundle = bundleOf("ReceiverUser" to user)
+        var bundle:Bundle= Bundle()
+        bundle.putSerializable("ReceiverUser",user)
         this.findNavController().navigate(R.id.userProfileFragment, bundle)
     }
 

@@ -8,6 +8,7 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import dimitrijestefan.mosis.ehelp.Models.Friend
 import dimitrijestefan.mosis.ehelp.Models.FriendRequest
 import dimitrijestefan.mosis.ehelp.Models.User
 import dimitrijestefan.mosis.ehelp.R
@@ -67,15 +68,15 @@ import dimitrijestefan.mosis.ehelp.R
 
 
     public interface OnUserClickListener{
-        fun onUserClick(userId:String?)
+        fun onUserClick(user:User)
     }
 
 
     public interface OnDeleteImgClickListener{
-        fun onDeleteImgClick(userId: String?)
+        fun onDeleteImgClick(userId: Friend)
     }
     public interface OnAddImgClickListener{
-        fun onAddImgClick(userId: String?)
+        fun onAddImgClick(userSender: Friend)
     }
 
 
@@ -84,9 +85,9 @@ public class UsersViewHolder(var mview : View) : RecyclerView.ViewHolder(mview) 
     var name:TextView= mview.findViewById(R.id.userNameF)
     var lastname:TextView= mview.findViewById(R.id.userLastnameF)
     var email:TextView= mview.findViewById(R.id.userEmailF)
-    fun bind(user:User, clickListener: OnUserClickListener, userId:String?){
+    fun bind(user:User, clickListener: OnUserClickListener){
         itemView.setOnClickListener {
-            clickListener.onUserClick(userId)
+            clickListener.onUserClick(user)
         }
     }
 
@@ -105,10 +106,10 @@ public  class RequestsViewHolder(var mview:View): RecyclerView.ViewHolder(mview)
              ,addClickListener:OnAddImgClickListener )
     {
         btnDelete.setOnClickListener {
-            deleteClickListener.onDeleteImgClick(friendReq.uidSender)
+            deleteClickListener.onDeleteImgClick(friendReq.userSender)
         }
         btnAdd.setOnClickListener {
-            addClickListener.onAddImgClick(friendReq.uidSender)
+            addClickListener.onAddImgClick(friendReq.userSender)
         }
     }
 }

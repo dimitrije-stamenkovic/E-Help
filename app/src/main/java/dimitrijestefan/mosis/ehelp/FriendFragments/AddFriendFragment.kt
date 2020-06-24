@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -14,11 +13,15 @@ import com.firebase.ui.database.FirebaseRecyclerOptions
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
-import dimitrijestefan.mosis.ehelp.Adapters.*
+import dimitrijestefan.mosis.ehelp.Adapters.OnAddImgClickListener
+import dimitrijestefan.mosis.ehelp.Adapters.OnDeleteImgClickListener
+import dimitrijestefan.mosis.ehelp.Adapters.RequestsViewHolder
+import dimitrijestefan.mosis.ehelp.Data.UserData
+import dimitrijestefan.mosis.ehelp.Models.Friend
 import dimitrijestefan.mosis.ehelp.Models.FriendRequest
+import dimitrijestefan.mosis.ehelp.Models.User
 import dimitrijestefan.mosis.ehelp.R
 import kotlinx.android.synthetic.main.fragment_add_friend.*
-import kotlinx.android.synthetic.main.fragment_user_profile.*
 
 class AddFriendFragment : Fragment(), OnDeleteImgClickListener, OnAddImgClickListener {
 
@@ -28,12 +31,14 @@ class AddFriendFragment : Fragment(), OnDeleteImgClickListener, OnAddImgClickLis
     private lateinit var mAuth: FirebaseAuth
     private lateinit var RequestsFirebaseRecyclerAdapter: FirebaseRecyclerAdapter<FriendRequest, RequestsViewHolder>
     private var currenUserId: String = ""
+    private lateinit var currentUser: User
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mAuth = FirebaseAuth.getInstance()
         currenUserId = mAuth.currentUser!!.uid
+        currentUser = UserData.returnCurrentUser()
         friendsRequestsRef = FirebaseDatabase.getInstance().getReference().child("FriendsRequests")
         friendsRef = FirebaseDatabase.getInstance().getReference().child("Friends")
 
@@ -87,9 +92,10 @@ class AddFriendFragment : Fragment(), OnDeleteImgClickListener, OnAddImgClickLis
                     position: Int,
                     model: FriendRequest
                 ) {
-                    holder.name.setText(model.emailSender)
-                    holder.lastname.setText(model.emailSender)
-                    holder.email.setText(model.emailSender)
+                    holder.name.setText(model.userSender.name)
+                    holder.lastname.setText(model.userSender.lastname)
+                    holder.email.setText(model.userSender.email)
+                    model.userSender.userId = getRef(position).key!!
                     holder.bind(model, this@AddFriendFragment, this@AddFriendFragment)
                 }
 
@@ -100,43 +106,53 @@ class AddFriendFragment : Fragment(), OnDeleteImgClickListener, OnAddImgClickLis
     }
 
 
-    override fun onDeleteImgClick(userId: String?) {
-      //  Toast.makeText(this.activity, userId, Toast.LENGTH_SHORT).show()
-        DeleteFriendRequest(userId?:"",currenUserId)
+    override fun onDeleteImgClick(userSender: Friend) {
+        //  Toast.makeText(this.activity, userId, Toast.LENGTH_SHORT).show()
+        DeleteFriendRequest(userSender)
     }
 
-    override fun onAddImgClick(userId: String?) {
-       // Toast.makeText(this.activity, userId, Toast.LENGTH_SHORT).show()
-        ConfirmFriendRequest(currenUserId,userId?:"")
+    override fun onAddImgClick(userSender: Friend) {
+        // Toast.makeText(this.activity, userId, Toast.LENGTH_SHORT).show()
+        ConfirmFriendRequest(userSender)
     }
 
 
-    private fun DeleteFriendRequest(senderId:String,receiverId:String) {
-        friendsRequestsRef.child(senderId).child(receiverId)
+    private fun DeleteFriendRequest(sender: Friend) {
+        friendsRequestsRef.child(sender.userId).child(currentUser.key)
             .removeValue()
             .addOnCompleteListener { task ->
-
                 if (task.isSuccessful) {
-                    friendsRequestsRef.child(receiverId).child(senderId)
+                    friendsRequestsRef.child(currentUser.key).child(sender.userId)
                         .removeValue()
 
                 }
             }
     }
 
-    private fun ConfirmFriendRequest(senderId: String,receiverId: String) {
-        friendsRef.child(senderId).child(receiverId).child("date").setValue(1)
+    private fun ConfirmFriendRequest(receiverFriend: Friend) {
+        var senderFriend: Friend = Friend(
+            currentUser.name,
+            currentUser.lastname,
+            currentUser.email,
+            currentUser.photoUrl,
+            currentUser.username
+        )
+        senderFriend.userId = currentUser.key
+        friendsRef.child(senderFriend.userId).child(receiverFriend.userId).setValue(receiverFriend)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
-                    friendsRef.child(receiverId).child(senderId).child("date").setValue(1)
+                    friendsRef.child(receiverFriend.userId).child(senderFriend.userId)
+                        .setValue(senderFriend)
                         .addOnCompleteListener { task ->
                             if (task.isSuccessful) {
-                                friendsRequestsRef.child(senderId).child(receiverId)
+                                friendsRequestsRef.child(senderFriend.userId)
+                                    .child(receiverFriend.userId)
                                     .removeValue()
                                     .addOnCompleteListener { task ->
 
                                         if (task.isSuccessful) {
-                                            friendsRequestsRef.child(receiverId).child(senderId)
+                                            friendsRequestsRef.child(receiverFriend.userId)
+                                                .child(senderFriend.userId)
                                                 .removeValue()
                                         }
                                     }

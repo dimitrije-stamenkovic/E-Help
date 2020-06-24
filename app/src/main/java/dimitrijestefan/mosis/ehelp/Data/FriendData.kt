@@ -12,7 +12,8 @@ object FriendData {
     private var currentUser: FirebaseUser?
     private lateinit var friendsRef: DatabaseReference
     private lateinit var mAuth: FirebaseAuth
-    private lateinit var currentUserId:String
+     lateinit var currentUserId:String
+    private set
     private  var childRef:String="Friends"
      lateinit var friendsList:ArrayList<Friend>
     private set
@@ -32,7 +33,6 @@ object FriendData {
         friendsListIndexMapping=HashMap<String,Int>()
         onFriendsListChanged=MutableLiveData<ArrayList<Friend>>()
 
-
         friendsChildListener=object :ChildEventListener{
             override fun onCancelled(p0: DatabaseError) {
 
@@ -47,8 +47,9 @@ object FriendData {
             }
 
             override fun onChildAdded(p0: DataSnapshot, p1: String?) {
-                Log.e("On child Added friends","Nesto1")
+
               var key:String? =p0.key
+                Log.e("On child Add friends",key)
                 if(key!=null){
                     var newFriend:Friend?=p0.getValue(Friend::class.java)
                     if(newFriend!=null)
@@ -70,6 +71,7 @@ object FriendData {
                         var index:Int= friendsListIndexMapping.get(key)!!
                         friendsList.removeAt(index)
                         recreateKeyIndexMappingFriendsList()
+                        onFriendsListChanged.value= friendsList
 
                     }
                 }
@@ -87,6 +89,13 @@ object FriendData {
         for ((index,value) in friendsList.withIndex()){
             friendsListIndexMapping.put(value.userId,index)
         }
+    }
+    fun changeUserReference(uidUser:String){
+        currentUserId=uidUser
+        friendsList=ArrayList<Friend>()
+        friendsListIndexMapping=HashMap<String,Int>()
+        friendsRef= FirebaseDatabase.getInstance().getReference().child(childRef).child(uidUser)
+        friendsRef.addChildEventListener(friendsChildListener)
     }
 
 }

@@ -15,7 +15,7 @@ import dimitrijestefan.mosis.ehelp.Data.AllHelpRequestsData
 import dimitrijestefan.mosis.ehelp.Data.MyHelpRequestsData
 import dimitrijestefan.mosis.ehelp.Data.OnGetDataListener
 import dimitrijestefan.mosis.ehelp.Data.UserData
-import dimitrijestefan.mosis.ehelp.Data.UserData.fetchCurrenUser
+
 import dimitrijestefan.mosis.ehelp.Models.User
 
 
@@ -68,7 +68,7 @@ class AddObjectFragment : Fragment() {
 
 
 
-        Toast.makeText(requireContext(),UserData.getCurrentUser().toString(),Toast.LENGTH_SHORT).show()
+      //  Toast.makeText(requireContext(),UserData.getCurrentUser().toString(),Toast.LENGTH_SHORT).show()
 
         val urgency = resources.getStringArray(R.array.Urgency)
         val urgency_adapter = ArrayAdapter(requireContext(),android.R.layout.simple_spinner_item,urgency)

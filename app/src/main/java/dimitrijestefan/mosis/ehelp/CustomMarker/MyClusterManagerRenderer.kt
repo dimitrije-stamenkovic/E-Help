@@ -46,17 +46,15 @@ public class MyClusterManagerRenderer : DefaultClusterRenderer<ClusterMarker> {
 
     }
 
-
     override fun onBeforeClusterItemRendered(item: ClusterMarker, markerOptions: MarkerOptions) {
         var icon: Bitmap = iconGenerator.makeIcon()
         markerOptions.icon(BitmapDescriptorFactory.fromBitmap(icon)).title(item.title)
     }
 
-
     override fun onClusterItemRendered(clusterItem: ClusterMarker, marker: Marker) {
         super.onClusterItemRendered(clusterItem, marker)
         Glide.with(this.context!!)
-            .load("https://firebasestorage.googleapis.com/v0/b/ehelp-277212.appspot.com/o/usersPhoto%2FAoz8pqFKVbPJqYjPzhSYCQBbsHX2%2F3d7ad12e-1951-47f3-bdd8-7a137cc045ee?alt=media&token=94abd7b3-dbce-43f1-a35a-d3338286a11f")
+            .load(clusterItem.getUrl())
             .diskCacheStrategy(DiskCacheStrategy.ALL)
             .centerCrop()
             .into(object : SimpleTarget<Drawable>() {
@@ -71,7 +69,6 @@ public class MyClusterManagerRenderer : DefaultClusterRenderer<ClusterMarker> {
 
             })
     }
-
 
     override fun shouldRenderAsCluster(cluster: Cluster<ClusterMarker>): Boolean {
         return false

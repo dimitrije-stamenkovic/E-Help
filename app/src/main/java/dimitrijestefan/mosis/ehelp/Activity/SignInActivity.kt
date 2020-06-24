@@ -8,6 +8,7 @@ import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.google.firebase.auth.FirebaseAuthInvalidUserException
+import dimitrijestefan.mosis.ehelp.Data.UserData
 import dimitrijestefan.mosis.ehelp.MainActivity
 import dimitrijestefan.mosis.ehelp.R
 import kotlinx.android.synthetic.main.activity_sign_in.*
@@ -63,6 +64,7 @@ class SignInActivity : AppCompatActivity() {
                         progressDialog.dismiss()
                         val intent = Intent(this@SignInActivity, MainActivity::class.java)
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
+                   //     UserData.changeUserReference(mAuth.currentUser?.uid!!)
                         startActivity(intent)
                         finish()
                     }

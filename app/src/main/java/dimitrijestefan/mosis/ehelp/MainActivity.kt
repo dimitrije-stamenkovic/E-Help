@@ -9,17 +9,18 @@ import androidx.navigation.findNavController
 import dimitrijestefan.mosis.ehelp.Service.LocationService
 
 
-import kotlinx.android.synthetic.main.activity_main.*
 import android.app.ActivityManager
 import android.content.Context
 import android.util.Log
-import android.widget.Toast
+import com.google.firebase.auth.FirebaseAuth
 import dimitrijestefan.mosis.ehelp.Data.FriendData
 import dimitrijestefan.mosis.ehelp.Data.UserData
+import dimitrijestefan.mosis.ehelp.Data.UsersLocationData
 
 
 class MainActivity : AppCompatActivity() {
 
+    private lateinit var mAuth:FirebaseAuth
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -27,17 +28,22 @@ class MainActivity : AppCompatActivity() {
         val bottomNavigationView:BottomNavigationView = findViewById(R.id.bottomnavbar)
         val navController = findNavController(R.id.nav_host_fragment)
         NavigationUI.setupWithNavController(bottomNavigationView,navController)
-        if(FriendData.friendsList!=null)
-        {
-            Log.d("Malo","rrr")
-        }
-
-
+        mAuth=FirebaseAuth.getInstance()
+        var currentUserId=mAuth.currentUser?.uid!!
         startLocationService()
-        UserData.fetchCurrenUser()
 
+        Log.e("user fire",mAuth.currentUser?.email)
+
+        if(UserData!=null&& UserData.userId!=currentUserId)
+        UserData.changeUserReference(currentUserId)
+        if(FriendData!=null&&FriendData.currentUserId!=currentUserId)
+        FriendData.changeUserReference(currentUserId)
+        if(UsersLocationData!=null&&UsersLocationData.currentUserId!=currentUserId)
+        UsersLocationData.changeUserReference(currentUserId)
 
     }
+
+
 
      fun startLocationService() {
         if (!isLocationServiceRunning()) {

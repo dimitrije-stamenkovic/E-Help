@@ -3,6 +3,8 @@ package dimitrijestefan.mosis.ehelp.Data
 import android.util.Log
 import androidx.annotation.NonNull
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Observer
+import androidx.lifecycle.observe
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.*
@@ -19,13 +21,12 @@ object UsersLocationData {
     private lateinit var usersLocationIndexMapping:HashMap<String,Int>
      lateinit var friendsLocation:ArrayList<GeoPoint>
     private set
-    private lateinit var friendsIndexMapping:HashMap<String,Int>
     private lateinit var childEventListener:ChildEventListener
     private lateinit var friendsLocationIndexMapping:HashMap<String,Int>
     lateinit var onUserLocationChanged: MutableLiveData<ArrayList<GeoPoint>>
     lateinit var onFriendLocationChanged:MutableLiveData<ArrayList<GeoPoint>>
-    private  lateinit var currentUserId:String
-
+     lateinit var currentUserId:String
+    private set
         //  private lateinit var friendsLocation:ArrayList<>
     private  var child:String="UsersLocations"
 
@@ -37,7 +38,6 @@ object UsersLocationData {
         currentUserId= currentUser!!.uid
         usersLocation= ArrayList()
         usersLocationIndexMapping=HashMap<String,Int>()
-        friendsIndexMapping=HashMap<String,Int>()
         friendsLocationIndexMapping=HashMap<String,Int>()
         friendsLocation=ArrayList<GeoPoint>()
         onUserLocationChanged= MutableLiveData()
@@ -119,7 +119,7 @@ object UsersLocationData {
             }
 
             override fun onChildAdded(p0: DataSnapshot, p1: String?) {
-                Log.e("On child Added users locations","Nesto1")
+
                 var key: String? = p0.key ?: null
                 if (key != null) {
                     var userLocation: GeoPoint =
@@ -129,7 +129,9 @@ object UsersLocationData {
                         usersLocation != null -> {
                             if (!key.equals(currentUserId)) {
                                 when {
+
                                     FriendData.friendsListIndexMapping.containsKey(key) && !usersLocationIndexMapping.containsKey(key) -> {
+                                        Log.e("Add loc frieend",key.toString())
                                         if (!friendsLocationIndexMapping.containsKey(key)) {
                                             friendsLocation.add(userLocation)
                                             friendsLocationIndexMapping.put(key, friendsLocation.size - 1)
@@ -151,6 +153,7 @@ object UsersLocationData {
 //                                    }
                                     else -> {
                                         if (!usersLocationIndexMapping.containsKey(key)) {
+                                            Log.e("Add loc users",key.toString())
                                             usersLocation.add(userLocation)
                                             usersLocationIndexMapping.put(key, usersLocation.size - 1)
                                             onUserLocationChanged.value = usersLocation
@@ -191,6 +194,14 @@ object UsersLocationData {
         }
 
         usersLocationRef.addChildEventListener(childEventListener)
+        FriendData.onFriendsListChanged.observeForever(Observer {
+            usersLocation= ArrayList()
+            usersLocationIndexMapping=HashMap<String,Int>()
+            friendsLocationIndexMapping=HashMap<String,Int>()
+            friendsLocation=ArrayList<GeoPoint>()
+            usersLocationRef.addChildEventListener(childEventListener)
+
+        })
     }
 
 
@@ -205,6 +216,17 @@ object UsersLocationData {
         for((index, value) in friendsLocation.withIndex()){
             friendsLocationIndexMapping.put(value.userId,index)
         }
+    }
+
+    fun changeUserReference(uidUser:String){
+        currentUserId =uidUser
+        usersLocation= ArrayList()
+        usersLocationIndexMapping=HashMap<String,Int>()
+        friendsLocationIndexMapping=HashMap<String,Int>()
+        friendsLocation=ArrayList<GeoPoint>()
+        usersLocationRef.addChildEventListener(childEventListener)
+        //FriendData.friendsRef = FirebaseDatabase.getInstance().getReference().child(FriendData.childRef).child(uidUser)
+       // FriendData.friendsRef.addChildEventListener(FriendData.friendsChildListener)
     }
 
 

@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
+import android.service.autofill.UserData
 import android.text.TextUtils
 import android.util.Log
 import android.widget.Toast
@@ -140,6 +141,7 @@ class SignUpActivity : AppCompatActivity() {
                 Toast.makeText(this, "Uspesno ste kreirali nalog", Toast.LENGTH_LONG).show()
                 val intent = Intent(this@SignUpActivity, MainActivity::class.java)
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
+             //   dimitrijestefan.mosis.ehelp.Data.UserData.changeUserReference(currentUserId)
                 startActivity(intent)
                 finish()
             } else {

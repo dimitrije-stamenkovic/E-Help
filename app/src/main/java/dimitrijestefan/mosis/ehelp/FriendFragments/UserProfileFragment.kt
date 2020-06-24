@@ -8,7 +8,10 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
+import dimitrijestefan.mosis.ehelp.Data.UserData
+import dimitrijestefan.mosis.ehelp.Models.Friend
 import dimitrijestefan.mosis.ehelp.Models.FriendRequest
+import dimitrijestefan.mosis.ehelp.Models.User
 import dimitrijestefan.mosis.ehelp.R
 import kotlinx.android.synthetic.main.fragment_user_profile.*
 
@@ -17,22 +20,27 @@ class UserProfileFragment : Fragment() {
     private lateinit var usersRef: DatabaseReference
     private lateinit var friendsRequestsRef: DatabaseReference
     private lateinit var friendsRef: DatabaseReference
-    private var senderId: String = ""
-    private var receiverId: String = ""
-    private lateinit var mAuth: FirebaseAuth
+   // private var senderUser.key: String = ""
+  //  private var receiverUser.key: String = ""
+ //   private lateinit var mAuth: FirebaseAuth
     private lateinit var CurrentState: String
+    private lateinit var receiverUser:User
+    private lateinit var senderUser:User
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        mAuth = FirebaseAuth.getInstance()
-        receiverId = arguments?.getString("ReceiverId") ?: ""
-        senderId = mAuth.currentUser!!.uid
+      //  mAuth = FirebaseAuth.getInstance()
+        var bundle: Bundle? =arguments
+        receiverUser=bundle?.getSerializable("ReceiverUser") as User
+       // receiverUser.key=receiverUser.key
+        senderUser=UserData.returnCurrentUser()
+       // senderUser.key = mAuth.currentUser!!.uid
         usersRef = FirebaseDatabase.getInstance().getReference().child("Users")
         friendsRequestsRef = FirebaseDatabase.getInstance().getReference().child("FriendsRequests")
         friendsRef = FirebaseDatabase.getInstance().getReference().child("Friends")
         CurrentState = "not_friends"
-        usersRef.child(receiverId).addValueEventListener(object : ValueEventListener {
+        usersRef.child(receiverUser.key).addValueEventListener(object : ValueEventListener {
 
             override fun onCancelled(p0: DatabaseError) {
                 TODO("Not yet implemented")
@@ -72,7 +80,7 @@ class UserProfileFragment : Fragment() {
 
 
     private fun ValidateRequest() {
-        if (!senderId.equals(receiverId)) {
+        if (!senderUser.key.equals(receiverUser.key)) {
             btnSendRequest.setOnClickListener {
                 btnSendRequest.isEnabled = false
                 if (CurrentState.equals("not_friends")) {
@@ -97,15 +105,17 @@ class UserProfileFragment : Fragment() {
     }
 
     private fun SendFriendRequest() {
-        var email: String = mAuth.currentUser?.email ?: ""
-        var frRequest: FriendRequest = FriendRequest(senderId, email, email, email, "received")
-
-        friendsRequestsRef.child(senderId).child(receiverId)
+      //  var email: String = mAuth.currentUser?.email ?: ""
+      //  var frRequest: FriendRequest = FriendRequest(senderUser.key, email, email, email, "received")
+      //  var frRequest:FriendRequest= FriendRequest(senderUser.key,senderUser.name, senderUser.lastname,senderUser.email,"received")
+        var friendSender:Friend=Friend(senderUser.name,senderUser.lastname,senderUser.email,senderUser.photoUrl,senderUser.username)
+        var frRequest:FriendRequest= FriendRequest(friendSender,"received")
+        friendsRequestsRef.child(senderUser.key).child(receiverUser.key)
             .child("request_type").setValue("sent")
             .addOnCompleteListener { task ->
 
                 if (task.isSuccessful) {
-                    friendsRequestsRef.child(receiverId).child(senderId)
+                    friendsRequestsRef.child(receiverUser.key).child(senderUser.key)
                         //.child("request_type").setValue("received")
                         .setValue(frRequest)
                         .addOnCompleteListener { task ->
@@ -121,12 +131,12 @@ class UserProfileFragment : Fragment() {
     }
 
     private fun CancelFriendRequest() {
-        friendsRequestsRef.child(senderId).child(receiverId)
+        friendsRequestsRef.child(senderUser.key).child(receiverUser.key)
             .removeValue()
             .addOnCompleteListener { task ->
 
                 if (task.isSuccessful) {
-                    friendsRequestsRef.child(receiverId).child(senderId)
+                    friendsRequestsRef.child(receiverUser.key).child(senderUser.key)
                         .removeValue()
                         .addOnCompleteListener { task ->
                             if (task.isSuccessful) {
@@ -144,19 +154,21 @@ class UserProfileFragment : Fragment() {
     }
 
     private fun AcceptFriendRequest() {
+        var friendSender:Friend= Friend(senderUser.name,senderUser.lastname,senderUser.email,senderUser.photoUrl,senderUser.username)
+        var friendReceiver:Friend= Friend(receiverUser.name,receiverUser.lastname,receiverUser.email,receiverUser.photoUrl,receiverUser.username)
 
-        friendsRef.child(senderId).child(receiverId).child("date").setValue(1)
+        friendsRef.child(senderUser.key).child(receiverUser.key).setValue(friendReceiver)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
-                    friendsRef.child(receiverId).child(senderId).child("date").setValue(1)
+                    friendsRef.child(receiverUser.key).child(senderUser.key).setValue(friendSender)
                         .addOnCompleteListener { task ->
                             if (task.isSuccessful) {
-                                friendsRequestsRef.child(senderId).child(receiverId)
+                                friendsRequestsRef.child(senderUser.key).child(receiverUser.key)
                                     .removeValue()
                                     .addOnCompleteListener { task ->
 
                                         if (task.isSuccessful) {
-                                            friendsRequestsRef.child(receiverId).child(senderId)
+                                            friendsRequestsRef.child(receiverUser.key).child(senderUser.key)
                                                 .removeValue()
                                                 .addOnCompleteListener { task ->
                                                     if (task.isSuccessful) {
@@ -177,12 +189,12 @@ class UserProfileFragment : Fragment() {
     }
 
     private fun Unfriend() {
-        friendsRef.child(senderId).child(receiverId)
+        friendsRef.child(senderUser.key).child(receiverUser.key)
             .removeValue()
             .addOnCompleteListener { task ->
 
                 if (task.isSuccessful) {
-                    friendsRef.child(receiverId).child(senderId)
+                    friendsRef.child(receiverUser.key).child(senderUser.key)
                         .removeValue()
                         .addOnCompleteListener { task ->
                             if (task.isSuccessful) {
@@ -199,16 +211,16 @@ class UserProfileFragment : Fragment() {
 
 
     private fun MaintenanceOfButtons() {
-        friendsRequestsRef.child(senderId)
+        friendsRequestsRef.child(senderUser.key)
             .addListenerForSingleValueEvent(object : ValueEventListener {
                 override fun onCancelled(dataSnap: DatabaseError) {
                     TODO("Not yet implemented")
                 }
 
                 override fun onDataChange(dataSnap: DataSnapshot) {
-                    if (dataSnap.hasChild(receiverId)) {
+                    if (dataSnap.hasChild(receiverUser.key)) {
                         var request_type: String =
-                            dataSnap.child(receiverId).child("request_type").getValue().toString()
+                            dataSnap.child(receiverUser.key).child("request_type").getValue().toString()
                         if (request_type.equals("sent")) {
                             CurrentState = "request_sent"
                             btnSendRequest.setText("Cancel friend request")
@@ -225,14 +237,14 @@ class UserProfileFragment : Fragment() {
                             }
                         }
                     } else {
-                        friendsRef.child(senderId)
+                        friendsRef.child(senderUser.key)
                             .addListenerForSingleValueEvent(object : ValueEventListener {
                                 override fun onCancelled(p0: DatabaseError) {
                                     TODO("Not yet implemented")
                                 }
 
                                 override fun onDataChange(dataSnap: DataSnapshot) {
-                                    if (dataSnap.hasChild(receiverId)) {
+                                    if (dataSnap.hasChild(receiverUser.key)) {
                                         CurrentState = "friends"
                                         btnSendRequest.setText("Unfriend")
                                         btnSendRequest.setBackgroundResource(R.drawable.btn_red_cancel)

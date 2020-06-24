@@ -1,72 +1,54 @@
 package dimitrijestefan.mosis.ehelp.Data
 
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.*
 import dimitrijestefan.mosis.ehelp.Models.User
-import dimitrijestefan.mosis.ehelp.Models.UserLocation
 
 object UserData {
-    private val usersLocationList: ArrayList<UserLocation>
-    private val usersList: ArrayList<User>
-    private var usersIndexMapping = HashMap<String, Int>()
-    private var mCurrentUser: FirebaseUser?
-    val current_uid: String
-    private var database: DatabaseReference
-    var currentUserProfile = User()
 
+    private lateinit var currentUser:User
+    lateinit var userId:String
+    private set
+    private val database:DatabaseReference=FirebaseDatabase.getInstance().getReference()
+    private lateinit var usersRef:DatabaseReference
+    private lateinit var singleValueListener:ValueEventListener
+    private lateinit var mAuth: FirebaseAuth
 
-    init {
-        mCurrentUser = FirebaseAuth.getInstance().currentUser
-        current_uid = mCurrentUser!!.uid
-        database = FirebaseDatabase.getInstance().getReference()
-        usersList = ArrayList()
-        usersLocationList = ArrayList()
-
-
-    }
-
-
-    fun recreateKeyIndexMapping() {
-        usersIndexMapping.clear()
-//        for ( i in 0..(requests.size)){
-//            myHelpRequestsIndexMapping.put(requests.get(i).key,i)
-//        }
-
-        for (user in usersList.indices) {
-            usersIndexMapping.put(usersList.get(user).key, user)
-        }
-    }
-
-
-    fun fetchCurrenUser() {
-
-        var current_user_ref = database.child("Users").child(current_uid)
-
-
-        current_user_ref.addListenerForSingleValueEvent(object : ValueEventListener {
-            override fun onDataChange(p0: DataSnapshot) {
-
-
-                currentUserProfile.email = p0.child("email").value.toString()
-                currentUserProfile.number = p0.child("number").value.toString()
-                currentUserProfile.username = p0.child("username").value.toString()
-                currentUserProfile.name = p0.child("name").value.toString()
-                currentUserProfile.lastname = p0.child("lastname").value.toString()
-                currentUserProfile.photoUrl = p0.child("photoUrl").value.toString()
-                currentUserProfile.key = p0.child("key").value.toString()
-
-            }
-
+    init{
+        mAuth=FirebaseAuth.getInstance()
+        userId = mAuth.currentUser?.uid!!
+        usersRef = database.child("Users").child(userId)
+        currentUser = User()
+        singleValueListener = object : ValueEventListener {
             override fun onCancelled(p0: DatabaseError) {
-
+                TODO("Not yet implemented")
             }
-        })
+            override fun onDataChange(p0: DataSnapshot) {
+                currentUser.email = p0.child("email").value.toString()
+                currentUser.number = p0.child("number").value.toString()
+                currentUser.username = p0.child("username").value.toString()
+                currentUser.name = p0.child("name").value.toString()
+                currentUser.lastname = p0.child("lastname").value.toString()
+                currentUser.photoUrl = p0.child("photoUrl").value.toString()
+                currentUser.key = p0.key!!
+            }
 
+        }
+        usersRef.addValueEventListener(singleValueListener)
     }
 
-    fun getCurrentUser() = currentUserProfile
+    fun returnCurrentUser()= currentUser
 
-
+    fun changeUserReference(uidUser:String){
+        userId=uidUser
+        usersRef= database.child("Users").child(uidUser)
+        usersRef.addValueEventListener(singleValueListener)
+        currentUser= User()
+    }
 
 }
+
+
+
+
+
