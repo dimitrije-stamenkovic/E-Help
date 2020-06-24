@@ -50,6 +50,23 @@ class ProfileFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         mDrawerToggle=ActionBarDrawerToggle(this.requireActivity(),drawer_layout,rightMenuToolbar,R.string.open, R.string.close)
         mDrawerToggle.isDrawerIndicatorEnabled = false
+
+        switch1.setOnCheckedChangeListener { _ , isChecked ->
+
+            val serviceIntent = Intent(requireContext(), LocationService::class.java)
+
+            if(isChecked){
+//
+                requireActivity().startService(serviceIntent)
+
+            }else
+            {
+//
+                requireActivity().stopService(serviceIntent)
+
+            }
+        }
+
         mDrawerToggle!!.syncState()
         btnSignOut.setOnClickListener {
          var mAuth:FirebaseAuth=FirebaseAuth.getInstance()
