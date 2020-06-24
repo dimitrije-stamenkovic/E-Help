@@ -18,6 +18,7 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
+import com.google.firebase.auth.FirebaseAuth
 import com.google.maps.android.clustering.ClusterManager
 import com.google.maps.android.collections.MarkerManager
 import dimitrijestefan.mosis.ehelp.CustomMarker.ClusterMarker
@@ -163,7 +164,13 @@ class MapFragment : Fragment(), OnMapReadyCallback {
             loc = LatLng(value.latitude!!.toDouble(), value.longitude!!.toDouble())
             markerOptions = MarkerOptions()
             markerOptions.position(loc)
-            markerOptions.icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_action_map))
+
+            if(value.userId == FirebaseAuth.getInstance().currentUser!!.uid){
+                markerOptions.icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_action_settings))
+            }else{
+                markerOptions.icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_action_map))
+            }
+
             //usermarker = googleMap.addMarker(markerOptions)
             requestmarker = mHelpRequetsMarkerCollection.addMarker(markerOptions)
             //  usermarker.tag = OnUserMarkerClickListener
