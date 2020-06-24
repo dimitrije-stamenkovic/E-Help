@@ -24,11 +24,14 @@ import dimitrijestefan.mosis.ehelp.CustomMarker.ClusterMarker
 import dimitrijestefan.mosis.ehelp.CustomMarker.MyClusterManagerRenderer
 import dimitrijestefan.mosis.ehelp.Data.AllHelpRequestsData
 import dimitrijestefan.mosis.ehelp.Data.FriendData
+import dimitrijestefan.mosis.ehelp.Data.MyHelpRequestsData
 import dimitrijestefan.mosis.ehelp.Data.UsersLocationData
 import dimitrijestefan.mosis.ehelp.Models.Friend
 import dimitrijestefan.mosis.ehelp.Models.GeoPoint
+import dimitrijestefan.mosis.ehelp.Models.HelpRequest
 import dimitrijestefan.mosis.ehelp.Models.User
 import kotlinx.android.synthetic.main.fragment_map.*
+import kotlinx.android.synthetic.main.fragment_rank_list.*
 
 class MapFragment : Fragment(), OnMapReadyCallback {
 
@@ -39,6 +42,8 @@ class MapFragment : Fragment(), OnMapReadyCallback {
     private lateinit var mClusteManagerRenderer: MyClusterManagerRenderer
     private lateinit var mClusterManager: ClusterManager<ClusterMarker>
     private lateinit var mUsersMarkerCollection: MarkerManager.Collection
+    private lateinit var mHelpRequetsMarkerCollection : MarkerManager.Collection
+    private lateinit var markerHelpRequestsIdMap:HashMap<Marker,Int>
     private var mClusterMarkers: ArrayList<ClusterMarker> = ArrayList<ClusterMarker>()
     private lateinit var markerUsersIdMap: HashMap<Marker, Int>
     private lateinit var markerFriendsIdMap: HashMap<ClusterMarker, Int>
@@ -108,6 +113,10 @@ class MapFragment : Fragment(), OnMapReadyCallback {
                 onLocationUpdate()
             })
 
+            AllHelpRequestsData.onRequestsChange.observe(viewLifecycleOwner, Observer {
+                onLocationUpdate()
+            })
+
         }
 
     }
@@ -116,8 +125,10 @@ class MapFragment : Fragment(), OnMapReadyCallback {
         googleMap.clear()
         addUsersMarkers()
         addFriendsMarkers()
+        addHelpRequestsMarker()
         googleMap.setOnMarkerClickListener(mClusterManager)
     }
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -140,6 +151,33 @@ class MapFragment : Fragment(), OnMapReadyCallback {
 
     }
 
+
+    private fun addHelpRequestsMarker(){
+        var helpRequest: ArrayList<HelpRequest> = AllHelpRequestsData.requests
+        mHelpRequetsMarkerCollection = mClusterManager.markerManager.newCollection()
+        markerHelpRequestsIdMap = HashMap<Marker, Int>()
+        var loc: LatLng
+        var markerOptions: MarkerOptions
+        var requestmarker: Marker
+        for ((index, value) in helpRequest.withIndex()) {
+            loc = LatLng(value.latitude!!.toDouble(), value.longitude!!.toDouble())
+            markerOptions = MarkerOptions()
+            markerOptions.position(loc)
+            markerOptions.icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_action_map))
+            //usermarker = googleMap.addMarker(markerOptions)
+            requestmarker = mHelpRequetsMarkerCollection.addMarker(markerOptions)
+            //  usermarker.tag = OnUserMarkerClickListener
+            markerHelpRequestsIdMap.put(requestmarker, index)
+        }
+        mHelpRequetsMarkerCollection.setOnMarkerClickListener(object : GoogleMap.OnMarkerClickListener {
+            override fun onMarkerClick(p0: Marker?): Boolean {
+                Toast.makeText(context, "Kliknuto na helpRequest", Toast.LENGTH_LONG).show()
+                return true
+            }
+
+        })
+
+    }
 
     private fun addUsersMarkers() {
         var users: ArrayList<GeoPoint> = UsersLocationData.usersLocation
