@@ -53,6 +53,7 @@
     <string name="txtSignUp">Sign up</string>
     <string name="txtAddPhoto">Add photo</string>
     <string name="txtCreateAcc">Create an Account</string>
+    <string name="points">Points</string>
 
     <string-array name="Urgency">
         <item>Urgently</item>

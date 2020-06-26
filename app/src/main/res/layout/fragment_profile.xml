@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -20,12 +21,149 @@
             >
 
         </androidx.appcompat.widget.Toolbar>
-        <TextView
+
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="@string/hello_blank_fragment2" />
+            >
 
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/imageViewProfile"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toTopOf="@+id/guiHor1"
+                app:layout_constraintEnd_toStartOf="@+id/guiProfileVer2"
+                app:layout_constraintStart_toStartOf="@+id/guiProfileVer1"
+                app:layout_constraintTop_toTopOf="parent">
 
+            </de.hdodenhof.circleimageview.CircleImageView>
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guiHor1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent="0.35" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guiProfileVer1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.1" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guiProfileVer2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.9" />
+
+            <TextView
+                android:id="@+id/textView20"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/hintName"
+                app:layout_constraintStart_toStartOf="@+id/guiProfileVer1"
+                app:layout_constraintTop_toTopOf="@+id/guiHor1" />
+
+            <TextView
+                android:id="@+id/textView22"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/hintLastname"
+                app:layout_constraintEnd_toStartOf="@+id/guiProfileVer2"
+                app:layout_constraintTop_toTopOf="@+id/guiHor1" />
+
+            <TextView
+                android:id="@+id/textView23"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="@string/hintUsername"
+                app:layout_constraintStart_toStartOf="@+id/guiProfileVer1"
+                app:layout_constraintTop_toTopOf="@+id/guiProfileHor2" />
+
+            <TextView
+                android:id="@+id/textView24"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/hintNumber"
+                app:layout_constraintEnd_toStartOf="@+id/guiProfileVer2"
+                app:layout_constraintTop_toTopOf="@+id/guiProfileHor2" />
+
+            <TextView
+                android:id="@+id/textView25"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/points"
+                app:layout_constraintEnd_toStartOf="@+id/guiProfileVer2"
+                app:layout_constraintStart_toStartOf="@+id/guiProfileVer1"
+                app:layout_constraintTop_toTopOf="@+id/guiProfileHor3" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guiProfileHor2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent="0.65" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guiProfileHor3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+               app:layout_constraintGuide_percent="0.85
+"/>
+
+            <TextView
+                android:id="@+id/txtProfileName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TextView"
+                app:layout_constraintBottom_toTopOf="@+id/guiProfileHor2"
+                app:layout_constraintStart_toStartOf="@+id/guiProfileVer1"
+                app:layout_constraintTop_toBottomOf="@+id/textView20" />
+
+            <TextView
+                android:id="@+id/txtProfileLastname"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TextView"
+                app:layout_constraintBottom_toTopOf="@+id/guiProfileHor2"
+                app:layout_constraintEnd_toStartOf="@+id/guiProfileVer2"
+                app:layout_constraintTop_toBottomOf="@+id/textView22" />
+
+            <TextView
+                android:id="@+id/txtProfileUsername"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TextView"
+                app:layout_constraintBottom_toTopOf="@+id/guiProfileHor3"
+                app:layout_constraintStart_toStartOf="@+id/guiProfileVer1"
+                app:layout_constraintTop_toBottomOf="@+id/textView23" />
+
+            <TextView
+                android:id="@+id/txtProfileNumber"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TextView"
+                app:layout_constraintBottom_toTopOf="@+id/guiProfileHor3"
+                app:layout_constraintEnd_toStartOf="@+id/guiProfileVer2"
+                app:layout_constraintTop_toBottomOf="@+id/textView24"
+                app:layout_constraintVertical_bias="0.509" />
+
+            <TextView
+                android:id="@+id/txtProfilePoints"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TextView"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/guiProfileVer2"
+                app:layout_constraintStart_toStartOf="@+id/guiProfileVer1"
+                app:layout_constraintTop_toBottomOf="@+id/textView25" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </LinearLayout>
 
     <LinearLayout

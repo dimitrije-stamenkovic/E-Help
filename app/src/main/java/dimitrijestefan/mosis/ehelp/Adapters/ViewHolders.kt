@@ -113,3 +113,9 @@ public  class RequestsViewHolder(var mview:View): RecyclerView.ViewHolder(mview)
         }
     }
 }
+
+public class RankViewHolder(var mview: View):RecyclerView.ViewHolder(mview){
+    var rankNumber:TextView= mview.findViewById(R.id.txtRankNumber)
+    var rankUsername:TextView=mview.findViewById(R.id.txtRankUsername)
+    var rankPoints:TextView=mview.findViewById(R.id.txtRankPoints)
+}

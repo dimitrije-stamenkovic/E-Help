@@ -43,13 +43,13 @@ class LocationService : Service() {
         }
 
         override fun onLocationChanged(location: Location) {
-            Log.e(TAG, "onLocationChanged: $location")
+        //    Log.e(TAG, "onLocationChanged: $location")
             var geo_point = GeoPoint(location.latitude, location.longitude)
             try {
                 database.setValue(geo_point)
                     .addOnCompleteListener(OnCompleteListener() {
-                        if (it.isSuccessful)
-                            Log.d(TAG, "onComplete: inserted user location into database")
+                      //  if (it.isSuccessful)
+                       //     Log.d(TAG, "onComplete: inserted user location into database")
                     })
             } catch (e: NullPointerException) {
                 Log.e(TAG, e.message)
