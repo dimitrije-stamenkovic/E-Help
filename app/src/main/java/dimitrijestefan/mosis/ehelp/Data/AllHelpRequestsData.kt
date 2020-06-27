@@ -171,21 +171,25 @@ object AllHelpRequestsData {
         filtered_requests.clear()
         var current_loc = GeoPoint(loc.latitude,loc.longitude)
         var radius_double = radius.toDouble()
-        for (request in requests){
-            var req_loc = GeoPoint(request.latitude!!.toDouble(),request.longitude!!.toDouble())
-            Log.d("DISTANE",
-                distance(current_loc.latitude,current_loc.longitude,req_loc.latitude,req_loc.longitude).toString()
-            )
-            if(distance(current_loc.latitude,current_loc.longitude,req_loc.latitude,req_loc.longitude)<2000.0){
-                //&& request.title!!.contains(title)
-                //&& request.urgency==urgency
-                //&& request.category==category){
-                filtered_requests.add(request)
+        Log.d("Distane",urgency)
+
+        if(title == ""){
+            for (request in requests){
+                var req_loc = GeoPoint(request.latitude!!.toDouble(),request.longitude!!.toDouble())
+                if(distance(current_loc.latitude,current_loc.longitude,req_loc.latitude,req_loc.longitude)<radius_double && request.urgency==urgency && request.category==category ){
+                    filtered_requests.add(request)
+                }
+            }
+        }else{
+            for (request in requests){
+                var req_loc = GeoPoint(request.latitude!!.toDouble(),request.longitude!!.toDouble())
+                if(distance(current_loc.latitude,current_loc.longitude,req_loc.latitude,req_loc.longitude)<radius_double && request.urgency==urgency && request.category==category && request.title!!.contains(title)){
+                    filtered_requests.add(request)
+                }
             }
         }
-        Log.d("DISTANE",
-            filtered_requests.toString()
-        )
+
+
     }
 
 

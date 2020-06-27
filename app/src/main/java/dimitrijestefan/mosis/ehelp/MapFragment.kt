@@ -142,7 +142,7 @@ class MapFragment : Fragment(), OnMapReadyCallback {
 
                 if (mapViewModel.filter == true) {
                 //TODO pozovi filter f-ju
-                    AllHelpRequestsData.filterRequests(mapViewModel.title,mapViewModel.category,mapViewModel.urgency,mapViewModel.current_location,mapViewModel.radius)
+                    AllHelpRequestsData.filterRequests(mapViewModel.title,mapViewModel.urgency,mapViewModel.category,mapViewModel.current_location,mapViewModel.radius)
                     onLocationUpdate()
                 } else {
                     onLocationUpdate()
