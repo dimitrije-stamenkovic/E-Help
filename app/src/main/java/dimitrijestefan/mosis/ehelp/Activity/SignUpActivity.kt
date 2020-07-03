@@ -27,11 +27,13 @@ import com.google.firebase.auth.FirebaseAuthUserCollisionException
 import com.google.firebase.auth.FirebaseAuthWeakPasswordException
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.iid.FirebaseInstanceId
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import dimitrijestefan.mosis.ehelp.MainActivity
 import dimitrijestefan.mosis.ehelp.Models.User
 import dimitrijestefan.mosis.ehelp.R
+import dimitrijestefan.mosis.ehelp.Service.NotificationService
 import kotlinx.android.synthetic.main.activity_sign_up.*
 import kotlinx.coroutines.*
 import kotlinx.coroutines.tasks.await
@@ -141,7 +143,10 @@ class SignUpActivity : AppCompatActivity() {
                 Toast.makeText(this, "Uspesno ste kreirali nalog", Toast.LENGTH_LONG).show()
                 val intent = Intent(this@SignUpActivity, MainActivity::class.java)
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
-             //   dimitrijestefan.mosis.ehelp.Data.UserData.changeUserReference(currentUserId)
+
+                val mToken= FirebaseInstanceId.getInstance().token
+                NotificationService.saveTokenToFirebase(mToken)
+
                 startActivity(intent)
                 finish()
             } else {

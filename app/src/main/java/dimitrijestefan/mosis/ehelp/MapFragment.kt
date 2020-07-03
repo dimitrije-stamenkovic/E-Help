@@ -25,6 +25,7 @@ import com.google.android.gms.maps.model.MarkerOptions
 import com.google.firebase.auth.FirebaseAuth
 import com.google.maps.android.clustering.ClusterManager
 import com.google.maps.android.collections.MarkerManager
+import dimitrijestefan.mosis.ehelp.Adapters.CustomInfoWindowFriendAdapter
 import dimitrijestefan.mosis.ehelp.CustomMarker.ClusterMarker
 import dimitrijestefan.mosis.ehelp.CustomMarker.MyClusterManagerRenderer
 import dimitrijestefan.mosis.ehelp.Data.AllHelpRequestsData
@@ -53,6 +54,8 @@ class MapFragment : Fragment(), OnMapReadyCallback {
     private var mClusterMarkers: ArrayList<ClusterMarker> = ArrayList<ClusterMarker>()
     private lateinit var markerUsersIdMap: HashMap<Marker, Int>
     private lateinit var markerFriendsIdMap: HashMap<ClusterMarker, Int>
+
+
 
 
     private val addObjectViewModel by lazy {
@@ -160,6 +163,7 @@ class MapFragment : Fragment(), OnMapReadyCallback {
         addFriendsMarkers()
         addHelpRequestsMarker()
         googleMap.setOnMarkerClickListener(mClusterManager)
+        googleMap.setInfoWindowAdapter(mClusterManager.markerManager)
     }
 
 
@@ -257,7 +261,6 @@ class MapFragment : Fragment(), OnMapReadyCallback {
 
     private fun addFriendsMarkers() {
 
-
         mClusteManagerRenderer =
             MyClusterManagerRenderer(requireActivity(), googleMap, mClusterManager)
         mClusterManager.renderer = mClusteManagerRenderer
@@ -280,13 +283,16 @@ class MapFragment : Fragment(), OnMapReadyCallback {
             mClusterManager.addItem(customMarker)
             mClusterMarkers.add(customMarker)
         }
+        mClusterManager.markerCollection.setInfoWindowAdapter(CustomInfoWindowFriendAdapter(mapViewModel,requireContext()))
 
         mClusterManager.setOnClusterItemClickListener(object :
             ClusterManager.OnClusterItemClickListener<ClusterMarker> {
             override fun onClusterItemClick(item: ClusterMarker?): Boolean {
-                Log.e("Custom marker click", item?.title.toString())
-                Toast.makeText(context, item?.title.toString(), Toast.LENGTH_SHORT).show()
-                return true
+             //   Log.e("Custom marker click", item?.title.toString())
+
+               // Toast.makeText(context, item?.title.toString(), Toast.LENGTH_SHORT).show()
+                mapViewModel.clickedFriend= item?.getFriend()!!
+                return false
             }
 
         })

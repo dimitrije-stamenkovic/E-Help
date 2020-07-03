@@ -41,5 +41,8 @@ fun getUrl():String?{
         return position
     }
 
+    fun getFriend():Friend{
+        return  friend
+    }
 
 }

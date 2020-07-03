@@ -2,8 +2,10 @@ package dimitrijestefan.mosis.ehelp.Models
 
 import android.os.Parcelable
 import com.google.firebase.database.Exclude
+import com.google.firebase.database.IgnoreExtraProperties
 import java.io.Serializable
 
+@IgnoreExtraProperties
 data class User  (
     var username:String,
     var password:String,
@@ -14,8 +16,10 @@ data class User  (
     var photoUrl:String
 
 ):Serializable{
-    @Exclude
+    @get:Exclude
     lateinit var key : String
+    @Exclude @set:Exclude @get:Exclude
+    lateinit var mToken : String
     constructor():this("","","","","","","")
 }
 

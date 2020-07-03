@@ -4,6 +4,7 @@ import android.location.Location
 import androidx.lifecycle.ViewModel
 import com.google.android.gms.maps.model.LatLng
 import dimitrijestefan.mosis.ehelp.Data.AllHelpRequestsData
+import dimitrijestefan.mosis.ehelp.Models.Friend
 
 import dimitrijestefan.mosis.ehelp.Models.HelpRequest
 //import dimitrijestefan.mosis.ehelp.Data.Repository
@@ -19,6 +20,7 @@ class MapViewModel : ViewModel() {
     lateinit var urgency: String
     lateinit var category: String
     lateinit var radius : String
+     var clickedFriend: Friend?=null
 
 
 //    var help_requests = Repository.getHelpRequestList()

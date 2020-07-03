@@ -103,7 +103,7 @@ object UsersLocationData {
                                             onUserLocationChanged.value = usersLocation
                                         }
                                         else -> {
-                                          //  Log.e("Uso u else", key)
+                                           // Log.e("Loc", key)
                                             usersLocation.add(userLocation)
                                             usersLocationIndexMapping.put(key, usersLocation.size - 1)
                                             onUserLocationChanged.value = usersLocation
@@ -131,7 +131,7 @@ object UsersLocationData {
                                 when {
 
                                     FriendData.friendsListIndexMapping.containsKey(key) && !usersLocationIndexMapping.containsKey(key) -> {
-                                        Log.e("Add loc frieend",key.toString())
+                                       // Log.e("Add loc frieend",key.toString())
                                         if (!friendsLocationIndexMapping.containsKey(key)) {
                                             friendsLocation.add(userLocation)
                                             friendsLocationIndexMapping.put(key, friendsLocation.size - 1)
@@ -153,7 +153,7 @@ object UsersLocationData {
 //                                    }
                                     else -> {
                                         if (!usersLocationIndexMapping.containsKey(key)) {
-                                            Log.e("Add loc users",key.toString())
+                                          //  Log.e("Add loc users",key.toString())
                                             usersLocation.add(userLocation)
                                             usersLocationIndexMapping.put(key, usersLocation.size - 1)
                                             onUserLocationChanged.value = usersLocation

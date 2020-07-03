@@ -28,6 +28,7 @@ import dimitrijestefan.mosis.ehelp.Activity.SignInActivity
 import dimitrijestefan.mosis.ehelp.Data.UserData
 import dimitrijestefan.mosis.ehelp.Models.User
 import dimitrijestefan.mosis.ehelp.Service.LocationService
+import dimitrijestefan.mosis.ehelp.Service.NotificationService
 import dimitrijestefan.mosis.ehelp.ViewModels.RankViewModel
 import kotlinx.android.synthetic.main.fragment_profile.*
 import kotlinx.android.synthetic.main.fragment_rank_list.*
@@ -95,6 +96,8 @@ class ProfileFragment : Fragment() {
             val serviceIntent = Intent(requireContext(), LocationService::class.java)
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
             requireActivity().stopService(serviceIntent)
+
+            NotificationService.deleteTokenToFirebase()
             mAuth.signOut()
             startActivity(intent)
             requireActivity().finish()

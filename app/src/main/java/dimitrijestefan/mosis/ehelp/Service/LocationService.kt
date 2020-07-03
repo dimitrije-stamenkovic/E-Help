@@ -17,9 +17,11 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.messaging.FirebaseMessaging
+import com.google.firebase.messaging.FirebaseMessagingService
 import dimitrijestefan.mosis.ehelp.Models.GeoPoint
 
-class LocationService : Service() {
+class LocationService : Service()  {
     private var mLocationManager: LocationManager? = null
 
     var mLocationListeners = arrayOf(
@@ -27,11 +29,13 @@ class LocationService : Service() {
         LocationListener(LocationManager.NETWORK_PROVIDER)
     )
 
+
     class LocationListener(provider: String) : android.location.LocationListener {
 
         private var mCurrentUser: FirebaseUser?
         val current_uid: String
         private var database: DatabaseReference
+
 
         init {
             Log.e(TAG, "LocationListener $provider")
@@ -40,6 +44,8 @@ class LocationService : Service() {
             current_uid = mCurrentUser!!.uid
             database = FirebaseDatabase.getInstance().getReference().child("UsersLocations")
                 .child(current_uid)
+
+
         }
 
         override fun onLocationChanged(location: Location) {

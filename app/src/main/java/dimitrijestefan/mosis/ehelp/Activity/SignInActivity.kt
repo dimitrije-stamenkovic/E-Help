@@ -4,13 +4,16 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.TextUtils
+import android.util.Log
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.google.firebase.auth.FirebaseAuthInvalidUserException
+import com.google.firebase.iid.FirebaseInstanceId
 import dimitrijestefan.mosis.ehelp.Data.UserData
 import dimitrijestefan.mosis.ehelp.MainActivity
 import dimitrijestefan.mosis.ehelp.R
+import dimitrijestefan.mosis.ehelp.Service.NotificationService
 import kotlinx.android.synthetic.main.activity_sign_in.*
 
 
@@ -65,7 +68,10 @@ class SignInActivity : AppCompatActivity() {
                         val intent = Intent(this@SignInActivity, MainActivity::class.java)
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
                    //     UserData.changeUserReference(mAuth.currentUser?.uid!!)
+
                         startActivity(intent)
+                        val mToken= FirebaseInstanceId.getInstance().token
+                        NotificationService.saveTokenToFirebase(mToken)
                         finish()
                     }
 
@@ -85,6 +91,8 @@ class SignInActivity : AppCompatActivity() {
             Toast.makeText(this, "Incorrect email address", Toast.LENGTH_LONG).show()
         } else if (ex is FirebaseAuthInvalidCredentialsException) {
             Toast.makeText(this, "Invalid password", Toast.LENGTH_LONG).show()
+        }else{
+            Log.e("TAG",ex.toString())
         }
     }
 
