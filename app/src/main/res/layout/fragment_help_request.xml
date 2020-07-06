@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".HelpRequestFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/textView29"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="1dp"
+            android:layout_marginBottom="21dp"
+            android:text="TextView"
+            app:layout_constraintBottom_toTopOf="@+id/textView31"
+            app:layout_constraintStart_toStartOf="@+id/textView31"
+            tools:text="@string/titleLabel2" />
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="21dp"
+            android:text="TextView"
+            app:layout_constraintBottom_toTopOf="@+id/textView31"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/textView31"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="129dp"
+            android:layout_marginEnd="42dp"
+            android:text="TextView"
+            app:layout_constraintEnd_toStartOf="@+id/category"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="@string/categoryLabel2" />
+
+        <TextView
+            android:id="@+id/category"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="21dp"
+            android:text="TextView"
+            app:layout_constraintStart_toStartOf="@+id/title"
+            app:layout_constraintTop_toBottomOf="@+id/title" />
+
+        <TextView
+            android:id="@+id/textView33"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="1dp"
+            android:layout_marginTop="25dp"
+            android:text="TextView"
+            app:layout_constraintStart_toStartOf="@+id/textView31"
+            app:layout_constraintTop_toBottomOf="@+id/textView31"
+            tools:text="@string/urgencyLabel2" />
+
+        <TextView
+            android:id="@+id/urgency"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="22dp"
+            android:layout_marginEnd="2dp"
+            android:text="TextView"
+            app:layout_constraintEnd_toEndOf="@+id/category"
+            app:layout_constraintTop_toBottomOf="@+id/category" />
+
+        <TextView
+            android:id="@+id/textView35"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="28dp"
+            android:layout_marginEnd="3dp"
+            android:text="TextView"
+            app:layout_constraintEnd_toEndOf="@+id/textView33"
+            app:layout_constraintTop_toBottomOf="@+id/textView33"
+            tools:text="@string/latitudeLabel2" />
+
+        <TextView
+            android:id="@+id/latitude"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="1dp"
+            android:layout_marginBottom="26dp"
+            android:text="TextView"
+            app:layout_constraintBottom_toTopOf="@+id/longitude"
+            app:layout_constraintEnd_toEndOf="@+id/urgency" />
+
+        <TextView
+            android:id="@+id/textView37"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="1dp"
+            android:layout_marginTop="29dp"
+            android:text="TextView"
+            app:layout_constraintStart_toStartOf="@+id/textView35"
+            app:layout_constraintTop_toBottomOf="@+id/textView35"
+            tools:text="@string/longitudeLabel2" />
+
+        <TextView
+            android:id="@+id/longitude"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="3dp"
+            android:text="TextView"
+            app:layout_constraintBaseline_toBaselineOf="@+id/textView37"
+            app:layout_constraintEnd_toEndOf="@+id/latitude" />
+
+        <TextView
+            android:id="@+id/textView39"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:text="TextView"
+            app:layout_constraintStart_toStartOf="@+id/textView37"
+            app:layout_constraintTop_toBottomOf="@+id/textView37"
+            tools:text="@string/aboutLabel2" />
+
+        <TextView
+            android:id="@+id/about"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="1dp"
+            android:layout_marginTop="33dp"
+            android:text="TextView"
+            app:layout_constraintStart_toStartOf="@+id/longitude"
+            app:layout_constraintTop_toBottomOf="@+id/longitude" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</FrameLayout>

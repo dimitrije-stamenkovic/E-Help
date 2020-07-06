@@ -18,7 +18,15 @@
     <string name="okLabel">OK</string>
     <string name="addRequestTitle">New Help Request</string>
 
-    <string name="btnSignIn">Sign In</string>
+    <string name="titleLabel2">Title:</string>
+    <string name="aboutLabel2">About:</string>
+    <string name="urgencyLabel2">Urgency:</string>
+    <string name="categoryLabel2">Category:</string>
+    <string name="latitudeLabel2">Latitude:</string>
+    <string name="longitudeLabel2">Longitude:</string>
+    <string name="blank"> </string>
+
+    <string name="btnSignIn">Sing In</string>
     <string name="btnDontHaveAcc">Dont have acc?</string>
     <string name="btnSignUp">Sign Up</string>
     <string name="btnHaveAcc">Have acc ?</string>
