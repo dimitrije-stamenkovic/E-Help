@@ -30,6 +30,7 @@ object UserData {
                 currentUser.name = p0.child("name").value.toString()
                 currentUser.lastname = p0.child("lastname").value.toString()
                 currentUser.photoUrl = p0.child("photoUrl").value.toString()
+                currentUser.points= p0.child("points").getValue(Int::class.java)!!
                 currentUser.key = p0.key!!
             }
 

@@ -13,7 +13,7 @@
         android:layout_marginLeft="5dp"
         android:layout_marginTop="5dp"
         android:alpha="0.5"
-        android:src="@drawable/baseline_filter_list_black_24"
+        android:src="@drawable/ic_baseline_tune_24"
         app:backgroundTint="#FFFFFF" />
     <com.google.android.gms.maps.MapView
         android:id="@+id/mapView"

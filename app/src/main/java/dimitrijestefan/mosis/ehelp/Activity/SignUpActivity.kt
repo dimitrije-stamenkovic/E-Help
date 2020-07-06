@@ -134,7 +134,8 @@ class SignUpActivity : AppCompatActivity() {
             this.name,
             this.lastname,
             this.phoneNumber,
-            photoUrl
+            photoUrl,
+            0
         )
         val usersRef = FirebaseDatabase.getInstance().reference.child("Users")
         usersRef.child(currentUserId).setValue(newUser).addOnCompleteListener { task ->

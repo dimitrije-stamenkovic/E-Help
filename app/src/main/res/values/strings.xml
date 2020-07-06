@@ -18,7 +18,7 @@
     <string name="okLabel">OK</string>
     <string name="addRequestTitle">New Help Request</string>
 
-    <string name="btnSignIn">Sing In</string>
+    <string name="btnSignIn">Sign In</string>
     <string name="btnDontHaveAcc">Dont have acc?</string>
     <string name="btnSignUp">Sign Up</string>
     <string name="btnHaveAcc">Have acc ?</string>
@@ -54,6 +54,11 @@
     <string name="txtAddPhoto">Add photo</string>
     <string name="txtCreateAcc">Create an Account</string>
     <string name="points">Points</string>
+
+    <string name="txtRank">Rank:</string>
+    <string name="txtPoints">Points:</string>
+    <string name="loading">loading...</string>
+    <string name="lblRankList">Rank list</string>
 
 
     <string name="channel_name">Kanal1</string>

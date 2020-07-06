@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.android.volley.Request
@@ -68,8 +69,12 @@ class RankListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
      //   getUserRank(txtUserRank)
+        txtUserPoints.setText(mCurrentUser.points.toString())
         rankViewModel.getUserRank(mCurrentUser.key,this.requireContext())
         setupObserver()
+       // var divideItem:DividerItemDecoration= DividerItemDecoration(requireContext(),DividerItemDecoration.VERTICAL)
+      //  mUsersRecyclerView.addItemDecoration(divideItem)
+
         loadRankList()
         Glide.with(this.requireContext())
             .load(mCurrentUser.photoUrl)
@@ -93,8 +98,10 @@ class RankListFragment : Fragment() {
             }
 
             override fun onBindViewHolder(holder: RankViewHolder, position: Int, model: User) {
-                holder.rankNumber.setText((position+1).toString())
-                holder.rankPoints.setText(model.name)
+                var rank=holder.adapterPosition+1
+                var points:String= model.points?.toString()?:"0"
+                holder.rankNumber.setText(rank.toString())
+                holder.rankPoints.setText(points + " pts" )
                 holder.rankUsername.setText(model.username)
             }
 

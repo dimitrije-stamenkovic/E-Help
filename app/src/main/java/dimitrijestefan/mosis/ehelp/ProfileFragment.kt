@@ -3,15 +3,8 @@ package dimitrijestefan.mosis.ehelp
 
 import android.annotation.SuppressLint
 import android.content.Intent
-import android.graphics.Bitmap
-import android.graphics.drawable.Drawable
 import android.os.Bundle
-import android.util.Log
 import android.view.*
-import android.view.Gravity.*
-import android.widget.Button
-import android.widget.LinearLayout
-import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.drawerlayout.widget.DrawerLayout
@@ -20,9 +13,6 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
-import com.bumptech.glide.request.target.SimpleTarget
-import com.bumptech.glide.request.transition.Transition
-import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.firebase.auth.FirebaseAuth
 import dimitrijestefan.mosis.ehelp.Activity.SignInActivity
 import dimitrijestefan.mosis.ehelp.Data.UserData
@@ -31,7 +21,6 @@ import dimitrijestefan.mosis.ehelp.Service.LocationService
 import dimitrijestefan.mosis.ehelp.Service.NotificationService
 import dimitrijestefan.mosis.ehelp.ViewModels.RankViewModel
 import kotlinx.android.synthetic.main.fragment_profile.*
-import kotlinx.android.synthetic.main.fragment_rank_list.*
 
 /**
  * A simple [Fragment] subclass.
@@ -108,6 +97,8 @@ class ProfileFragment : Fragment() {
         txtProfileLastname.setText(mCurrentUser.lastname)
         txtProfileNumber.setText(mCurrentUser.number)
         txtProfileUsername.setText(mCurrentUser.username)
+        txtUserProfileEmail.setText(mCurrentUser.email)
+        txtProfilePoints.setText(mCurrentUser.points.toString())
         Glide.with(this.requireContext())
             .load(mCurrentUser.photoUrl)
             .diskCacheStrategy(DiskCacheStrategy.ALL)
@@ -117,7 +108,7 @@ class ProfileFragment : Fragment() {
 
     fun setupObserver(){
         rankViewModel.userRank?.observe(viewLifecycleOwner, Observer {
-            txtProfilePoints.setText(rankViewModel.userRank.value.toString())
+            txtProfileRank.setText(rankViewModel.userRank.value.toString())
         })
     }
 

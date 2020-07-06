@@ -24,12 +24,15 @@ import com.google.maps.android.clustering.Cluster
 import com.google.maps.android.clustering.ClusterManager
 import com.google.maps.android.clustering.view.DefaultClusterRenderer
 import com.google.maps.android.ui.IconGenerator
+import de.hdodenhof.circleimageview.CircleImageView
 import dimitrijestefan.mosis.ehelp.R
+import dimitrijestefan.mosis.ehelp.R.color
 
 
 public class MyClusterManagerRenderer : DefaultClusterRenderer<ClusterMarker> {
     private lateinit var iconGenerator: IconGenerator
-    private lateinit var imageView: ImageView
+   // private lateinit var imageView: ImageView
+    private lateinit var circleImageView: CircleImageView
     private var markerWidth: Int =0
     private var markerHeight: Int = 0
     private var context: Context?
@@ -41,14 +44,20 @@ public class MyClusterManagerRenderer : DefaultClusterRenderer<ClusterMarker> {
     ) : super(context, map, clusterManager) {
 
         iconGenerator = IconGenerator(context?.applicationContext)
-        imageView = ImageView(context?.applicationContext)
+    //    imageView = ImageView(context?.applicationContext)
+        circleImageView= CircleImageView(context?.applicationContext)
         this.context = context
         markerWidth= context?.resources?.getDimension(R.dimen.custom_marker_image)?.toInt()!!
         markerHeight=context?.resources?.getDimension(R.dimen.custom_marker_image)?.toInt()!!
-        imageView.layoutParams  = ViewGroup.LayoutParams(markerWidth, markerHeight)
-        var padding:Int=context?.resources?.getDimension(R.dimen.custom_marker_padding)?.toInt()!!
-        imageView.setPadding(padding,padding,padding,padding)
-        iconGenerator.setContentView(imageView)
+       // imageView.layoutParams  = ViewGroup.LayoutParams(markerWidth, markerHeight)
+        circleImageView.layoutParams  = ViewGroup.LayoutParams(markerWidth, markerHeight)
+
+       // var padding:Int=context?.resources?.getDimension(R.dimen.custom_marker_padding)?.toInt()!!
+       // imageView.setPadding(padding,padding,padding,padding)
+       // circleImageView.setPadding(padding,padding,padding,padding)
+       // iconGenerator.setContentView(imageView)
+        iconGenerator.setContentView(circleImageView)
+
     }
 
     override fun onBeforeClusterItemRendered(item: ClusterMarker, markerOptions: MarkerOptions) {
@@ -68,10 +77,10 @@ public class MyClusterManagerRenderer : DefaultClusterRenderer<ClusterMarker> {
                     resource: Drawable,
                     transition: Transition<in Drawable>?
                 ) {
-                    imageView.setImageDrawable(resource)
+                   // imageView.setImageDrawable(resource)
+                    circleImageView.setImageDrawable(resource)
                     var icon: Bitmap = iconGenerator.makeIcon()
                     marker.setIcon(BitmapDescriptorFactory.fromBitmap(icon))
-                   // marker.showInfoWindow()
                 }
 
                 override fun onLoadCleared(placeholder: Drawable?) {

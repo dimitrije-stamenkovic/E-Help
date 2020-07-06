@@ -40,33 +40,53 @@ class CustomInfoWindowFriendAdapter: GoogleMap.InfoWindowAdapter {
         this.mapViewModel=mViewModel
         this.mContext = mContext
         this.mWindow=LayoutInflater.from(mContext).inflate(R.layout.custom_info_window_friend, null)
-      //  this.mFriend=mFriend
     }
 
     private fun renderWindow(marker:Marker?){
-        if(mapViewModel.clickedFriend!=null){
+        if(mapViewModel.isClickedFriendInitialized()){
             var friend:Friend= mapViewModel.clickedFriend!!
             mWindow.findViewById<TextView>(R.id.txtCustomIWFriendName).setText(friend.name)
             mWindow.findViewById<TextView>(R.id.txtCustomIWFriendLastName).setText(friend.lastname)
             mWindow.findViewById<TextView>(R.id.txtCustomIWFriendEmail).setText(friend.email)
             mWindow.findViewById<TextView>(R.id.txtCustomIWFriendUsername).setText(friend.username)
-            var imageView: ImageView = mWindow.findViewById(R.id.CustomIWCircleView)
+            var imageView: CircleImageView = mWindow.findViewById(R.id.CustomIWCircleView)
+
+            Glide.with(this.mContext)
+                .load(friend.photoUrl)
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .centerCrop()
+                .into(object : CustomTarget<Drawable>() {
+                    override fun onResourceReady(
+                        resource: Drawable,
+                        transition: Transition<in Drawable>?
+                    ) {
+                        imageView.setImageDrawable(resource)
+                        if(!marker?.isInfoWindowShown!!)
+                            return
+                        else{
+                            marker?.hideInfoWindow()
+                            marker?.showInfoWindow()
+                        }
+                    }
+                    override fun onLoadCleared(placeholder: Drawable?) {
+
+                    }
+
+                })
+
 
 
         }
 
-       //mView.findViewById<TextView>(R.id.txtCustomIWFriendName).setText(mFriend.username)
     }
 
     override fun getInfoContents(p0: Marker?): View {
        renderWindow(p0)
-       // Log.e("Cist","Uso u custom w1")
         return mWindow
     }
 
     override fun getInfoWindow(p0: Marker?): View {
         renderWindow(p0)
-       // Log.e("Cist","Uso u custom w2")
         return mWindow
     }
 

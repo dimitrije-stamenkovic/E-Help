@@ -1,67 +1,88 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="300dp"
-    android:layout_height="150dp"
-    android:background="@android:color/white">
+    android:layout_height="180dp"
+    app:cardCornerRadius="8dp"
+    app:contentPadding="10dp"
+    app:cardUseCompatPadding="true"
+    >
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
 
+        <TextView
+            android:id="@+id/txtCustomIWFriendName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/ubuntu_light"
+            android:text="TextView"
+            android:textSize="18sp"
+            app:layout_constraintStart_toEndOf="@+id/guiVer1CustomIW"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/txtCustomIWFriendName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:text="TextView"
-        app:layout_constraintStart_toStartOf="@+id/guiVer1CustomIW"
-        app:layout_constraintTop_toTopOf="parent" />
+        <TextView
+            android:id="@+id/txtCustomIWFriendLastName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/ubuntu_light"
+            android:text="TextView"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/txtCustomIWFriendName"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/txtCustomIWFriendLastName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="TextView"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/guiVer1CustomIW"
-        app:layout_constraintTop_toBottomOf="@+id/txtCustomIWFriendName" />
+        <TextView
+            android:id="@+id/txtCustomIWFriendUsername"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/ubuntu_light"
+            android:text="TextView"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/guiVer1CustomIW"
+            app:layout_constraintTop_toBottomOf="@+id/txtCustomIWFriendName" />
 
-    <TextView
-        android:id="@+id/txtCustomIWFriendUsername"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:text="TextView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/txtCustomIWFriendName"
-        app:layout_constraintTop_toTopOf="parent" />
+        <TextView
+            android:id="@+id/txtCustomIWFriendEmail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/ubuntu_light"
+            android:text="TextView"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/txtCustomIWFriendUsername"
+            app:layout_constraintTop_toBottomOf="@+id/txtCustomIWFriendLastName" />
 
-    <TextView
-        android:id="@+id/txtCustomIWFriendEmail"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="TextView"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/txtCustomIWFriendLastName"
-        app:layout_constraintTop_toBottomOf="@+id/txtCustomIWFriendUsername" />
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guiVer1CustomIW"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.35" />
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guiVer1CustomIW"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.4" />
-
-    <ImageView
+    <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/CustomIWCircleView"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        app:civ_border_color="#3897f0"
+        app:civ_border_width="2dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/guiVer1CustomIW"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-    </ImageView>
+    </de.hdodenhof.circleimageview.CircleImageView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>
 
-
-</androidx.constraintlayout.widget.ConstraintLayout>

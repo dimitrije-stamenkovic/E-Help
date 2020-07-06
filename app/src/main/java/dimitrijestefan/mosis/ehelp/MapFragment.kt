@@ -16,6 +16,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
+import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
@@ -93,6 +94,7 @@ class MapFragment : Fragment(), OnMapReadyCallback {
         }
         fusedLocationClient.lastLocation.addOnSuccessListener {
             mapViewModel.current_location = LatLng(it.latitude,it.longitude)
+            googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(mapViewModel.current_location,15f))
             Toast.makeText(requireContext(),mapViewModel.current_location.toString(),Toast.LENGTH_SHORT).show()
         }
     }
@@ -100,30 +102,26 @@ class MapFragment : Fragment(), OnMapReadyCallback {
     override fun onMapReady(map: GoogleMap) {
         googleMap = map;
         getLastLocation()
+        //zar me treba poziv kasnije?
         //  googleMap?.isMyLocationEnabled=true;
-        if (ContextCompat.checkSelfPermission(
-                this.requireContext(),
-                android.Manifest.permission.ACCESS_FINE_LOCATION
-            )
+        if (ContextCompat.checkSelfPermission(this.requireContext(), android.Manifest.permission.ACCESS_FINE_LOCATION)
             != PackageManager.PERMISSION_GRANTED
-        ) {
-            requestPermissions(
-                Array<String>(1) { android.Manifest.permission.ACCESS_FINE_LOCATION },
-                101
-            )
-        } else {
+        )
+        {
+            requestPermissions(Array<String>(1) { android.Manifest.permission.ACCESS_FINE_LOCATION }, 102)
+        }
+        else {
+
             googleMap.isMyLocationEnabled = true;
             if (addObjectViewModel.select) {
                 setOnMapClickListener()
 
             }
 
-
             filterButton.setOnClickListener {
                 this.findNavController().navigate(R.id.filterMap)
             }
-            mClusterManager =
-                ClusterManager<ClusterMarker>(requireActivity().applicationContext, googleMap)
+            mClusterManager = ClusterManager<ClusterMarker>(requireActivity().applicationContext, googleMap)
 
 //            if (mapViewModel.filter == true) {
 //                AllHelpRequestsData.filterRequests(mapViewModel.title,mapViewModel.category,mapViewModel.urgency,mapViewModel.current_location,mapViewModel.radius)
@@ -153,6 +151,67 @@ class MapFragment : Fragment(), OnMapReadyCallback {
 
             })
 
+        }
+
+    }
+
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        when (requestCode) {
+            102 -> {
+                if ((grantResults.isNotEmpty() &&
+                            grantResults[0] == PackageManager.PERMISSION_GRANTED)
+                )
+                {
+                    this.googleMap.isMyLocationEnabled=true
+                    getLastLocation()
+                    if (addObjectViewModel.select) {
+                        setOnMapClickListener()
+
+                    }
+
+                    filterButton.setOnClickListener {
+                        this.findNavController().navigate(R.id.filterMap)
+                    }
+                    mClusterManager = ClusterManager<ClusterMarker>(requireActivity().applicationContext, googleMap)
+
+//            if (mapViewModel.filter == true) {
+//                AllHelpRequestsData.filterRequests(mapViewModel.title,mapViewModel.category,mapViewModel.urgency,mapViewModel.current_location,mapViewModel.radius)
+//                onLocationUpdate()
+//            } else {
+//                onLocationUpdate()
+//            }
+
+                    onLocationUpdate()
+                    UsersLocationData.onUserLocationChanged.observe(viewLifecycleOwner, Observer {
+                        onLocationUpdate()
+                    })
+                    UsersLocationData.onFriendLocationChanged.observe(viewLifecycleOwner, Observer {
+                        onLocationUpdate()
+                    })
+
+                    AllHelpRequestsData.onRequestsChange.observe(viewLifecycleOwner, Observer {
+
+                        if (mapViewModel.filter == true) {
+                            //TODO pozovi filter f-ju
+                            AllHelpRequestsData.filterRequests(mapViewModel.title,mapViewModel.urgency,mapViewModel.category,mapViewModel.current_location,mapViewModel.radius)
+                            onLocationUpdate()
+                        } else {
+                            onLocationUpdate()
+                        }
+
+                    })
+                } else {
+
+                    Toast.makeText(requireContext(), "Sorry, granted permission is necessary.", Toast.LENGTH_LONG).show()
+                }
+                return
+
+            }
         }
 
     }
@@ -211,9 +270,9 @@ class MapFragment : Fragment(), OnMapReadyCallback {
             markerOptions.position(loc)
 
             if(value.userId == FirebaseAuth.getInstance().currentUser!!.uid){
-                markerOptions.icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_action_settings))
+                markerOptions.icon(BitmapDescriptorFactory.fromResource(R.drawable.ehelplogored))
             }else{
-                markerOptions.icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_action_map))
+                markerOptions.icon(BitmapDescriptorFactory.fromResource(R.drawable.ehelplogo48dp))
             }
 
             //usermarker = googleMap.addMarker(markerOptions)
@@ -242,15 +301,13 @@ class MapFragment : Fragment(), OnMapReadyCallback {
             loc = LatLng(value.latitude, value.longitude)
             markerOptions = MarkerOptions()
             markerOptions.position(loc)
-            markerOptions.icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_action_profile))
-            //usermarker = googleMap.addMarker(markerOptions)
+            markerOptions.icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_person_map))
             usermarker = mUsersMarkerCollection.addMarker(markerOptions)
-            //  usermarker.tag = OnUserMarkerClickListener
             markerUsersIdMap.put(usermarker, index)
         }
         mUsersMarkerCollection.setOnMarkerClickListener(object : GoogleMap.OnMarkerClickListener {
             override fun onMarkerClick(p0: Marker?): Boolean {
-                Toast.makeText(context, "Kliknuto na usera", Toast.LENGTH_LONG).show()
+                //Toast.makeText(context, "Kliknuto na usera", Toast.LENGTH_LONG).show()
                 return true
             }
 

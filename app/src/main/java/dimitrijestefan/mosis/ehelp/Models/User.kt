@@ -13,13 +13,14 @@ data class User  (
     var name:String,
     var lastname:String,
     var number:String,
-    var photoUrl:String
+    var photoUrl:String,
+    var points:Int
 
 ):Serializable{
     @get:Exclude
     lateinit var key : String
     @Exclude @set:Exclude @get:Exclude
     lateinit var mToken : String
-    constructor():this("","","","","","","")
+    constructor():this("","","","","","","",0)
 }
 

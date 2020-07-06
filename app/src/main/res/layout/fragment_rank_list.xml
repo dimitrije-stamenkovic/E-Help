@@ -11,7 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.25" />
+        app:layout_constraintGuide_percent="0.3" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guiRankVer1"
@@ -31,25 +31,30 @@
         android:id="@+id/recyclerViewRank"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:layout_marginTop="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/guiRankVer2"
         app:layout_constraintStart_toEndOf="@id/guiRankVer1"
-        app:layout_constraintTop_toBottomOf="@+id/guiRankHor1" />
+        app:layout_constraintTop_toBottomOf="@+id/guiRankHor2" />
 
     <TextView
         android:id="@+id/txtUserRank"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView"
-        app:layout_constraintBottom_toTopOf="@+id/guiRankHor1"
+        android:layout_marginTop="24dp"
+        android:fontFamily="@font/ubuntu_light"
+        android:text="@string/loading"
+        android:textSize="18sp"
         app:layout_constraintEnd_toStartOf="@+id/guiRankVer2"
-        app:layout_constraintStart_toStartOf="@+id/guiRankVer3"
+        app:layout_constraintStart_toEndOf="@+id/textView26"
         app:layout_constraintTop_toTopOf="parent" />
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/imageViewRank"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        app:civ_border_color="#3897f0"
+        app:civ_border_width="2dp"
         app:layout_constraintBottom_toTopOf="@id/guiRankHor1"
         app:layout_constraintEnd_toEndOf="@id/guiRankVer3"
         app:layout_constraintStart_toStartOf="@id/guiRankVer1"
@@ -62,5 +67,65 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-       app:layout_constraintGuide_percent="0.4" />
+        app:layout_constraintGuide_percent="0.4" />
+
+    <TextView
+        android:id="@+id/textView26"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="24dp"
+        android:fontFamily="@font/ubuntu_light"
+        android:text="@string/txtRank"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@+id/guiRankVer3"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView27"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/ubuntu_light"
+        android:text="@string/txtPoints"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/guiRankHor1"
+        app:layout_constraintStart_toStartOf="@+id/guiRankVer3"
+        app:layout_constraintTop_toBottomOf="@+id/textView26" />
+
+    <TextView
+        android:id="@+id/txtUserPoints"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/ubuntu_light"
+        android:text="@string/loading"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/guiRankHor1"
+        app:layout_constraintEnd_toStartOf="@+id/guiRankVer2"
+        app:layout_constraintStart_toEndOf="@+id/textView27"
+        app:layout_constraintTop_toBottomOf="@+id/txtUserRank" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guiRankHor2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.35
+" />
+
+    <TextView
+        android:id="@+id/txtLblRankList"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/ubuntu_bold"
+        android:text="@string/lblRankList"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:textColor="@color/blueInsta"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@id/guiRankHor2"
+        app:layout_constraintEnd_toStartOf="@+id/guiRankVer2"
+        app:layout_constraintStart_toEndOf="@+id/guiRankVer1"
+        app:layout_constraintTop_toBottomOf="@id/guiRankHor1" />
 </androidx.constraintlayout.widget.ConstraintLayout>

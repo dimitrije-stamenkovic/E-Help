@@ -22,7 +22,13 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar"
         >
-        <service android:stopWithTask="true" android:name=".Service.LocationService"></service>
+        <service android:stopWithTask="true" android:name=".Service.LocationService">
+        </service>
+        <service android:name=".Service.NotificationService" android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
         <activity android:name=".Activity.SignUpActivity"></activity>
         <activity android:name=".Activity.SignInActivity">
             <intent-filter>

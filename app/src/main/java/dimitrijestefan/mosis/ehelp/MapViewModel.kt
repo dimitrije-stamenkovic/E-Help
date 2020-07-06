@@ -20,7 +20,9 @@ class MapViewModel : ViewModel() {
     lateinit var urgency: String
     lateinit var category: String
     lateinit var radius : String
-     var clickedFriend: Friend?=null
+    lateinit var clickedFriend: Friend
+    fun isClickedFriendInitialized() = this::clickedFriend.isInitialized
+    fun isCurrentUserLocationInitialized() =this::current_location.isInitialized
 
 
 //    var help_requests = Repository.getHelpRequestList()
