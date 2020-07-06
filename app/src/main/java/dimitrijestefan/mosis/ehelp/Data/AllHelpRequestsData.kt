@@ -192,6 +192,14 @@ object AllHelpRequestsData {
 
     }
 
+    fun getRequest(firebaseKey:String):HelpRequest{
+
+        val nizIndex = myHelpRequestsIndexMapping.getValue(firebaseKey)
+        val request  = requests.get(nizIndex)
+
+        return request
+    }
+
 
     fun distance(lat1:Double,lon1:Double,lat2:Double,lon2:Double):Double{
         var theta = lon1 - lon2

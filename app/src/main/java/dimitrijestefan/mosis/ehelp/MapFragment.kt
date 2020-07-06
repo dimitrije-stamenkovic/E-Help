@@ -10,9 +10,11 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
@@ -209,7 +211,7 @@ class MapFragment : Fragment(), OnMapReadyCallback {
             loc = LatLng(value.latitude!!.toDouble(), value.longitude!!.toDouble())
             markerOptions = MarkerOptions()
             markerOptions.position(loc)
-
+            markerOptions.title(value.key)
             if(value.userId == FirebaseAuth.getInstance().currentUser!!.uid){
                 markerOptions.icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_action_settings))
             }else{
@@ -223,7 +225,14 @@ class MapFragment : Fragment(), OnMapReadyCallback {
         }
         mHelpRequetsMarkerCollection.setOnMarkerClickListener(object : GoogleMap.OnMarkerClickListener {
             override fun onMarkerClick(p0: Marker?): Boolean {
-                Toast.makeText(context, "Kliknuto na helpRequest", Toast.LENGTH_LONG).show()
+               // Toast.makeText(context, AllHelpRequestsData.getRequest(p0!!.title).toString(), Toast.LENGTH_LONG).show()
+
+                var bundle = bundleOf("helpRequestId" to p0!!.title)
+                findNavController().navigate(R.id.action_mapFragment_to_helpRequestFragment,bundle)
+
+
+                //mapViewModel.current_location
+
                 return true
             }
 
