@@ -64,15 +64,13 @@ class HelpRequestFragment : Fragment() {
         urgency.text = request.urgency
         category.text = request.category
         about.text = request.about
-//        if(AllHelpRequestsData.distance(mapViewModel.current_location.latitude,mapViewModel.current_location.longitude,request.latitude!!.toDouble(),request.longitude!!.toDouble())*1000>100 || request.userId == user_id){
-//            help_button.isEnabled = false
-//        }
+
         when{
             request.userId == user_id -> {
                 help_button.isEnabled=false
                 Toast.makeText(requireContext(),"You cannot answer your own help request.",Toast.LENGTH_LONG).show()
             }
-            AllHelpRequestsData.distance(mapViewModel.current_location.latitude,mapViewModel.current_location.longitude,request.latitude!!.toDouble(),request.longitude!!.toDouble())*1000>100 ->{
+            AllHelpRequestsData.distance(mapViewModel.current_location.latitude,mapViewModel.current_location.longitude,request.latitude!!.toDouble(),request.longitude!!.toDouble())*1000>30 ->{
                 help_button.isEnabled=false
                 Toast.makeText(requireContext(),"Help request is far away",Toast.LENGTH_LONG).show()
             }

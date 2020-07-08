@@ -34,16 +34,13 @@ class MainActivity : AppCompatActivity() {
         mAuth=FirebaseAuth.getInstance()
         var currentUserId=mAuth.currentUser?.uid!!
         startLocationService()
-
-        Log.e("user fire",mAuth.currentUser?.email)
-
         if(UserData!=null&& UserData.userId!=currentUserId)
         UserData.changeUserReference(currentUserId)
         if(FriendData!=null&&FriendData.currentUserId!=currentUserId)
         FriendData.changeUserReference(currentUserId)
         if(UsersLocationData!=null&&UsersLocationData.currentUserId!=currentUserId)
         UsersLocationData.changeUserReference(currentUserId)
-//        createNotificationChannel();
+
     }
 
 
@@ -60,23 +57,6 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-
-//    private fun createNotificationChannel() {
-//        // Create the NotificationChannel, but only on API 26+ because
-//        // the NotificationChannel class is new and not in the support library
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-//            val name = getString(R.string.channel_name)
-//            val descriptionText = getString(R.string.channel_description)
-//            val importance = NotificationManager.IMPORTANCE_HIGH
-//            val channel = NotificationChannel("101", name, importance).apply {
-//                description = descriptionText
-//            }
-//            // Register the channel with the system
-//            val notificationManager: NotificationManager =
-//                getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-//            notificationManager.createNotificationChannel(channel)
-//        }
-//    }
 
 
     @Suppress("DEPRECATION")

@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -20,9 +21,11 @@ import com.android.volley.VolleyError
 import com.android.volley.toolbox.JsonObjectRequest
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.firebase.ui.common.ChangeEventType
 import com.firebase.ui.database.FirebaseRecyclerAdapter
 import com.firebase.ui.database.FirebaseRecyclerOptions
 import com.google.android.gms.common.api.internal.ActivityLifecycleObserver.of
+import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.ktx.Firebase
@@ -62,10 +65,12 @@ class RankListFragment : Fragment() {
         val view=inflater.inflate(R.layout.fragment_rank_list, container, false)
         mUsersRecyclerView=view.findViewById(R.id.recyclerViewRank)
         mUsersRecyclerView.setHasFixedSize(true)
-        var manager:LinearLayoutManager= LinearLayoutManager(requireContext())
-        manager.reverseLayout=true
+        var manager:LinearLayoutManager= LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL,true)
         manager.stackFromEnd=true
+        manager.reverseLayout=true
+
         mUsersRecyclerView.setLayoutManager(manager)
+
 
         return view
     }
@@ -89,6 +94,7 @@ class RankListFragment : Fragment() {
         val options:FirebaseRecyclerOptions<User> =
         FirebaseRecyclerOptions.Builder<User>()
             .setQuery(firebaseSearchQuery,User::class.java)
+            .setLifecycleOwner(viewLifecycleOwner)
             .build()
         mUsersFirebaseRecyclerAdapter=object :FirebaseRecyclerAdapter<User,RankViewHolder>(options){
             override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RankViewHolder {
@@ -98,7 +104,7 @@ class RankListFragment : Fragment() {
             }
 
             override fun onBindViewHolder(holder: RankViewHolder, position: Int, model: User) {
-                var rank=10-position
+                var rank=10-holder.adapterPosition
                 var points:String= model.points?.toString()?:"0"
                 holder.rankNumber.setText(rank.toString())
                 holder.rankPoints.setText(points + " pts" )
@@ -106,15 +112,17 @@ class RankListFragment : Fragment() {
             }
 
 
+
         }
         mUsersRecyclerView.adapter=mUsersFirebaseRecyclerAdapter
-        mUsersFirebaseRecyclerAdapter.startListening()
+        mUsersRecyclerView.smoothScrollToPosition(10)
 
     }
 
     fun setupObserver(){
         rankViewModel.userRank?.observe(viewLifecycleOwner, Observer {
             txtUserRank.setText(rankViewModel.userRank.value.toString())
+            mUsersFirebaseRecyclerAdapter.notifyItemRangeChanged(1,10)
         })
     }
 }

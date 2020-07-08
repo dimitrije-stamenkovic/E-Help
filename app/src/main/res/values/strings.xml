@@ -69,8 +69,8 @@
     <string name="lblRankList">Rank list</string>
 
 
-    <string name="channel_name">Kanal1</string>
-    <string name="channel_description">Opis neki</string>
+    <string name="channel_name">ChanellEHelpNotification</string>
+    <string name="channel_description">User,Request</string>
     <string name="btnhelp">Help</string>
     <string name="appService">App service</string>
     <string name="btnSignOut">Sign out</string>

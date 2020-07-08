@@ -4,10 +4,11 @@ import android.app.Notification
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.Context
+import android.graphics.BitmapFactory
 import android.os.Build
-import android.util.Log
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
+import androidx.core.content.ContentProviderCompat.requireContext
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.DatabaseReference
@@ -27,7 +28,8 @@ class NotificationService :FirebaseMessagingService() {
     override fun onMessageReceived(remoteMess: RemoteMessage) {
         super.onMessageReceived(remoteMess)
         var builder = NotificationCompat.Builder(this,"101")
-            .setSmallIcon(R.drawable.ic_action_map)
+            .setSmallIcon(R.mipmap.ehelplogo48dp)
+            .setColor(R.color.colorAccent)
             .setContentTitle(remoteMess.notification?.title)
             .setContentText(remoteMess.notification?.body)
             .setPriority(NotificationCompat.PRIORITY_HIGH)
@@ -43,8 +45,6 @@ class NotificationService :FirebaseMessagingService() {
     }
 
     private fun createNotificationChannel() {
-        // Create the NotificationChannel, but only on API 26+ because
-        // the NotificationChannel class is new and not in the support library
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val name = getString(R.string.channel_name)
             val descriptionText = getString(R.string.channel_description)
