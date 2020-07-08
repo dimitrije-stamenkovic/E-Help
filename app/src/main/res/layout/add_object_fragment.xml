@@ -1,18 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
+    android:fillViewport="true"
     tools:context=".AddObjectFragment">
+
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_height="match_parent"
+    android:layout_width="match_parent">
 
     <TextView
         android:id="@+id/textView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/ubuntu_light"
         android:text="@string/titleLabel"
+        android:textSize="18sp"
         app:layout_constraintStart_toStartOf="@+id/guiObjVer1"
         app:layout_constraintTop_toTopOf="@+id/guiObjHor1" />
 
@@ -21,6 +28,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:autofillHints=""
+        android:fontFamily="@font/ubuntu_light"
         app:layout_constraintEnd_toStartOf="@+id/guiObjVer2"
         app:layout_constraintStart_toStartOf="@+id/guiObjVer1"
         app:layout_constraintTop_toBottomOf="@+id/textView4" />
@@ -30,7 +38,9 @@
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/ubuntu_light"
         android:text="@string/urgencyLabel"
+        android:textSize="18sp"
         app:layout_constraintStart_toStartOf="@+id/guiObjVer1"
         app:layout_constraintTop_toBottomOf="@+id/edit_title" />
 
@@ -47,7 +57,9 @@
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/ubuntu_light"
         android:text="@string/categoryLabel"
+        android:textSize="18sp"
         app:layout_constraintStart_toStartOf="@+id/guiObjVer1"
         app:layout_constraintTop_toBottomOf="@+id/spinner_urgency" />
 
@@ -56,9 +68,11 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:theme="@null"
+        app:layout_constraintBottom_toTopOf="@+id/guiObjHor2"
         app:layout_constraintEnd_toStartOf="@+id/guiObjVer2"
         app:layout_constraintStart_toStartOf="@+id/guiObjVer1"
         app:layout_constraintTop_toBottomOf="@+id/textView3" />
+
 
     <EditText
         android:id="@+id/edit_about"
@@ -67,10 +81,11 @@
         android:importantForAutofill="no"
         android:inputType="textMultiLine|text"
         android:labelFor="@id/textView5"
+        app:layout_constraintBottom_toTopOf="@+id/guiObjHor3"
         app:layout_constraintEnd_toStartOf="@+id/guiObjVer2"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/guiObjVer1"
         app:layout_constraintTop_toBottomOf="@+id/textView5" />
-
 
     <EditText
         android:id="@+id/edit_lon"
@@ -89,15 +104,18 @@
         android:layout_height="wrap_content"
         android:text="@string/latitudeLabel"
         app:layout_constraintStart_toStartOf="@+id/guiObjVer1"
-        app:layout_constraintTop_toBottomOf="@+id/edit_about" />
+        app:layout_constraintTop_toTopOf="@+id/guiObjHor3" />
 
     <TextView
         android:id="@+id/textView5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/ubuntu_light"
         android:text="@string/aboutLabel"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toStartOf="@+id/guiObjVer2"
         app:layout_constraintStart_toStartOf="@+id/guiObjVer1"
-        app:layout_constraintTop_toBottomOf="@+id/spinner_category" />
+        app:layout_constraintTop_toTopOf="@+id/guiObjHor2" />
 
     <TextView
         android:id="@+id/textView6"
@@ -111,8 +129,10 @@
         android:id="@+id/button_getCoords"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/ubuntu_medium"
         android:text="Get coordinates"
-        app:layout_constraintBottom_toTopOf="@+id/button_addObject"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         app:layout_constraintEnd_toStartOf="@+id/guiObjVer2"
         app:layout_constraintStart_toStartOf="@+id/guiObjVer1"
         app:layout_constraintTop_toBottomOf="@+id/edit_lon" />
@@ -130,19 +150,28 @@
 
     <Button
         android:id="@+id/button_addObject"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/ubuntu_bold"
         android:text="Add Request"
-        app:layout_constraintBottom_toTopOf="@+id/guiObjHorBottom"
+        android:background="@drawable/confirm_btn"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/guiObjVer2"
-        app:layout_constraintStart_toStartOf="@+id/guiObjVer1" />
+        app:layout_constraintStart_toStartOf="@+id/guiObjVer1"
+        app:layout_constraintTop_toBottomOf="@+id/button_getCoords" />
 
     <TextView
         android:id="@+id/textView8"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/ubuntu_bold"
         android:text="@string/addRequestTitle"
-        android:textColor="#2196F3"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:textColor="@color/blueInsta"
         android:textSize="24sp"
         app:layout_constraintBottom_toTopOf="@+id/guiObjHor1"
         app:layout_constraintEnd_toEndOf="parent"
@@ -157,11 +186,11 @@
         app:layout_constraintGuide_percent="0.1" />
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guiObjHorBottom"
+        android:id="@+id/guiObjHor2"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.95" />
+        app:layout_constraintGuide_percent="0.4" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guiObjVer1"
@@ -175,6 +204,21 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-       app:layout_constraintGuide_percent="0.9" />
+        app:layout_constraintGuide_percent="0.9" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guiObjHor3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.55" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guiObjHor4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="20dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

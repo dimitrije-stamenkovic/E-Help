@@ -40,6 +40,14 @@ object UserData {
 
     fun returnCurrentUser()= currentUser
 
+    fun updateUserPoints(newPoints:Int){
+        var userPoints= currentUser.points
+        var updatedPoints=userPoints+newPoints
+        usersRef.child("points").setValue(updatedPoints)
+
+    }
+
+
     fun changeUserReference(uidUser:String){
         userId=uidUser
         usersRef= database.child("Users").child(uidUser)

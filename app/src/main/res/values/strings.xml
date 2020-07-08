@@ -71,6 +71,9 @@
 
     <string name="channel_name">Kanal1</string>
     <string name="channel_description">Opis neki</string>
+    <string name="btnhelp">Help</string>
+    <string name="appService">App service</string>
+    <string name="btnSignOut">Sign out</string>
 
     <string-array name="Urgency">
         <item>Urgently</item>

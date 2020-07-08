@@ -62,19 +62,19 @@ class RankListFragment : Fragment() {
         val view=inflater.inflate(R.layout.fragment_rank_list, container, false)
         mUsersRecyclerView=view.findViewById(R.id.recyclerViewRank)
         mUsersRecyclerView.setHasFixedSize(true)
-        mUsersRecyclerView.setLayoutManager(LinearLayoutManager(requireContext()))
+        var manager:LinearLayoutManager= LinearLayoutManager(requireContext())
+        manager.reverseLayout=true
+        manager.stackFromEnd=true
+        mUsersRecyclerView.setLayoutManager(manager)
+
         return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-     //   getUserRank(txtUserRank)
         txtUserPoints.setText(mCurrentUser.points.toString())
         rankViewModel.getUserRank(mCurrentUser.key,this.requireContext())
         setupObserver()
-       // var divideItem:DividerItemDecoration= DividerItemDecoration(requireContext(),DividerItemDecoration.VERTICAL)
-      //  mUsersRecyclerView.addItemDecoration(divideItem)
-
         loadRankList()
         Glide.with(this.requireContext())
             .load(mCurrentUser.photoUrl)
@@ -85,7 +85,7 @@ class RankListFragment : Fragment() {
 
     private fun loadRankList(){
 
-        val firebaseSearchQuery=mUsersDatabaseRef.orderByChild("email").limitToFirst(4)
+        val firebaseSearchQuery=mUsersDatabaseRef.orderByChild("points").limitToLast(10)
         val options:FirebaseRecyclerOptions<User> =
         FirebaseRecyclerOptions.Builder<User>()
             .setQuery(firebaseSearchQuery,User::class.java)
@@ -98,12 +98,13 @@ class RankListFragment : Fragment() {
             }
 
             override fun onBindViewHolder(holder: RankViewHolder, position: Int, model: User) {
-                var rank=holder.adapterPosition+1
+                var rank=10-position
                 var points:String= model.points?.toString()?:"0"
                 holder.rankNumber.setText(rank.toString())
                 holder.rankPoints.setText(points + " pts" )
                 holder.rankUsername.setText(model.username)
             }
+
 
         }
         mUsersRecyclerView.adapter=mUsersFirebaseRecyclerAdapter
@@ -116,37 +117,4 @@ class RankListFragment : Fragment() {
             txtUserRank.setText(rankViewModel.userRank.value.toString())
         })
     }
-
-
-//    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-//        super.onViewCreated(view, savedInstanceState)
-//
-//
-//       MyHelpRequestsData.onRequestsChange.observe(viewLifecycleOwner, Observer {
-//
-////           if (MyHelpRequestsData.requests != null){
-////               temp.text = MyHelpRequestsData.requests.toString()
-////
-////           }
-//
-//       })
-//        UsersLocationData.onUserLocationChanged.observe(viewLifecycleOwner, Observer {
-//
-//          //  var lista :ArrayList<GeoPoint> =UsersLocationData.onUserLocationChanged.value[0].toString()
-//            if(UsersLocationData.onUserLocationChanged!=null){
-//           // var geoPoint = UsersLocationData.onUserLocationChanged?.value[0]
-//            Log.e("Lista usera", UsersLocationData.onUserLocationChanged.value?.last()?.latitude.toString())
-//            }
-//        })
-//        UsersLocationData.onFriendLocationChanged.observe(viewLifecycleOwner, Observer {
-//            if(UsersLocationData.onFriendLocationChanged!=null){
-//                Log.e("Lista prijatelja", UsersLocationData.onFriendLocationChanged.value?.first()?.latitude.toString())
-//
-//            }
-//        })
-//        FriendData.onFriendsListChanged.observe(viewLifecycleOwner, Observer {
-//            if(FriendData.onFriendsListChanged!=null)
-//                Log.e("Update friend", FriendData.onFriendsListChanged.value?.last()?.userId.toString())
-//        })
-//    }
 }

@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fillViewport="true"
     tools:context=".HelpRequestFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -12,139 +14,165 @@
 
         <TextView
             android:id="@+id/textView29"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="1dp"
-            android:layout_marginBottom="21dp"
-            android:text="TextView"
-            app:layout_constraintBottom_toTopOf="@+id/textView31"
-            app:layout_constraintStart_toStartOf="@+id/textView31"
+            android:fontFamily="@font/ubuntu_light"
+            android:text="@string/titleLabel2"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toTopOf="@+id/guiHelpFragHor1"
+            app:layout_constraintStart_toStartOf="@+id/guiHelpFragVer1"
+            app:layout_constraintTop_toTopOf="parent"
             tools:text="@string/titleLabel2" />
 
         <TextView
             android:id="@+id/title"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="21dp"
+            android:layout_marginStart="8dp"
+            android:fontFamily="@font/ubuntu_bold"
             android:text="TextView"
-            app:layout_constraintBottom_toTopOf="@+id/textView31"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            android:textColor="@color/blueInsta"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toTopOf="@+id/guiHelpFragHor1"
+            app:layout_constraintEnd_toStartOf="@+id/guiHelpFragVer2"
+            app:layout_constraintStart_toEndOf="@+id/textView29"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/textView31"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="129dp"
-            android:layout_marginEnd="42dp"
-            android:text="TextView"
-            app:layout_constraintEnd_toStartOf="@+id/category"
-            app:layout_constraintTop_toTopOf="parent"
+            android:fontFamily="@font/ubuntu_light"
+            android:text="@string/categoryLabel2"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toTopOf="@+id/guiHelpFragHor4"
+            app:layout_constraintStart_toStartOf="@+id/guiHelpFragVer1"
+            app:layout_constraintTop_toTopOf="@+id/guiHelpFragHor1"
             tools:text="@string/categoryLabel2" />
 
         <TextView
             android:id="@+id/category"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="21dp"
+            android:layout_marginStart="8dp"
+            android:fontFamily="@font/ubuntu_light"
             android:text="TextView"
-            app:layout_constraintStart_toStartOf="@+id/title"
-            app:layout_constraintTop_toBottomOf="@+id/title" />
+            android:textColor="@color/blueInsta"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toTopOf="@+id/guiHelpFragHor4"
+            app:layout_constraintEnd_toStartOf="@+id/guiHelpFragVer2"
+            app:layout_constraintStart_toEndOf="@+id/textView31"
+            app:layout_constraintTop_toTopOf="@+id/guiHelpFragHor1" />
 
         <TextView
             android:id="@+id/textView33"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="1dp"
-            android:layout_marginTop="25dp"
-            android:text="TextView"
-            app:layout_constraintStart_toStartOf="@+id/textView31"
-            app:layout_constraintTop_toBottomOf="@+id/textView31"
+            android:fontFamily="@font/ubuntu_light"
+            android:text="@string/urgencyLabel2"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toTopOf="@+id/guiHelpFragHor3"
+            app:layout_constraintStart_toStartOf="@+id/guiHelpFragVer1"
+            app:layout_constraintTop_toTopOf="@+id/guiHelpFragHor4"
             tools:text="@string/urgencyLabel2" />
 
         <TextView
             android:id="@+id/urgency"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="22dp"
-            android:layout_marginEnd="2dp"
+            android:layout_marginStart="8dp"
+            android:fontFamily="@font/ubuntu_light"
             android:text="TextView"
-            app:layout_constraintEnd_toEndOf="@+id/category"
-            app:layout_constraintTop_toBottomOf="@+id/category" />
-
-        <TextView
-            android:id="@+id/textView35"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="28dp"
-            android:layout_marginEnd="3dp"
-            android:text="TextView"
-            app:layout_constraintEnd_toEndOf="@+id/textView33"
-            app:layout_constraintTop_toBottomOf="@+id/textView33"
-            tools:text="@string/latitudeLabel2" />
-
-        <TextView
-            android:id="@+id/latitude"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="1dp"
-            android:layout_marginBottom="26dp"
-            android:text="TextView"
-            app:layout_constraintBottom_toTopOf="@+id/longitude"
-            app:layout_constraintEnd_toEndOf="@+id/urgency" />
-
-        <TextView
-            android:id="@+id/textView37"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="1dp"
-            android:layout_marginTop="29dp"
-            android:text="TextView"
-            app:layout_constraintStart_toStartOf="@+id/textView35"
-            app:layout_constraintTop_toBottomOf="@+id/textView35"
-            tools:text="@string/longitudeLabel2" />
-
-        <TextView
-            android:id="@+id/longitude"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="3dp"
-            android:text="TextView"
-            app:layout_constraintBaseline_toBaselineOf="@+id/textView37"
-            app:layout_constraintEnd_toEndOf="@+id/latitude" />
+            android:textColor="@color/blueInsta"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toTopOf="@+id/guiHelpFragHor3"
+            app:layout_constraintEnd_toStartOf="@+id/guiHelpFragVer2"
+            app:layout_constraintStart_toEndOf="@+id/textView33"
+            app:layout_constraintTop_toTopOf="@+id/guiHelpFragHor4" />
 
         <TextView
             android:id="@+id/textView39"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
-            android:text="TextView"
-            app:layout_constraintStart_toStartOf="@+id/textView37"
-            app:layout_constraintTop_toBottomOf="@+id/textView37"
+            android:fontFamily="@font/ubuntu_light"
+            android:text="@string/aboutLabel2"
+            android:textColor="@android:color/secondary_text_light"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toStartOf="@+id/guiHelpFragVer2"
+            app:layout_constraintStart_toStartOf="@+id/guiHelpFragVer1"
+            app:layout_constraintTop_toTopOf="@+id/guiHelpFragHor3"
             tools:text="@string/aboutLabel2" />
 
         <TextView
             android:id="@+id/about"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="1dp"
-            android:layout_marginTop="33dp"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/ubuntu_light"
             android:text="TextView"
-            app:layout_constraintStart_toStartOf="@+id/longitude"
-            app:layout_constraintTop_toBottomOf="@+id/longitude" />
+            android:textColor="@android:color/black"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toTopOf="@+id/guiHelpFragHor2"
+            app:layout_constraintEnd_toStartOf="@+id/guiHelpFragVer2"
+            app:layout_constraintStart_toStartOf="@+id/guiHelpFragVer1"
+            app:layout_constraintTop_toBottomOf="@+id/textView39" />
 
         <Button
             android:id="@+id/help_button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/btn_help"
+            android:fontFamily="@font/ubuntu_bold"
+            android:text="@string/btnhelp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/guiHelpFragVer2"
+            app:layout_constraintStart_toStartOf="@+id/guiHelpFragVer1"
+            app:layout_constraintTop_toTopOf="@+id/guiHelpFragHor2" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guiHelpFragHor1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="158dp"
-            android:layout_marginTop="160dp"
-            android:layout_marginEnd="165dp"
-            android:layout_marginBottom="110dp"
-            android:text="Button"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/about" />
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.15" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guiHelpFragHor2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.75" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guiHelpFragVer1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.1" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guiHelpFragVer2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.9" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guiHelpFragHor3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.5" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guiHelpFragHor4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.32" />
     </androidx.constraintlayout.widget.ConstraintLayout>
-</FrameLayout>
+
+</ScrollView>

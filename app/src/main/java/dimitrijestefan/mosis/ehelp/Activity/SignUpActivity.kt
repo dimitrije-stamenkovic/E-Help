@@ -2,6 +2,7 @@ package dimitrijestefan.mosis.ehelp.Activity
 
 import android.app.Activity
 import android.app.ProgressDialog
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
@@ -14,12 +15,15 @@ import android.os.Environment
 import android.provider.MediaStore
 import android.service.autofill.UserData
 import android.text.TextUtils
+import android.util.AttributeSet
 import android.util.Log
+import android.view.View
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import androidx.core.graphics.drawable.RoundedBitmapDrawable
 import androidx.core.graphics.drawable.RoundedBitmapDrawableFactory
+import androidx.lifecycle.ViewModelProvider
 import com.google.firebase.FirebaseApp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
@@ -30,22 +34,30 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.iid.FirebaseInstanceId
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
+import de.hdodenhof.circleimageview.CircleImageView
 import dimitrijestefan.mosis.ehelp.MainActivity
+import dimitrijestefan.mosis.ehelp.MapViewModel
 import dimitrijestefan.mosis.ehelp.Models.User
 import dimitrijestefan.mosis.ehelp.R
 import dimitrijestefan.mosis.ehelp.Service.NotificationService
+import dimitrijestefan.mosis.ehelp.ViewModels.SignUpViewModel
 import kotlinx.android.synthetic.main.activity_sign_up.*
 import kotlinx.coroutines.*
 import kotlinx.coroutines.tasks.await
 import java.io.ByteArrayOutputStream
 import java.io.File
 import java.util.*
+import kotlin.math.sign
 
 
 class SignUpActivity : AppCompatActivity() {
 
-    private var currentPhotoPath: String = ""
-    lateinit var photoUri: Uri
+    private val signUpViewModel by lazy {
+        ViewModelProvider(this).get(SignUpViewModel::class.java)
+    }
+
+  //  private var currentPhotoPath: String = ""
+   // lateinit var photoUri: Uri
     var name: String = ""
     var lastname: String = ""
     var phoneNumber: String = ""
@@ -70,6 +82,10 @@ class SignUpActivity : AppCompatActivity() {
             this.TakePhoto()
         }
         progressDialog = ProgressDialog(this@SignUpActivity)
+        if(signUpViewModel.currentPhotoPath!="" && signUpViewModel.isInitPhotoUri()){
+           val bitmapForView: Bitmap = BitmapFactory.decodeFile(signUpViewModel.currentPhotoPath)
+           imageViewSignUp.setImageBitmap(bitmapForView)
+       }
     }
 
 
@@ -87,7 +103,8 @@ class SignUpActivity : AppCompatActivity() {
               TextUtils.isEmpty(username) -> Toast.makeText(this, "Please enter username.", Toast.LENGTH_LONG).show()
               TextUtils.isEmpty(email) -> Toast.makeText(this, "Please enter email.", Toast.LENGTH_LONG).show()
               TextUtils.isEmpty(password) -> Toast.makeText(this, "Please enter password.", Toast.LENGTH_LONG).show()
-              !this::photoUri.isInitialized ->Toast.makeText(this, "Please take photo",Toast.LENGTH_LONG).show()
+             // !this::photoUri.isInitialized ->Toast.makeText(this, "Please take photo",Toast.LENGTH_LONG).show()
+            !signUpViewModel.isInitPhotoUri()->Toast.makeText(this, "Please take photo",Toast.LENGTH_LONG).show()
 
             else -> {
 
@@ -118,7 +135,7 @@ class SignUpActivity : AppCompatActivity() {
         val currentUserId = FirebaseAuth.getInstance().currentUser!!.uid
         val storageRef =
             FirebaseStorage.getInstance().getReference("usersPhoto/$currentUserId/$filename")
-        storageRef.putFile(this.photoUri).addOnSuccessListener {
+        storageRef.putFile(signUpViewModel.photoUri).addOnSuccessListener {
             storageRef.downloadUrl.addOnSuccessListener {
                 this.SaveUserToDatabase(it.toString())
             }
@@ -141,7 +158,7 @@ class SignUpActivity : AppCompatActivity() {
         usersRef.child(currentUserId).setValue(newUser).addOnCompleteListener { task ->
             if (task.isSuccessful) {
                 progressDialog.dismiss()
-                Toast.makeText(this, "Uspesno ste kreirali nalog", Toast.LENGTH_LONG).show()
+                Toast.makeText(this, "Successfully created an account.", Toast.LENGTH_LONG).show()
                 val intent = Intent(this@SignUpActivity, MainActivity::class.java)
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
 
@@ -171,14 +188,17 @@ class SignUpActivity : AppCompatActivity() {
             val fileName: String = "photo"
             val storageDirectory: File? = getExternalFilesDir(Environment.DIRECTORY_PICTURES)
             val imageFile: File = File.createTempFile(fileName, ".jpg", storageDirectory)
-            this.currentPhotoPath = imageFile.absolutePath
-            photoUri = FileProvider.getUriForFile(
+            //this.currentPhotoPath = imageFile.absolutePath
+
+            //photoUri = FileProvider.getUriForFile(
+            signUpViewModel.currentPhotoPath=imageFile.absolutePath
+            signUpViewModel.photoUri= FileProvider.getUriForFile(
                 this@SignUpActivity,
                 "dimitrijestefan.mosis.ehelp",
                 imageFile
             )
             val cameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-            cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoUri)
+            cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, signUpViewModel.photoUri)
             startActivityForResult(cameraIntent, 1)
         }
     }
@@ -213,14 +233,9 @@ class SignUpActivity : AppCompatActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == 1 && resultCode == RESULT_OK) {
-            val bitmapForView: Bitmap = BitmapFactory.decodeFile(this.currentPhotoPath)
-           // val roundBitmap:RoundedBitmapDrawable= RoundedBitmapDrawableFactory.create(resources, bitmapForView)
-           // roundBitmap.isCircular=true
-          //  imageViewSignUp.setImageDrawable(roundBitmap)
-
+            //val bitmapForView: Bitmap = BitmapFactory.decodeFile(this.currentPhotoPath)
+            val bitmapForView: Bitmap = BitmapFactory.decodeFile(signUpViewModel.currentPhotoPath)
             imageViewSignUp.setImageBitmap(bitmapForView)
-
-           // btnTakePhoto.setBackgroundDrawable(BitmapDrawable(bitmapForView))
         }
     }
 
@@ -244,5 +259,7 @@ class SignUpActivity : AppCompatActivity() {
         }
 
     }
+
+
 
 }

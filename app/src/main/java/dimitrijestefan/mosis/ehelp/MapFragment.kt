@@ -123,15 +123,12 @@ class MapFragment : Fragment(), OnMapReadyCallback {
             filterButton.setOnClickListener {
                 this.findNavController().navigate(R.id.filterMap)
             }
+
+            showUsersFriends.setOnClickListener {
+                mapViewModel.boolShowUserFriends= !mapViewModel.boolShowUserFriends
+                onLocationUpdate()
+            }
             mClusterManager = ClusterManager<ClusterMarker>(requireActivity().applicationContext, googleMap)
-
-//            if (mapViewModel.filter == true) {
-//                AllHelpRequestsData.filterRequests(mapViewModel.title,mapViewModel.category,mapViewModel.urgency,mapViewModel.current_location,mapViewModel.radius)
-//                onLocationUpdate()
-//            } else {
-//                onLocationUpdate()
-//            }
-
 
             onLocationUpdate()
             UsersLocationData.onUserLocationChanged.observe(viewLifecycleOwner, Observer {
@@ -175,18 +172,15 @@ class MapFragment : Fragment(), OnMapReadyCallback {
                         setOnMapClickListener()
 
                     }
-
                     filterButton.setOnClickListener {
                         this.findNavController().navigate(R.id.filterMap)
                     }
-                    mClusterManager = ClusterManager<ClusterMarker>(requireActivity().applicationContext, googleMap)
 
-//            if (mapViewModel.filter == true) {
-//                AllHelpRequestsData.filterRequests(mapViewModel.title,mapViewModel.category,mapViewModel.urgency,mapViewModel.current_location,mapViewModel.radius)
-//                onLocationUpdate()
-//            } else {
-//                onLocationUpdate()
-//            }
+                    mClusterManager = ClusterManager<ClusterMarker>(requireActivity().applicationContext, googleMap)
+                    showUsersFriends.setOnClickListener {
+                        mapViewModel.boolShowUserFriends= !mapViewModel.boolShowUserFriends
+                        onLocationUpdate()
+                    }
 
                     onLocationUpdate()
                     UsersLocationData.onUserLocationChanged.observe(viewLifecycleOwner, Observer {
@@ -300,6 +294,7 @@ class MapFragment : Fragment(), OnMapReadyCallback {
     }
 
     private fun addUsersMarkers() {
+        if(mapViewModel.boolShowUserFriends){
         var users: ArrayList<GeoPoint> = UsersLocationData.usersLocation
         mUsersMarkerCollection = mClusterManager.markerManager.newCollection()
         markerUsersIdMap = HashMap<Marker, Int>()
@@ -320,55 +315,58 @@ class MapFragment : Fragment(), OnMapReadyCallback {
                 return true
             }
 
-        })
+        })}
 
     }
 
 
     private fun addFriendsMarkers() {
+        if(mapViewModel.boolShowUserFriends) {
+            mClusteManagerRenderer =
+                MyClusterManagerRenderer(requireActivity(), googleMap, mClusterManager)
+            mClusterManager.renderer = mClusteManagerRenderer
 
-        mClusteManagerRenderer =
-            MyClusterManagerRenderer(requireActivity(), googleMap, mClusterManager)
-        mClusterManager.renderer = mClusteManagerRenderer
+            var friends: ArrayList<GeoPoint> = UsersLocationData.friendsLocation
+            markerFriendsIdMap = HashMap<ClusterMarker, Int>()
+            var customMarker: ClusterMarker
+            var friend: Friend
+            var index1: Int
 
-        var friends: ArrayList<GeoPoint> = UsersLocationData.friendsLocation
-        markerFriendsIdMap = HashMap<ClusterMarker, Int>()
-        var customMarker: ClusterMarker
-        var friend: Friend
-        var index1: Int
-
-        for ((index, value) in friends.withIndex()) {
-            index1 = FriendData.friendsListIndexMapping.get(value.userId)!!
-            friend = FriendData.friendsList.get(index1)
-            customMarker = ClusterMarker(
-                LatLng(value.latitude, value.longitude),
-                friend.email,
-                "Nekiiisasasaasaassasa",
-                friend
-            )
-            mClusterManager.addItem(customMarker)
-            mClusterMarkers.add(customMarker)
-        }
-        mClusterManager.markerCollection.setInfoWindowAdapter(CustomInfoWindowFriendAdapter(mapViewModel,requireContext()))
-
-        mClusterManager.setOnClusterItemClickListener(object :
-            ClusterManager.OnClusterItemClickListener<ClusterMarker> {
-            override fun onClusterItemClick(item: ClusterMarker?): Boolean {
-             //   Log.e("Custom marker click", item?.title.toString())
-
-               // Toast.makeText(context, item?.title.toString(), Toast.LENGTH_SHORT).show()
-                mapViewModel.clickedFriend= item?.getFriend()!!
-                return false
+            for ((index, value) in friends.withIndex()) {
+                index1 = FriendData.friendsListIndexMapping.get(value.userId)!!
+                friend = FriendData.friendsList.get(index1)
+                customMarker = ClusterMarker(
+                    LatLng(value.latitude, value.longitude),
+                    friend.email,
+                    "Nekiiisasasaasaassasa",
+                    friend
+                )
+                mClusterManager.addItem(customMarker)
+                mClusterMarkers.add(customMarker)
             }
+            mClusterManager.markerCollection.setInfoWindowAdapter(
+                CustomInfoWindowFriendAdapter(
+                    mapViewModel,
+                    requireContext()
+                )
+            )
 
-        })
-        mClusterManager.cluster()
+            mClusterManager.setOnClusterItemClickListener(object :
+                ClusterManager.OnClusterItemClickListener<ClusterMarker> {
+                override fun onClusterItemClick(item: ClusterMarker?): Boolean {
+                    //   Log.e("Custom marker click", item?.title.toString())
+
+                    // Toast.makeText(context, item?.title.toString(), Toast.LENGTH_SHORT).show()
+                    mapViewModel.clickedFriend = item?.getFriend()!!
+                    return false
+                }
+
+            })
+            mClusterManager.cluster()
+        }
 
     }
 
 
-    private fun addMarker() {
-
-    }
 
 }

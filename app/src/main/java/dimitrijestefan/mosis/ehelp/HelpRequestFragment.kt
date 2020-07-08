@@ -7,9 +7,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
 import dimitrijestefan.mosis.ehelp.Data.AllHelpRequestsData
+import dimitrijestefan.mosis.ehelp.Data.UserData
 import dimitrijestefan.mosis.ehelp.Models.HelpRequest
 import kotlinx.android.synthetic.main.fragment_help_request.*
 
@@ -30,6 +34,7 @@ class HelpRequestFragment : Fragment() {
     //private var param1: String? = null
     lateinit var request : HelpRequest
     lateinit var user_id : String
+    lateinit var helpRequestRef:DatabaseReference
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -40,16 +45,14 @@ class HelpRequestFragment : Fragment() {
             //param1 = it.getString(ARG_PARAM1)
             request = it.getString(ARG_PARAM1)?.let { it1 -> AllHelpRequestsData.getRequest(it1) }!!
         }
+        helpRequestRef=FirebaseDatabase.getInstance().getReference().child("Requests")
+
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-
-        //Toast.makeText(requireContext(),request.toString(), Toast.LENGTH_SHORT).show()
-
 
         return inflater.inflate(R.layout.fragment_help_request, container, false)
     }
@@ -60,19 +63,43 @@ class HelpRequestFragment : Fragment() {
         title.text = request.title
         urgency.text = request.urgency
         category.text = request.category
-        latitude.text = request.latitude
-        longitude.text = request.longitude
         about.text = request.about
-
-        if(AllHelpRequestsData.distance(mapViewModel.current_location.latitude,mapViewModel.current_location.longitude,request.latitude!!.toDouble(),request.longitude!!.toDouble())*1000>10 || request.userId == user_id){
-            help_button.isEnabled = false
+//        if(AllHelpRequestsData.distance(mapViewModel.current_location.latitude,mapViewModel.current_location.longitude,request.latitude!!.toDouble(),request.longitude!!.toDouble())*1000>100 || request.userId == user_id){
+//            help_button.isEnabled = false
+//        }
+        when{
+            request.userId == user_id -> {
+                help_button.isEnabled=false
+                Toast.makeText(requireContext(),"You cannot answer your own help request.",Toast.LENGTH_LONG).show()
+            }
+            AllHelpRequestsData.distance(mapViewModel.current_location.latitude,mapViewModel.current_location.longitude,request.latitude!!.toDouble(),request.longitude!!.toDouble())*1000>100 ->{
+                help_button.isEnabled=false
+                Toast.makeText(requireContext(),"Help request is far away",Toast.LENGTH_LONG).show()
+            }
         }
 
         help_button.setOnClickListener {
-            Toast.makeText(requireContext(),"URADI",Toast.LENGTH_SHORT).show()
+            Help(request)
         }
 
-
     }
+
+    fun Help(helpRequest: HelpRequest){
+        when(helpRequest.urgency){
+            "Urgently"->UserData.updateUserPoints(15)
+            "Mixed"->UserData.updateUserPoints(10)
+            "Not Urgently"->UserData.updateUserPoints(5)
+        }
+        helpRequestRef.child(helpRequest.key)
+            .removeValue()
+            .addOnCompleteListener {task ->
+                        if(task.isSuccessful){
+                            this.findNavController().navigate(R.id.mapFragment)
+                        }
+            }
+    }
+
+
+
 
 }

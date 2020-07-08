@@ -48,27 +48,6 @@ class AddObjectFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-//
-//        UserData.fetchCurrenUser(object : OnGetDataListener{
-//            override fun onSuccess(data: DataSnapshot) {
-//                var user = User ()
-//                user.email = data.child("email").value.toString()
-//                Toast.makeText(requireContext(),user.toString(),Toast.LENGTH_SHORT).show()
-//            }
-//
-//            override fun onFailed(databaseError: DatabaseError) {
-//
-//            }
-//
-//            override fun onStart() {
-//
-//            }
-//        })
-
-
-
-
-      //  Toast.makeText(requireContext(),UserData.getCurrentUser().toString(),Toast.LENGTH_SHORT).show()
 
         val urgency = resources.getStringArray(R.array.Urgency)
         val urgency_adapter = ArrayAdapter(requireContext(),android.R.layout.simple_spinner_item,urgency)

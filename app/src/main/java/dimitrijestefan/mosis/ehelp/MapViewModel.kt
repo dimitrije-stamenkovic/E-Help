@@ -22,7 +22,8 @@ class MapViewModel : ViewModel() {
     lateinit var radius : String
     lateinit var clickedFriend: Friend
     fun isClickedFriendInitialized() = this::clickedFriend.isInitialized
-    fun isCurrentUserLocationInitialized() =this::current_location.isInitialized
+    var boolShowUserFriends:Boolean= true
+
 
 
 //    var help_requests = Repository.getHelpRequestList()
