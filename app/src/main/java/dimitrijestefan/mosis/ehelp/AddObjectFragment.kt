@@ -106,7 +106,7 @@ class AddObjectFragment : Fragment() {
                     edit_lat.text.toString()
                     ,edit_lon.text.toString(),
                     edit_about.text.toString())
-                Toast.makeText(context,MyHelpRequestsData.requests.toString(),Toast.LENGTH_LONG).show()
+                Toast.makeText(context,"Help request has been successfully added",Toast.LENGTH_LONG).show()
             }else{
                 Toast.makeText(context,"Invalid request",Toast.LENGTH_LONG).show()
             }

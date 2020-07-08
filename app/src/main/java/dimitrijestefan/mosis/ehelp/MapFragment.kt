@@ -97,7 +97,7 @@ class MapFragment : Fragment(), OnMapReadyCallback {
         fusedLocationClient.lastLocation.addOnSuccessListener {
             mapViewModel.current_location = LatLng(it.latitude,it.longitude)
             googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(mapViewModel.current_location,15f))
-            Toast.makeText(requireContext(),mapViewModel.current_location.toString(),Toast.LENGTH_SHORT).show()
+            //Toast.makeText(requireContext(),mapViewModel.current_location.toString(),Toast.LENGTH_SHORT).show()
         }
     }
 

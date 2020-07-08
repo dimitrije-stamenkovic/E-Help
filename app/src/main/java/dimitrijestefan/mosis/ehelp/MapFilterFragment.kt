@@ -88,19 +88,19 @@ class MapFilterFragment : Fragment() {
         }
 
         textView11.setOnClickListener {
-            Toast.makeText(requireContext(),"CLICK",Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(),"Filters have been reset",Toast.LENGTH_SHORT).show()
             edit_title2?.setText("")
             spinner_category.setSelection(0)
             spinner_urgency.setSelection(0)
             AllHelpRequestsData.filtered_requests.clear()
-            Log.d("DISTANE",AllHelpRequestsData.filtered_requests.toString())
+            //Log.d("DISTANE",AllHelpRequestsData.filtered_requests.toString())
             mapViewModel.reset = true
         }
 
         textView12.setOnClickListener {
             mapViewModel.filter = false
 
-            Log.d("DISTANE",AllHelpRequestsData.filtered_requests.toString())
+            //Log.d("DISTANE",AllHelpRequestsData.filtered_requests.toString())
             this.findNavController().navigate(R.id.action_mapFilterFragment_to_mapFragment)
         }
 
