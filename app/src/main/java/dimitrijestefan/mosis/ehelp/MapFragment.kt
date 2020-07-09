@@ -219,6 +219,7 @@ class MapFragment : Fragment(), OnMapReadyCallback {
         addFriendsMarkers()
         addHelpRequestsMarker()
         googleMap.setOnMarkerClickListener(mClusterManager)
+        mClusterManager.clearItems()
         googleMap.setInfoWindowAdapter(mClusterManager.markerManager)
     }
 

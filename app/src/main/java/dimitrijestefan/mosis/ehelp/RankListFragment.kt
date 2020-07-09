@@ -72,6 +72,7 @@ class RankListFragment : Fragment() {
         mUsersRecyclerView.setLayoutManager(manager)
 
 
+
         return view
     }
 
@@ -122,7 +123,7 @@ class RankListFragment : Fragment() {
     fun setupObserver(){
         rankViewModel.userRank?.observe(viewLifecycleOwner, Observer {
             txtUserRank.setText(rankViewModel.userRank.value.toString())
-            mUsersFirebaseRecyclerAdapter.notifyItemRangeChanged(1,10)
+           mUsersFirebaseRecyclerAdapter.notifyItemRangeChanged(1,10)
         })
     }
 }
