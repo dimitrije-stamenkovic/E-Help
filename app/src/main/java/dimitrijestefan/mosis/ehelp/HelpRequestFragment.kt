@@ -70,7 +70,7 @@ class HelpRequestFragment : Fragment() {
                 help_button.isEnabled=false
                 Toast.makeText(requireContext(),"You cannot answer your own help request.",Toast.LENGTH_LONG).show()
             }
-            AllHelpRequestsData.distance(mapViewModel.current_location.latitude,mapViewModel.current_location.longitude,request.latitude!!.toDouble(),request.longitude!!.toDouble())*1000>30 ->{
+            AllHelpRequestsData.distance(mapViewModel.current_location.latitude,mapViewModel.current_location.longitude,request.latitude!!.toDouble(),request.longitude!!.toDouble())*1000>50 ->{
                 help_button.isEnabled=false
                 Toast.makeText(requireContext(),"Help request is far away",Toast.LENGTH_LONG).show()
             }
