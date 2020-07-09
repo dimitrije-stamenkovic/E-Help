@@ -103,8 +103,8 @@ class MapFragment : Fragment(), OnMapReadyCallback {
 
     override fun onMapReady(map: GoogleMap) {
         googleMap = map;
-        getLastLocation()
-        //zar me treba poziv kasnije?
+
+
         //  googleMap?.isMyLocationEnabled=true;
         if (ContextCompat.checkSelfPermission(this.requireContext(), android.Manifest.permission.ACCESS_FINE_LOCATION)
             != PackageManager.PERMISSION_GRANTED
@@ -114,7 +114,8 @@ class MapFragment : Fragment(), OnMapReadyCallback {
         }
         else {
 
-            googleMap.isMyLocationEnabled = true;
+            googleMap.isMyLocationEnabled = true
+            getLastLocation()
             if (addObjectViewModel.select) {
                 setOnMapClickListener()
 
