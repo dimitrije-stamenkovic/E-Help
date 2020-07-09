@@ -16,9 +16,7 @@ import android.content.Context
 import android.os.Build
 import android.util.Log
 import com.google.firebase.auth.FirebaseAuth
-import dimitrijestefan.mosis.ehelp.Data.FriendData
-import dimitrijestefan.mosis.ehelp.Data.UserData
-import dimitrijestefan.mosis.ehelp.Data.UsersLocationData
+import dimitrijestefan.mosis.ehelp.Data.*
 
 
 class MainActivity : AppCompatActivity() {
@@ -34,12 +32,20 @@ class MainActivity : AppCompatActivity() {
         mAuth=FirebaseAuth.getInstance()
         var currentUserId=mAuth.currentUser?.uid!!
         startLocationService()
+
         if(UserData!=null&& UserData.userId!=currentUserId)
         UserData.changeUserReference(currentUserId)
+
         if(FriendData!=null&&FriendData.currentUserId!=currentUserId)
         FriendData.changeUserReference(currentUserId)
         if(UsersLocationData!=null&&UsersLocationData.currentUserId!=currentUserId)
         UsersLocationData.changeUserReference(currentUserId)
+        if(AllHelpRequestsData!=null&& AllHelpRequestsData.current_uid!=currentUserId){
+            AllHelpRequestsData.changeUserReference(currentUserId)
+        }
+        if(MyHelpRequestsData!=null&& MyHelpRequestsData.current_uid!=currentUserId){
+            MyHelpRequestsData.changeUserReference(currentUserId)
+        }
 
     }
 

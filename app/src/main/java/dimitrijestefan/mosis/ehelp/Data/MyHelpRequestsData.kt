@@ -13,10 +13,20 @@ object MyHelpRequestsData {
     var onRequestsChange : MutableLiveData<ArrayList<HelpRequest>>
     var requests : ArrayList<HelpRequest>
     private var mCurrentUser: FirebaseUser?
-    val current_uid: String
+    var current_uid: String
     private  var database : DatabaseReference
     private  var myHelpRequestsIndexMapping = HashMap<String,Int>()
+    private lateinit var childEventListener:ChildEventListener
+    private lateinit var parentEventListener:ValueEventListener
 
+    fun changeUserReference(uidUser:String){
+        current_uid=uidUser
+        requests = ArrayList()
+        myHelpRequestsIndexMapping = HashMap<String,Int>()
+        database.addChildEventListener(childEventListener)
+        database.addListenerForSingleValueEvent(parentEventListener)
+
+    }
 
 
 
@@ -31,7 +41,7 @@ object MyHelpRequestsData {
 
 
 
-        var childEventListener = object : ChildEventListener{
+         childEventListener = object : ChildEventListener{
             override fun onChildAdded(p0: DataSnapshot, p1: String?) {
                 val myHelpRequestKey = p0.key
                 if(!myHelpRequestsIndexMapping.containsKey(myHelpRequestKey)){
@@ -115,7 +125,7 @@ object MyHelpRequestsData {
 
 
 
-        var parentEventListener = object : ValueEventListener{
+         parentEventListener = object : ValueEventListener{
             override fun onDataChange(p0: DataSnapshot) {
 
                 onRequestsChange.value = requests

@@ -14,9 +14,21 @@ object AllHelpRequestsData {
     var requests : ArrayList<HelpRequest>
     var filtered_requests : ArrayList<HelpRequest>
     private var mCurrentUser: FirebaseUser?
-    val current_uid: String
+    var current_uid: String
     private  var database : DatabaseReference
     private  var myHelpRequestsIndexMapping = HashMap<String,Int>()
+    private lateinit var childEventListener:ChildEventListener
+    private lateinit var parentEventListener:ValueEventListener
+
+
+    fun changeUserReference(uidUser:String){
+        current_uid= uidUser
+        requests=ArrayList<HelpRequest>()
+        filtered_requests=ArrayList<HelpRequest>()
+        myHelpRequestsIndexMapping=HashMap<String,Int>()
+        database.addChildEventListener(childEventListener)
+        database.addChildEventListener(childEventListener)
+    }
 
 
 
@@ -29,11 +41,7 @@ object AllHelpRequestsData {
         filtered_requests = ArrayList()
         onRequestsChange = MutableLiveData()
 
-
-
-
-
-        var childEventListener = object : ChildEventListener {
+        childEventListener = object : ChildEventListener {
             override fun onChildAdded(p0: DataSnapshot, p1: String?) {
                 val myHelpRequestKey = p0.key
                 if(!myHelpRequestsIndexMapping.containsKey(myHelpRequestKey)){
@@ -117,7 +125,7 @@ object AllHelpRequestsData {
 
 
 
-        var parentEventListener = object : ValueEventListener {
+         parentEventListener = object : ValueEventListener {
             override fun onDataChange(p0: DataSnapshot) {
 
                 onRequestsChange.value = requests
@@ -217,4 +225,6 @@ object AllHelpRequestsData {
     fun deg2rad(deg:Double):Double{
         return deg*Math.PI/180.0
     }
+
+
 }

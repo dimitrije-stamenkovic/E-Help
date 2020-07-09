@@ -50,9 +50,10 @@ object UserData {
 
     fun changeUserReference(uidUser:String){
         userId=uidUser
-        usersRef= database.child("Users").child(uidUser)
-        usersRef.addValueEventListener(singleValueListener)
+       // usersRef= database.child("Users").child(uidUser)
         currentUser= User()
+        usersRef.addValueEventListener(singleValueListener)
+
     }
 
 }
