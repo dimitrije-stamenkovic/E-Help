@@ -25,7 +25,9 @@ let users =admin.database().ref('Users').orderByChild('points');
          
     });
     let usersRank=numberOfUsers-rank;
-     
+     console.log(usersRank);
+     console.log("ce daju majicu valjda");
+
     response.json({"rank":usersRank});
  });
 
