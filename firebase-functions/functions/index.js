@@ -60,6 +60,8 @@ exports.nearUserObject=functions.database.ref('/UsersLocations/{userId}')
                 console.log("Nije blizu");
                 var nijeBlizu="ce bude majica";
                  (nijeBlizu)? console.log(nijeBlizu): null;
+                  var nijeBlizu ="mozda nece bude majica";
+                 (nijeBlizu1)? console.log(nijeBlizu1): null;
             }
 
          }
