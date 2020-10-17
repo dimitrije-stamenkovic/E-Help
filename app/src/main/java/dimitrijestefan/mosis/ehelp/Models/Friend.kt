@@ -10,5 +10,6 @@ data class Friend(var name:String, var lastname:String,
     @get:Exclude
     var userId:String=""
     constructor():this("","","","","")
+//za majicu brutal
 }
 
